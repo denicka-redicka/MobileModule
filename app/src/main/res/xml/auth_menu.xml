@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/Settings"/>
+    <PreferenceScreen android:key="account_settings"
+        android:title="@string/AccountSettings"
+        android:summary="">
+        <intent android:action="com.example.projectmaximummodule.OPEN_ACCOUNT"
+            android:targetPackage="com.example.projectmaximummodule.ui"
+            android:targetClass="com.example.projectmaximummodule.ui.profile.view.ProfileFragment"/>
+    </PreferenceScreen>
+</PreferenceScreen>

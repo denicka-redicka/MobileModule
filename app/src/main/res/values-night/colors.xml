@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#D6D6D6</color>
+    <color name="white">#6B000000</color>
+
+
+    <color name="lighter_gray">#F3F0F0</color>
+    <color name="light_gray">#8F8E8E</color>
+
+
+    <color name="orange">#EAA366</color>
+    <color name="button_blue">#1c77fd</color>
+
+    <color name="progress_bar_back">#FBBB9D</color>
+    <color name="progress_bar_main">#F6701A</color>
+
+    <color name="connect_green">#7BA845</color>
+    <color name="mistakes_red">#A62729</color>
+    <color name="practice_gray">#777</color>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_nav_graph"
+    app:startDestination="@id/timeTableFragment">
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.example.projectmaximummodule.ui.ChatsFragment"
+        android:label="ChatsFragment" />
+    <fragment
+        android:id="@+id/homeworkFragment"
+        android:name="com.example.projectmaximummodule.ui.HomeworkFragment"
+        android:label="HomeworkFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.projectmaximummodule.ui.profile.view.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/theoryFragment"
+        android:name="com.example.projectmaximummodule.ui.TheoryFragment"
+        android:label="TheoryFragment" />
+    <fragment
+        android:id="@+id/timeTableFragment"
+        android:name="com.example.projectmaximummodule.ui.shedule.view.TimeTableFragment"
+        android:label="TimeTableFragment" />
+</navigation>

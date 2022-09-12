@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/theoryTxt"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/videoIcon"
+        android:layout_marginEnd="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/light_gray"
+        android:text="@string/theory"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/theoryCountTxt"
+        app:layout_constraintTop_toTopOf="@id/topicName"
+        app:layout_constraintEnd_toStartOf="@id/videoIcon"
+        android:layout_marginEnd="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/light_gray"
+        android:text="0"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/theoryIcon"
+        android:background="@drawable/theory_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toStartOf="@id/theoryTxt"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/practiceTxt"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/videoTxt"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/practiceIcon"
+        android:layout_marginEnd="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/light_gray"
+        android:text="@string/video"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/videoIcon"
+        android:background="@drawable/video_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toStartOf="@id/videoTxt"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/practiceTxt"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/videoCountTxt"
+        app:layout_constraintTop_toTopOf="@id/topicName"
+        app:layout_constraintEnd_toStartOf="@id/practiceIcon"
+        android:layout_marginEnd="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/light_gray"
+        android:text="0"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/practiceTxt"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/light_gray"
+        android:text="@string/practice"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/practiceIcon"
+        android:background="@drawable/practice_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toStartOf="@id/practiceTxt"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/practiceTxt"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/practiceCountTxt"
+        app:layout_constraintTop_toTopOf="@id/topicName"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/light_gray"
+        android:text="0"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/topicName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/practiceTxt"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/light_gray"
+        tools:text="Симуляция марафона"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

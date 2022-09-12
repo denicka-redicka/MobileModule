@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/super_rect"
+    android:layout_marginHorizontal="4dp"
+    android:elevation="4dp">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintGuide_begin="10dp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_end="10dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lessonHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ubuntu_medium"
+        android:textColor="@color/light_gray"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Урок 7"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/adressLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ubuntu_medium"
+        android:textColor="@color/orange"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/lessonHeader"
+        tools:text="Адрес: м. Курская, ул. Покровка, д.28, стр 2"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lessonsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ubuntu_medium"
+        android:textColor="@color/light_gray"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/adressLine"
+        android:text="@string/lessons"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/topicList"
+        app:layout_constraintTop_toBottomOf="@id/lessonsText"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:id="@+id/separationLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/topicList"
+        android:layout_marginTop="6dp"
+        android:layout_marginHorizontal="8dp"
+        android:background="@color/lighter_gray"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/separationLine"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        android:layout_marginTop="4dp"
+        android:textSize="14sp"
+        android:textColor="@color/light_gray"
+        tools:text="Среда 08.04"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/timingText"
+        app:layout_constraintTop_toBottomOf="@id/dateText"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/light_gray"
+        tools:text="18:00-20:30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/locationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/timingText"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        android:layout_marginTop="4dp"
+        android:textSize="14sp"
+        android:textColor="@color/light_gray"
+        tools:text="Занятие в классе "/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lessonState"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/locationText"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        android:textSize="12sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/white"
+        tools:text="Посетил"
+        android:gravity="center"
+        android:background="@drawable/state_rect"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/progressText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/lessonState"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        android:layout_marginTop="4dp"
+        android:textSize="14sp"
+        android:textColor="@color/light_gray"
+        tools:text="Прогресс 0%"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="140dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/progressText"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:progress="60"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/timeTableFragment"
+        android:title="Time table"
+        android:icon="@drawable/icon_home"/>
+    <item android:id="@+id/theoryFragment"
+        android:title="Theory"
+        android:icon="@drawable/all_theory_icon"/>
+    <item android:id="@id/homeworkFragment"
+        android:title="Homework"
+        android:icon="@drawable/practice_icon"/>
+    <item android:id="@+id/chatsFragment"
+        android:title="Messenger"
+        android:icon="@drawable/chat_icon"/>
+    <item android:id="@+id/profileFragment"
+        android:title="Profile"
+        android:icon="@drawable/icon_person"/>
+
+
+</menu>

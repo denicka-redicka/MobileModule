@@ -25,7 +25,7 @@ class TimeTableFragment: Fragment(R.layout.fragment_shedule), SelectGroupReceive
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.lessonsLiveData.observe(viewLifecycleOwner) { lessons ->
-            val adapter = TimeTableAdapter(lessons, viewModel.teacher, viewModel.toDoList)
+            val adapter = TimeTableAdapter(context, lessons, viewModel.teacher, viewModel.toDoList)
             view.lessonsList.adapter = adapter
             view.lessonsList.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
         }

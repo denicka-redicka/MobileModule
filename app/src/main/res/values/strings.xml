@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Maximum Education</string>
+
     <string name="login_text">Login</string>
     <string name="main_text">Main</string>
     <string name="splash_text">Splash</string>
@@ -23,13 +24,15 @@
     <string name="message">Write message</string>
     <string name="your_score_on_the_course">Your score on the course</string>
     <string name="points">points</string>
+
+<!--    ToDoList Strings-->
     <string name="consolidate">Consolidate</string>
     <string name="solved">Solved</string>
     <string name="lessons_number">Lesson $n</string>
-    <string name="done_exercise">Done 0 from 17</string>
+    <string name="done_exercise">Done %1$d from %2$d</string>
     <string name="connect">Connect</string>
     <string name="online_lesson">Online-lesson</string>
-    <string name="corrected_mistakes">Correct 0 from 1</string>
-    <string name="correct_mistakes">Correct mistakes</string>
-    <string name="lefted_exercise">Left to resolve 300</string>
+    <string name="corrected_mistakes">Correct %1$d from %2$d</string>
+    <string name="correct_mistakes">Correction mistakes</string>
+    <string name="lefted_exercise">Left to resolve %1$d</string>
 </resources>

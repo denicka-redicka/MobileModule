@@ -257,7 +257,7 @@
             android:textColor="@color/light_gray"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/practiceCount"
+            android:id="@+id/resolveCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lefted_exercise"

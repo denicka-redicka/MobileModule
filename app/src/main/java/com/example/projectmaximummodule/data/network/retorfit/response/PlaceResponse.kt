@@ -10,4 +10,5 @@ data class PlaceResponse(
     val subway: String,
     val title: String,
     val location: LocationResponse
-)
+) {
+}

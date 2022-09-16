@@ -20,7 +20,7 @@ interface MainApiService {
     suspend fun getGroupsList(): List<GroupResponse>
 
     @GET("schedule/student/schedule/groups/{id}/lessons")
-    suspend fun getLessons(@Path("id") groupId: Long): List<LessonResponse>
+    suspend fun getLessons(@Path("id") groupId: Long): ScheduleResponse
 
     @GET("profile/external/group/{id}/rating/leaderboard/short")
     suspend fun getShortList(@Path("id") groupId: Long): List<ShortPositionResponse>
@@ -33,4 +33,7 @@ interface MainApiService {
 
     @GET("auth/logout-link")
     suspend fun logout()
+
+    @GET("profile/external/group/{id}/statistics")
+    suspend fun getStatistics(@Path("id") groupId: Long): GroupStatisticsResponse
 }

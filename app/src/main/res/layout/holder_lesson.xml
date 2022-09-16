@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/super_rect"
     android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="4dp"
     android:elevation="4dp">
 
     <androidx.constraintlayout.widget.Guideline
@@ -31,14 +32,14 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/ubuntu_medium"
         android:textColor="@color/light_gray"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Урок 7"/>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/adressLine"
+        android:id="@+id/addressLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -58,7 +59,7 @@
         android:textColor="@color/light_gray"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@id/adressLine"
+        app:layout_constraintTop_toBottomOf="@id/addressLine"
         android:text="@string/lessons"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -83,63 +84,68 @@
         android:id="@+id/dateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/separationLine"
-        app:layout_constraintStart_toStartOf="@id/guidelineStart"
-        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         android:layout_marginTop="4dp"
-        android:textSize="14sp"
+        android:fontFamily="@font/ubuntu_medium"
         android:textColor="@color/light_gray"
-        tools:text="Среда 08.04"/>
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/separationLine"
+        tools:text="Среда 08.04" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/timingText"
-        app:layout_constraintTop_toBottomOf="@id/dateText"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_medium"
+        android:textColor="@color/light_gray"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/light_gray"
-        tools:text="18:00-20:30"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/dateText"
+        tools:text="18:00-20:30" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/locationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/timingText"
-        app:layout_constraintStart_toStartOf="@id/guidelineStart"
-        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         android:layout_marginTop="4dp"
-        android:textSize="14sp"
+        android:fontFamily="@font/ubuntu_medium"
         android:textColor="@color/light_gray"
-        tools:text="Занятие в классе "/>
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/timingText"
+        tools:text="Занятие в классе " />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/lessonState"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/locationText"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-        android:textSize="12sp"
         android:layout_marginTop="4dp"
-        android:textColor="@color/white"
-        tools:text="Посетил"
+        android:fontFamily="@font/ubuntu_medium"
         android:gravity="center"
-        android:background="@drawable/state_rect"/>
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/locationText"
+        tools:text="Посетил" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/progressText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/lessonState"
-        app:layout_constraintStart_toStartOf="@id/guidelineStart"
-        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         android:layout_marginTop="4dp"
-        android:textSize="14sp"
+        android:fontFamily="@font/ubuntu_medium"
         android:textColor="@color/light_gray"
-        tools:text="Прогресс 0%"/>
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/lessonState"
+        tools:text="Прогресс 0%" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -149,7 +155,7 @@
         app:layout_constraintStart_toEndOf="@id/guidelineStart"
         app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:progress="60"
+        tools:progress="60"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"/>
 

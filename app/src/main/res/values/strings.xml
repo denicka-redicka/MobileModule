@@ -12,7 +12,6 @@
     <string name="create_account">Create account</string>
     <string name="change">Change</string>
     <string name="more_details">More details</string>
-    <string name="lessons">Lessons:</string>
     <string name="practice">Practice</string>
     <string name="video">Video</string>
     <string name="theory">Theory</string>
@@ -35,4 +34,15 @@
     <string name="corrected_mistakes">Correct %1$d from %2$d</string>
     <string name="correct_mistakes">Correction mistakes</string>
     <string name="lefted_exercise">Left to resolve %1$d</string>
+
+<!--    Lessons Strings-->
+    <string name="lessons">Lessons:</string>
+    <string name="address_line_with_subway">Address: subway: %1$s, %2$s</string>
+    <string name="address_line">Address: %1$s</string>
+    <string name="text_progress">Progress: %1$d</string>
+    <string name="visit">Visit</string>
+    <string name="not_visit">Not visit</string>
+    <string name="webinar">Webinar</string>
+    <string name="offline">Offline lesson</string>
+
 </resources>

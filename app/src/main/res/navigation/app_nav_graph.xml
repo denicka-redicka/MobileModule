@@ -21,6 +21,6 @@
         android:label="TheoryFragment" />
     <fragment
         android:id="@+id/timeTableFragment"
-        android:name="com.example.projectmaximummodule.ui.shedule.view.TimeTableFragment"
+        android:name="com.example.projectmaximummodule.ui.sсhedule.view.TimeTableFragment"
         android:label="TimeTableFragment" />
 </navigation>

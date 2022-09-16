@@ -1,4 +1,4 @@
-package com.example.projectmaximummodule.ui.shedule.view
+package com.example.projectmaximummodule.ui.sсhedule.view
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -18,13 +18,14 @@ import coil.clear
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.projectmaximummodule.R
+import com.example.projectmaximummodule.data.network.retorfit.response.GroupStatisticsResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.LessonResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.TeacherResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.ToDoResponse
 import kotlinx.android.synthetic.main.holder_course_info.view.*
+import kotlinx.android.synthetic.main.holder_course_info.view.progressBar
+import kotlinx.android.synthetic.main.holder_lesson.view.*
 import kotlinx.android.synthetic.main.holder_todo.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.IllegalArgumentException
 
 class TimeTableAdapter(
@@ -35,18 +36,9 @@ class TimeTableAdapter(
 
     private companion object {
 
-        @SuppressLint("SimpleDateFormat")
-        fun getTimeStamp(date: Long?): String {
-            val sdf = SimpleDateFormat("dd.MM.yyyy HH.mm")
-            return if (date != null) {
-                val netDate = Date(date * 1000)
-                sdf.format(netDate)
-            } else {
-                ""
-            }
-        }
+        const val WEBINAR = "webinar"
+        const val OFFLINE = "offline"
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -57,7 +49,7 @@ class TimeTableAdapter(
                 LayoutInflater.from(parent.context).inflate(R.layout.holder_todo, parent, false), context)
 
             R.layout.holder_lesson -> LessonViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.holder_lesson, parent, false))
+                LayoutInflater.from(parent.context).inflate(R.layout.holder_lesson, parent, false), context)
 
             else -> throw IllegalArgumentException("Illegal type: $viewType")
 
@@ -68,8 +60,7 @@ class TimeTableAdapter(
         when (holder) {
             is CourseInformationViewHolder -> holder.bind(teacher)
             is ToDoListViewHolder -> holder.bind(toDoList)
-            is LessonViewHolder -> holder.bind()
-
+            is LessonViewHolder -> holder.bind(lessons[position - 2])
         }
     }
 
@@ -85,9 +76,48 @@ class TimeTableAdapter(
         }
     }
 
-    private class LessonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private class LessonViewHolder(view: View, val context: Context?) : RecyclerView.ViewHolder(view) {
 
-        fun bind() {
+        private val header: TextView = view.lessonHeader
+        private val address: TextView = view.addressLine
+        private val date: TextView = view.dateText
+        private val timing: TextView = view.timingText
+        private val location: TextView = view.locationText
+        private val state: TextView = view.lessonState
+        private val progress: TextView = view.progressText
+        private val progressBar: ProgressBar = view.progressBar
+
+        private companion object {
+            const val FAILURE_STATUS = "failure"
+        }
+
+        @SuppressLint("UseCompatLoadingForDrawables")
+        fun bind(lesson: LessonResponse) {
+            header.text = lesson.title
+            address.text = when {
+                lesson.lessonType == WEBINAR -> ""
+                lesson.lessonType == OFFLINE && lesson.place.subway.isNotEmpty() ->
+                    context?.getString(R.string.address_line_with_subway, lesson.place.subway, lesson.place.address)
+                lesson.lessonType == OFFLINE && lesson.place.subway.isEmpty() ->
+                    context?.getString(R.string.address_line, lesson.place.address)
+                else -> ""
+            }
+            date.text = lesson.getDateString()
+            timing.text = lesson.getTiming()
+            progress.text = context?.getString(R.string.text_progress, lesson.progress)
+            progressBar.progress = lesson.progress
+            if (lesson.presenceStatus == FAILURE_STATUS) {
+                state.text = context?.getString(R.string.not_visit)
+                state.background = context?.getDrawable(R.drawable.state_not_visit_rect)
+            } else {
+                state.text = context?.getString(R.string.visit)
+                state.background = context?.getDrawable(R.drawable.state_visit_rect)
+            }
+
+            location.text = if (lesson.lessonType == WEBINAR) {
+                context?.getString(R.string.webinar)
+            }
+            else context?.getString(R.string.offline)
         }
 
     }
@@ -138,7 +168,7 @@ class TimeTableAdapter(
                     "connect" -> {
                         connect.visibility = View.VISIBLE
                         connect.connectLessonNumber.text = toDoItem.title.toString()
-                        connect.connectDate.text = getTimeStamp(toDoItem.dateStart)
+                        connect.connectDate.text = toDoItem.getTimeStamp()
                         connect.setOnClickListener{
                             if (toDoItem.connectLink != null)
                                 context?.startActivity(Intent(Intent.ACTION_VIEW, toDoItem.connectLink.toUri()))

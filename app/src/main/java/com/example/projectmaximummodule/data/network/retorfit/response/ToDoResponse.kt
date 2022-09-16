@@ -1,7 +1,10 @@
 package com.example.projectmaximummodule.data.network.retorfit.response
 
+import android.annotation.SuppressLint
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Serializable
 data class ToDoResponse (
@@ -38,9 +41,21 @@ data class ToDoResponse (
                 return all
         }
 
-    fun getResolveCount(): Int {
+        fun getResolveCount(): Int {
             return (allDebts?: 0) - (paidDebts?: 0)
-    }
+        }
+
+        @SuppressLint("SimpleDateFormat")
+        fun getTimeStamp(): String {
+                val sdf = SimpleDateFormat("dd.MM.yyyy HH.mm")
+                return if (dateStart != null) {
+                        val netDate = Date(dateStart * 1000)
+                        sdf.format(netDate)
+                } else {
+                        ""
+                }
+        }
+
 }
 
 @Serializable

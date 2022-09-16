@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 data class SubjectResponse (
     val id: Long,
     val title: String,
-    val knowledgeId: Long,
+    val knowledgeId: Long?,
     val statistics: StatisticsResponse
     )

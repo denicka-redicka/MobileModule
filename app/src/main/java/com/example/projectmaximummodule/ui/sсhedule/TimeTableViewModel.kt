@@ -1,11 +1,12 @@
-package com.example.projectmaximummodule.ui.shedule
+package com.example.projectmaximummodule.ui.sсhedule
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.projectmaximummodule.application.AppSharedPreferences
 import com.example.projectmaximummodule.application.BaseViewModel
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
-import com.example.projectmaximummodule.data.network.retorfit.response.LessonResponse
+import com.example.projectmaximummodule.data.network.retorfit.response.GroupStatisticsResponse
+import com.example.projectmaximummodule.data.network.retorfit.response.ScheduleResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.TeacherResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.ToDoResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,15 +21,12 @@ class TimeTableViewModel @Inject constructor (
 
     private var groupId = prefs.getGroupId()
 
-    private val lessonsMutableLiveData = MutableLiveData<List<LessonResponse>>()
-    val lessonsLiveData: LiveData<List<LessonResponse>> = lessonsMutableLiveData
+    private val lessonsMutableLiveData = MutableLiveData<ScheduleResponse>()
+    val lessonsLiveData: LiveData<ScheduleResponse> = lessonsMutableLiveData
 
     var toDoList: List<ToDoResponse>? = null
     lateinit var teacher: TeacherResponse
-
-    private suspend fun getToDoList(groupId: Long) {
-        toDoList = api.getToDoList(groupId)
-    }
+    lateinit var statistics: GroupStatisticsResponse
 
     fun setSelectedGroup(id: Long) {
         if (groupId != id) {
@@ -55,9 +53,9 @@ class TimeTableViewModel @Inject constructor (
             prefs.getTeacherAvatar()
         )
         coroutineScope.launch {
-            getToDoList(groupId)
-            //val lessons = api.getLessons(groupId)
-            val lessons = listOf<LessonResponse>()
+            statistics = api.getStatistics(groupId)
+            toDoList = api.getToDoList(groupId)
+            val lessons = api.getLessons(groupId)
             lessonsMutableLiveData.postValue(lessons)
         }
     }

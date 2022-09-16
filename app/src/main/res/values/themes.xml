@@ -14,5 +14,6 @@
         <!-- Customize your theme here. -->
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
 
+        <item name="fontFamily">@font/ubuntu_medium</item>
     </style>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.projectmaximummodule.ui.shedule.view
+package com.example.projectmaximummodule.ui.sсhedule.view
 
 import android.content.IntentFilter
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.application.SelectGroupReceiver
 import com.example.projectmaximummodule.application.SelectGroupReceiver.Companion.GROUP_SELECTED
-import com.example.projectmaximummodule.ui.shedule.TimeTableViewModel
+import com.example.projectmaximummodule.ui.sсhedule.TimeTableViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_shedule.view.*
 
@@ -25,7 +25,7 @@ class TimeTableFragment: Fragment(R.layout.fragment_shedule), SelectGroupReceive
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.lessonsLiveData.observe(viewLifecycleOwner) { lessons ->
-            val adapter = TimeTableAdapter(context, lessons, viewModel.teacher, viewModel.toDoList)
+            val adapter = TimeTableAdapter(context, lessons.items, viewModel.teacher, viewModel.toDoList)
             view.lessonsList.adapter = adapter
             view.lessonsList.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
         }

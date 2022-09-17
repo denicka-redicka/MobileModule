@@ -4,15 +4,15 @@
     android:viewportWidth="20"
     android:viewportHeight="12">
   <path
-      android:fillColor="#FF000000"
+      android:fillColor="@color/black"
       android:pathData="M17.5,1.7c0.4,-0.4 1,-0.4 1.4,0s0.4,1 0,1.4l-7.1,7.1 -2.1,0.7 0.7,-2.1 7.1,-7.1zM6.5,12c-0.3,0 -0.5,-0.2 -0.5,-0.5s0.2,-0.5 0.5,-0.5h2c0.3,0 0.5,0.2 0.5,0.5s-0.2,0.5 -0.5,0.5h-2zM0.5,12c-0.3,0 -0.5,-0.2 -0.5,-0.5s0.2,-0.5 0.5,-0.5h4c0.3,0 0.5,0.2 0.5,0.5s-0.2,0.5 -0.5,0.5h-4zM10.5,4c-0.3,0 -0.5,-0.2 -0.5,-0.5s0.2,-0.5 0.5,-0.5h1c0.3,0 0.5,0.2 0.5,0.5s-0.2,0.5 -0.5,0.5h-1z"/>
   <path
-      android:fillColor="#FF000000"
+      android:fillColor="@color/black"
       android:pathData="M7.5,7.5m-0.5,0a0.5,0.5 0,1 1,1 0a0.5,0.5 0,1 1,-1 0"/>
   <path
-      android:fillColor="#FF000000"
+      android:fillColor="@color/black"
       android:pathData="M13.5,3.5m-0.5,0a0.5,0.5 0,1 1,1 0a0.5,0.5 0,1 1,-1 0"/>
   <path
-      android:fillColor="#FF000000"
+      android:fillColor="@color/black"
       android:pathData="M0.5,4C0.2,4 0,3.8 0,3.5S0.2,3 0.5,3h8c0.3,0 0.5,0.2 0.5,0.5s-0.2,0.5 -0.5,0.5h-8zM3.5,8c-0.3,0 -0.5,-0.2 -0.5,-0.5s0.2,-0.5 0.5,-0.5h2c0.3,0 0.5,0.2 0.5,0.5s-0.2,0.5 -0.5,0.5h-2zM0.5,8C0.2,8 0,7.8 0,7.5S0.2,7 0.5,7h1c0.3,0 0.5,0.2 0.5,0.5s-0.2,0.5 -0.5,0.5h-1zM9.5,8c-0.3,0 -0.5,-0.2 -0.5,-0.5s0.2,-0.5 0.5,-0.5h1c0.3,0 0.5,0.2 0.5,0.5s-0.2,0.5 -0.5,0.5h-1z"/>
 </vector>

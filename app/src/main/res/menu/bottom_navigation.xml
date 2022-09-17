@@ -3,13 +3,13 @@
 
     <item android:id="@+id/timeTableFragment"
         android:title="Time table"
-        android:icon="@drawable/icon_home"/>
+        android:icon="@drawable/schedule_icon"/>
     <item android:id="@+id/theoryFragment"
         android:title="Theory"
         android:icon="@drawable/all_theory_icon"/>
     <item android:id="@id/homeworkFragment"
         android:title="Homework"
-        android:icon="@drawable/practice_icon"/>
+        android:icon="@drawable/debts_icon"/>
     <item android:id="@+id/chatsFragment"
         android:title="Messenger"
         android:icon="@drawable/chat_icon"/>

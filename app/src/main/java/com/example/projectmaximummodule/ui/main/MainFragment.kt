@@ -36,7 +36,9 @@ class MainFragment: Fragment(R.layout.fragment_main), AdapterView.OnItemSelected
 
         view.groupsPicker.onItemSelectedListener = this
 
-        viewModel.getGroupList()
+        if (savedInstanceState == null) {
+            viewModel.getGroupList()
+        }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

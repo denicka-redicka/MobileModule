@@ -45,4 +45,13 @@
     <string name="webinar">Webinar</string>
     <string name="offline">Offline lesson</string>
 
+<!--    Stats dialog-->
+    <string name="your_progress">Your progress - %1$d</string>
+    <string name="exercises_stats_text">Exercises:</string>
+    <string name="theory_stats_text">Theory:</string>
+    <string name="video_stats_text">Videos:</string>
+    <string name="lessons_stats_text">Lessons:</string>
+    <string name="items_count">%1$d from %2$d</string>
+    <string name="done_button_text">Done</string>
+
 </resources>

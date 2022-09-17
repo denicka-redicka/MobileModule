@@ -25,6 +25,7 @@ class TimeTableViewModel @Inject constructor (
     val lessonsLiveData: LiveData<ScheduleResponse> = lessonsMutableLiveData
 
     var toDoList: List<ToDoResponse>? = null
+
     lateinit var teacher: TeacherResponse
     lateinit var statistics: GroupStatisticsResponse
 

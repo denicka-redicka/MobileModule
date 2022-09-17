@@ -1,6 +1,7 @@
 package com.example.projectmaximummodule.ui.sсhedule.view
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -12,7 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.net.toUri
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.clear
 import coil.load
@@ -22,6 +23,8 @@ import com.example.projectmaximummodule.data.network.retorfit.response.GroupStat
 import com.example.projectmaximummodule.data.network.retorfit.response.LessonResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.TeacherResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.ToDoResponse
+import com.google.android.material.button.MaterialButton
+import kotlinx.android.synthetic.main.dialog_statistics.*
 import kotlinx.android.synthetic.main.holder_course_info.view.*
 import kotlinx.android.synthetic.main.holder_course_info.view.progressBar
 import kotlinx.android.synthetic.main.holder_lesson.view.*
@@ -32,18 +35,20 @@ class TimeTableAdapter(
     private val context: Context?,
     private val lessons: List<LessonResponse>,
     private val teacher: TeacherResponse,
+    private val statistics: GroupStatisticsResponse,
     private val toDoList: List<ToDoResponse>?): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private companion object {
 
         const val WEBINAR = "webinar"
         const val OFFLINE = "offline"
+        const val STOP = "STOP"
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             R.layout.holder_course_info -> CourseInformationViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.holder_course_info, parent, false))
+                LayoutInflater.from(parent.context).inflate(R.layout.holder_course_info, parent, false), context)
 
             R.layout.holder_todo -> ToDoListViewHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.holder_todo, parent, false), context)
@@ -58,7 +63,7 @@ class TimeTableAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is CourseInformationViewHolder -> holder.bind(teacher)
+            is CourseInformationViewHolder -> holder.bind(teacher, statistics)
             is ToDoListViewHolder -> holder.bind(toDoList)
             is LessonViewHolder -> holder.bind(lessons[position - 2])
         }
@@ -86,6 +91,7 @@ class TimeTableAdapter(
         private val state: TextView = view.lessonState
         private val progress: TextView = view.progressText
         private val progressBar: ProgressBar = view.progressBar
+        private val topicsList: RecyclerView = view.topicList
 
         private companion object {
             const val FAILURE_STATUS = "failure"
@@ -102,6 +108,10 @@ class TimeTableAdapter(
                     context?.getString(R.string.address_line, lesson.place.address)
                 else -> ""
             }
+            val adapter = TopicAdapter(lesson.subjects)
+            topicsList.adapter = adapter
+            topicsList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+
             date.text = lesson.getDateString()
             timing.text = lesson.getTiming()
             progress.text = context?.getString(R.string.text_progress, lesson.progress)
@@ -122,15 +132,17 @@ class TimeTableAdapter(
 
     }
 
-    private class CourseInformationViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    private class CourseInformationViewHolder(view: View, val context: Context?): RecyclerView.ViewHolder(view) {
 
         private val teacherName: TextView = view.teacherName
         private val teacherImg: ImageView = view.teacherAvatar
         private val scorePoint: TextView = view.scoreCount
         private val progressBar: ProgressBar = view.progressBar
         private val progressPercent: TextView = view.percentText
+        private val moreDetailsButton: MaterialButton = view.detailsButton
 
-        fun bind(teacher: TeacherResponse) {
+        @SuppressLint("SetTextI18n")
+        fun bind(teacher: TeacherResponse, statistics: GroupStatisticsResponse) {
             teacherName.text = teacher.fullName
             val url = teacher.userpick?: ""
             if (url != "null") {
@@ -142,11 +154,58 @@ class TimeTableAdapter(
                 teacherImg.clear()
             }
 
-            scorePoint.text = "340"
-            progressBar.progress = 60
-            progressPercent.text = "60%"
+            scorePoint.text = ""
+            progressBar.progress = statistics.progress?: 0
+            progressPercent.text = "${statistics.progress?: 0}%"
+
+            moreDetailsButton.setOnClickListener {
+                showDialog(statistics)
+            }
         }
 
+        @SuppressLint("UseCompatLoadingForDrawables")
+        private fun showDialog(statistics: GroupStatisticsResponse) {
+            if (context != null) {
+                val dialog = Dialog(context)
+                dialog.setContentView(R.layout.dialog_statistics)
+                dialog.window?.setBackgroundDrawable(context.getDrawable(R.drawable.super_rect))
+
+                val progressHeader = dialog.progressHeader
+                val progressBar = dialog.progressBar
+                val exerciseCount = dialog.exercisesCount
+                val videoCount = dialog.videoCount
+                val lessonsCount = dialog.lessonsCount
+                val theoryCount = dialog.theoryCount
+                val doneButton = dialog.doneButton
+
+                progressHeader.text = context.getString(R.string.your_progress, statistics.progress)
+                progressBar.progress = statistics.progress?: 0
+
+                exerciseCount.text = context.getString(
+                    R.string.items_count,
+                    statistics.attemptEducationTest ?: 0, statistics.educationTest ?: 0
+                )
+                videoCount.text = context.getString(
+                    R.string.items_count,
+                    statistics.attemptKnowledgeBaseSection ?: 0,
+                    statistics.knowledgeBaseSection ?: 0
+                )
+                theoryCount.text = context.getString(
+                    R.string.items_count,
+                    statistics.attemptEducationVideo ?: 0, statistics.educationVideo ?: 0
+                )
+                lessonsCount.text = context.getString(
+                    R.string.items_count,
+                    statistics.present ?: 0, statistics.lessonOffline ?: 0
+                )
+
+                doneButton.setOnClickListener {
+                    dialog.dismiss()
+                }
+
+                dialog.show()
+            }
+        }
     }
 
     private class ToDoListViewHolder(view: View, val context: Context?): RecyclerView.ViewHolder(view) {
@@ -189,16 +248,6 @@ class TimeTableAdapter(
                     }
                 }
             }
-        }
-    }
-
-    class DiffCallback : DiffUtil.ItemCallback<LessonResponse>() {
-        override fun areItemsTheSame(oldItem: LessonResponse, newItem: LessonResponse): Boolean {
-            return oldItem.title == newItem.title
-        }
-
-        override fun areContentsTheSame(oldItem: LessonResponse, newItem: LessonResponse): Boolean {
-            return oldItem == newItem
         }
     }
 }

@@ -18,18 +18,24 @@
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/ic_pin.xml" value="0.217" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/ic_practice.xml" value="0.217" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/icon_home.xml" value="0.219" />
+        <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/icon_messenger.xml" value="0.1565" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/icon_person.xml" value="0.217" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/icon_theory.xml" value="0.219" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/ilogo_icon.xml" value="0.219" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/logo_icon.xml" value="0.219" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/myrect.xml" value="0.219" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/practice_icon.xml" value="0.219" />
+        <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/profile_icon.xml" value="0.217" />
+        <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/schedule_icon.xml" value="0.217" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/state_not_visit_rect.xml" value="0.217" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/state_rect.xml" value="0.219" />
+        <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/state_visit_rect.xml" value="0.1565" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/super_rect.xml" value="0.217" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/theory_icon.xml" value="0.219" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/video_icon.xml" value="0.219" />
+        <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/drawable/visited_lesson_icon.xml" value="0.217" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/layout/activity_main.xml" value="0.1852355072463768" />
+        <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/layout/dialog_statistics.xml" value="0.3333333333333333" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/layout/fragment_chats.xml" value="0.1852355072463768" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/layout/fragment_home.xml" value="0.1852355072463768" />
         <entry key="..\:/App/AndroidStudioProjects/ProjectMaximumModule/app/src/main/res/layout/fragment_homework.xml" value="0.1852355072463768" />

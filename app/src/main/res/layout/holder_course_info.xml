@@ -29,7 +29,7 @@
         android:id="@+id/teacherAvatar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/icon_person"
+        android:src="@drawable/profile_icon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/guidelineStart"
         app:layout_constraintEnd_toStartOf="@id/yourTeacherHeader"

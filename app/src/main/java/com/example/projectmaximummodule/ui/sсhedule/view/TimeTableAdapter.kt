@@ -19,10 +19,7 @@ import coil.clear
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.projectmaximummodule.R
-import com.example.projectmaximummodule.data.network.retorfit.response.GroupStatisticsResponse
-import com.example.projectmaximummodule.data.network.retorfit.response.LessonResponse
-import com.example.projectmaximummodule.data.network.retorfit.response.TeacherResponse
-import com.example.projectmaximummodule.data.network.retorfit.response.ToDoResponse
+import com.example.projectmaximummodule.data.network.retorfit.response.*
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.dialog_statistics.*
 import kotlinx.android.synthetic.main.holder_course_info.view.*
@@ -33,7 +30,7 @@ import kotlin.IllegalArgumentException
 
 class TimeTableAdapter(
     private val context: Context?,
-    private val lessons: List<LessonResponse>,
+    private val lessons: List<LessonsResponse.LessonResponse>,
     private val teacher: TeacherResponse,
     private val statistics: GroupStatisticsResponse,
     private val toDoList: List<ToDoResponse>?): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -98,7 +95,7 @@ class TimeTableAdapter(
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
-        fun bind(lesson: LessonResponse) {
+        fun bind(lesson: LessonsResponse.LessonResponse) {
             header.text = lesson.title
             address.text = when {
                 lesson.lessonType == WEBINAR -> ""
@@ -108,7 +105,7 @@ class TimeTableAdapter(
                     context?.getString(R.string.address_line, lesson.place.address)
                 else -> ""
             }
-            val adapter = TopicAdapter(lesson.subjects)
+            val adapter = TopicAdapter(lesson.subjects ?: listOf())
             topicsList.adapter = adapter
             topicsList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 

@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.projectmaximummodule.application.AppSharedPreferences
 import com.example.projectmaximummodule.application.BaseViewModel
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
-import com.example.projectmaximummodule.data.network.retorfit.response.GroupStatisticsResponse
-import com.example.projectmaximummodule.data.network.retorfit.response.ScheduleResponse
-import com.example.projectmaximummodule.data.network.retorfit.response.TeacherResponse
-import com.example.projectmaximummodule.data.network.retorfit.response.ToDoResponse
+import com.example.projectmaximummodule.data.network.retorfit.response.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -21,8 +18,8 @@ class TimeTableViewModel @Inject constructor (
 
     private var groupId = prefs.getGroupId()
 
-    private val lessonsMutableLiveData = MutableLiveData<ScheduleResponse>()
-    val lessonsLiveData: LiveData<ScheduleResponse> = lessonsMutableLiveData
+    private val lessonsMutableLiveData = MutableLiveData<LessonsResponse>()
+    val lessonsLiveData: LiveData<LessonsResponse> = lessonsMutableLiveData
 
     var toDoList: List<ToDoResponse>? = null
 

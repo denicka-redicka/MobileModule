@@ -6,6 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MainApiService {
 
@@ -20,7 +21,7 @@ interface MainApiService {
     suspend fun getGroupsList(): List<GroupResponse>
 
     @GET("schedule/student/schedule/groups/{id}/lessons")
-    suspend fun getLessons(@Path("id") groupId: Long): ScheduleResponse
+    suspend fun getLessons(@Path("id") groupId: Long): LessonsResponse
 
     @GET("profile/external/group/{id}/rating/leaderboard/short")
     suspend fun getShortList(@Path("id") groupId: Long): List<ShortPositionResponse>
@@ -31,8 +32,17 @@ interface MainApiService {
     @GET("schedule/student/schedule/groups/{id}/todolist")
     suspend fun getToDoList(@Path("id") groupId: Long): List<ToDoResponse>
 
-    @GET("auth/logout-link")
-    suspend fun logout()
+    @GET("schedule/student/schedule/groups/{id}/curriculums?withKbs=1")
+    suspend fun getAllTheory(@Path("id") id: Long): @kotlinx.serialization.Serializable Map<Long, List<TheoryResponse>>
+
+    @GET("content/knowledgebase/{id}")
+    suspend fun getKnowledgeBase(@Path("id") id:Int): TheoryItem
+
+    @GET("schedule/student/schedule/groups/{id}/lessons?&withCurriculums=0&all=1")
+    suspend fun getLessonsListWithType(
+        @Path("id") id: Long,
+        @Query("lessonType") lessonType: String
+    ): LessonsResponse
 
     @GET("profile/external/group/{id}/statistics")
     suspend fun getStatistics(@Path("id") groupId: Long): GroupStatisticsResponse

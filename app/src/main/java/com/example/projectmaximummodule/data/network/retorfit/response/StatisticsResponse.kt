@@ -4,8 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class StatisticsResponse (
-    val practice: PracticeResponse,
-    val theory: TheoryResponse,
-    val video: VideoResponse
-
-        )
+    val practice: StatsPracticeResponse,
+    val theory: StatsTheoryResponse,
+    val video: StatsVideoResponse
+    )

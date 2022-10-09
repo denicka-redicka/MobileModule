@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Maximum Education</string>
 
@@ -24,7 +25,7 @@
     <string name="your_score_on_the_course">Your score on the course</string>
     <string name="points">points</string>
 
-<!--    ToDoList Strings-->
+    <!--    ToDoList Strings-->
     <string name="consolidate">Consolidate</string>
     <string name="solved">Solved</string>
     <string name="lessons_number">Lesson $n</string>
@@ -35,7 +36,7 @@
     <string name="correct_mistakes">Correction mistakes</string>
     <string name="lefted_exercise">Left to resolve %1$d</string>
 
-<!--    Lessons Strings-->
+    <!--    Lessons Strings-->
     <string name="lessons">Lessons:</string>
     <string name="address_line_with_subway">Address: subway: %1$s, %2$s</string>
     <string name="address_line">Address: %1$s</string>
@@ -45,7 +46,7 @@
     <string name="webinar">Webinar</string>
     <string name="offline">Offline lesson</string>
 
-<!--    Stats dialog-->
+    <!--    Stats dialog-->
     <string name="your_progress">Your progress - %1$d</string>
     <string name="exercises_stats_text">Exercises:</string>
     <string name="theory_stats_text">Theory:</string>
@@ -54,10 +55,10 @@
     <string name="items_count">%1$d from %2$d</string>
     <string name="done_button_text">Done</string>
 
-<!--    AllTheoryList-->
+    <!--    AllTheoryList-->
     <string name="lesson_header_text">Lesson: %1$s</string>
 
-<!--    Profile Screen-->
+    <!--    Profile Screen-->
     <string name="your_score">Your score on the course</string>
     <string name="scores">scores</string>
     <string name="your_ranked">You are ranked 345th in the group</string>

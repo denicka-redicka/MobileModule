@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PracticeResponse (
+data class StatsPracticeResponse (
     @SerialName("all")
     val all: Int,
     @SerialName("completed")

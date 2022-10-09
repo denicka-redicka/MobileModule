@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.4.21'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.10'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
@@ -33,6 +33,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'com.example.projectmaximummodule'
 }
 
 dependencies {
@@ -57,7 +58,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0'
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0"
 
     //Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'

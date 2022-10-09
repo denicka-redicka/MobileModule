@@ -3,6 +3,7 @@ package com.example.projectmaximummodule.ui.login
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.projectmaximummodule.application.AppSharedPreferences
 import com.example.projectmaximummodule.application.BaseViewModel
 import com.example.projectmaximummodule.data.network.interceptors.GetCookieTokenInterceptor
@@ -20,15 +21,21 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     val loginApi: LoginApiService,
     @Oauth val oauthApi: MainApiService,
-    val sharedPreferences: AppSharedPreferences) : BaseViewModel() {
+    val sharedPreferences: AppSharedPreferences) : ViewModel() {
 
     private val loginMutableLiveData = MutableLiveData<UserResponse?>()
     val loginLiveData: LiveData<UserResponse?> = loginMutableLiveData
 
-    override val handlerException = CoroutineExceptionHandler { coroutineContext, throwable ->
+    private val handlerException = CoroutineExceptionHandler { coroutineContext, throwable ->
         loginMutableLiveData.postValue(null)
-        super.handlerException
+        Log.d("Network exception", "exception handled: ${throwable.message}")
     }
+
+    private val coroutineScope = CoroutineScope(
+        Dispatchers.IO
+                + SupervisorJob()
+                + handlerException
+    )
 
     fun checkLogin(request: LoginRequest) {
         coroutineScope.launch {

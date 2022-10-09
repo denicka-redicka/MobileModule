@@ -1,5 +1,6 @@
 package com.example.projectmaximummodule.ui.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.projectmaximummodule.application.AppSharedPreferences
@@ -23,6 +24,11 @@ class LoginViewModel @Inject constructor(
 
     private val loginMutableLiveData = MutableLiveData<UserResponse?>()
     val loginLiveData: LiveData<UserResponse?> = loginMutableLiveData
+
+    override val handlerException = CoroutineExceptionHandler { coroutineContext, throwable ->
+        loginMutableLiveData.postValue(null)
+        super.handlerException
+    }
 
     fun checkLogin(request: LoginRequest) {
         coroutineScope.launch {

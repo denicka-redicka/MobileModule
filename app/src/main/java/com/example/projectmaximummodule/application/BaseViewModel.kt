@@ -6,7 +6,7 @@ import kotlinx.coroutines.*
 
 open class BaseViewModel(): ViewModel() {
 
-    protected val handlerException = CoroutineExceptionHandler { coroutineContext, throwable ->
+    protected open val handlerException = CoroutineExceptionHandler { coroutineContext, throwable ->
         Log.d("Network exception", "exception handled: ${throwable.message}")
     }
 

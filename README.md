@@ -8,7 +8,7 @@ This project is an Android client for Online-Module.
 
 ![Info + to-do list](https://user-images.githubusercontent.com/68102526/194749684-091926ab-7c8f-42fa-bbd9-4525c68f53a7.png)![schedule](https://user-images.githubusercontent.com/68102526/194749717-ac28373a-76e3-48b1-8268-a3a143481387.png)
 
-### The second screen provides all learning theory
+### The second screen provides all th learning theory
 
 ![theory list](https://user-images.githubusercontent.com/68102526/194749816-21627a8c-78af-4bf7-993e-cd97b5680850.png)
 

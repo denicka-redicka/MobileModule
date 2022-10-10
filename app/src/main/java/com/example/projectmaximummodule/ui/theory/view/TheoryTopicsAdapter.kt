@@ -3,17 +3,11 @@ package com.example.projectmaximummodule.ui.theory.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.ImageButton
-import android.widget.Toast
-import androidx.core.view.MarginLayoutParamsCompat
-import androidx.core.view.marginStart
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
-import com.example.projectmaximummodule.data.TheoryItem
-import com.example.projectmaximummodule.data.network.retorfit.response.TheoryResponse
+import com.example.projectmaximummodule.data.TheoryTopicItem
 import kotlinx.android.synthetic.main.holder_theory_children.view.*
 import kotlinx.android.synthetic.main.holder_theory_parent.view.*
 
@@ -28,26 +22,7 @@ class TheoryTopicsAdapter(
         private const val CHILD_TYPE = 3
     }
 
-    private var mainList: MutableList<TheoryItem> = mutableListOf()
-
-    fun prepareList(topicsList: List<TheoryResponse>) {
-        mainList.clear()
-        topicsList.forEach { theory ->
-            if (theory.kbs != null) {
-                mainList.add(
-                    TheoryItem(
-                        title = theory.title,
-                        id = theory.id,
-                        sublist = TheoryItem.convertFromKbs(theory.kbs),
-                        isOpen = false,
-                        hasContent = null,
-                        isRoot = null
-                    )
-                )
-            }
-        }
-
-    }
+    var mainList: MutableList<TheoryTopicItem> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -73,9 +48,9 @@ class TheoryTopicsAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is HeaderViewHolder -> holder.bind(mainList[position], position)
-            is RootViewHolder -> holder.bind(mainList[position], position)
-            is ParentViewHolder -> holder.bind(mainList[position], position)
+            is HeaderViewHolder -> holder.bind(mainList[position])
+            is RootViewHolder -> holder.bind(mainList[position])
+            is ParentViewHolder -> holder.bind(mainList[position])
             is ChildViewHolder -> holder.bind(mainList[position])
         }
     }
@@ -128,12 +103,12 @@ class TheoryTopicsAdapter(
         private val header = view.parentHeaderText
         private val arrow = view.expandImg
 
-        fun bind(theoryItem: TheoryItem, position: Int) {
+        fun bind(theoryTopicItem: TheoryTopicItem) {
             container.setOnClickListener {
-                openOrCloseView(position, arrow)
+                openOrCloseView(mainList.indexOf(theoryTopicItem), arrow)
             }
-            header.text = view.context.getString(R.string.lesson_header_text, theoryItem.title)
-            arrow.rotation = if (theoryItem.isOpen) -270f else -90f
+            header.text = view.context.getString(R.string.lesson_header_text, theoryTopicItem.title)
+            arrow.rotation = if (theoryTopicItem.isOpen) -270f else -90f
         }
     }
 
@@ -142,14 +117,14 @@ class TheoryTopicsAdapter(
         private val header = view.parentHeaderText
         private val arrow = view.expandImg
 
-        fun bind(theoryItem: TheoryItem, position: Int) {
+        fun bind(theoryTopicItem: TheoryTopicItem) {
             container.setOnClickListener {
-                openOrCloseView(position, arrow)
+                openOrCloseView(mainList.indexOf(theoryTopicItem), arrow)
             }
             val layoutParams = header.layoutParams as MarginLayoutParams
             layoutParams.marginStart = 12
-            header.text = theoryItem.title
-            arrow.rotation = if (theoryItem.isOpen) -270f else -90f
+            header.text = theoryTopicItem.title
+            arrow.rotation = if (theoryTopicItem.isOpen) -270f else -90f
         }
     }
 
@@ -158,14 +133,14 @@ class TheoryTopicsAdapter(
         private val header = view.parentHeaderText
         private val arrow = view.expandImg
 
-        fun bind(theoryItem: TheoryItem, position: Int) {
+        fun bind(theoryTopicItem: TheoryTopicItem) {
             container.setOnClickListener {
-                openOrCloseView(position, arrow)
+                openOrCloseView(mainList.indexOf(theoryTopicItem), arrow)
             }
             val layoutParams = header.layoutParams as MarginLayoutParams
             layoutParams.marginStart = 20
-            header.text = theoryItem.title
-            arrow.rotation = if (theoryItem.isOpen) -270f else -90f
+            header.text = theoryTopicItem.title
+            arrow.rotation = if (theoryTopicItem.isOpen) -270f else -90f
         }
     }
 
@@ -173,23 +148,13 @@ class TheoryTopicsAdapter(
         private val container = view.rootChildrenContainer
         private val header = view.childrenHeaderText
 
-        fun bind(theoryItem: TheoryItem) {
+        fun bind(theoryTopicItem: TheoryTopicItem) {
             container.setOnClickListener {
-                onTopicItemListener(theoryItem.id)
+                onTopicItemListener(theoryTopicItem.id)
             }
             val layoutParams = header.layoutParams as MarginLayoutParams
             layoutParams.marginStart = 24
-            header.text = theoryItem.title
-        }
-    }
-
-    class DiffCallback : DiffUtil.ItemCallback<TheoryItem>() {
-        override fun areItemsTheSame(oldItem: TheoryItem, newItem: TheoryItem): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: TheoryItem, newItem: TheoryItem): Boolean {
-            return oldItem == newItem
+            header.text = theoryTopicItem.title
         }
     }
 }

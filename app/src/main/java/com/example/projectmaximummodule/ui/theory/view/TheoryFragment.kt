@@ -20,8 +20,8 @@ class TheoryFragment: Fragment(R.layout.fragment_theory) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.theoryLiveData.observe(viewLifecycleOwner) { theoryMap ->
-            val adapter = TheoryLessonAdapter(theoryMap, viewModel.lessonsWithTheoryList) { topicId ->
+        viewModel.theoryLiveData.observe(viewLifecycleOwner) { theoryLessonsList ->
+            val adapter = TheoryLessonAdapter(theoryLessonsList) { topicId ->
                 moveToTheoryItemFragment(topicId)
             }
             adapter.setHasStableIds(true)

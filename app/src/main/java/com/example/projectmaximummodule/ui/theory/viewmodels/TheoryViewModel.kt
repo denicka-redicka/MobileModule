@@ -6,7 +6,6 @@ import com.example.projectmaximummodule.application.AppSharedPreferences
 import com.example.projectmaximummodule.application.BaseViewModel
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
 import com.example.projectmaximummodule.data.network.retorfit.response.LessonsResponse
-import com.example.projectmaximummodule.data.network.retorfit.response.TheoryResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,22 +22,21 @@ class TheoryViewModel @Inject constructor(
 
     private var groupId = -1L
 
-    var lessonsWithTheoryList: List<LessonsResponse.LessonResponse> = listOf()
+    private val mutableTheoryLiveData = MutableLiveData<List<LessonsResponse.LessonResponse>>()
 
-    private val mutableTheoryLiveData = MutableLiveData<Map<Long, List<TheoryResponse>>>()
-
-    val theoryLiveData: LiveData<Map<Long, List<TheoryResponse>>> = mutableTheoryLiveData
+    val theoryLiveData: LiveData<List<LessonsResponse.LessonResponse>> = mutableTheoryLiveData
 
     fun getAllTheory() {
         groupId = prefs.getGroupId()
         if (groupId != -1L) {
             coroutineScope.launch {
-                lessonsWithTheoryList = api.getLessonsListWithType(groupId, THEORY).items
+                val lessonsWithTheoryList = api.getLessonsListWithType(groupId, THEORY).items
                 val theoryMap = api.getAllTheory(groupId)
-                theoryMap.forEach {
-
+                lessonsWithTheoryList.forEach { lesson ->
+                    val theoryList = theoryMap.get(lesson.id)
+                    if (theoryList != null) lesson.submitTheoryTopicsList(theoryList)
                 }
-                mutableTheoryLiveData.postValue(theoryMap)
+                mutableTheoryLiveData.postValue(lessonsWithTheoryList)
             }
         }
 

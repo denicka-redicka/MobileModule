@@ -6,15 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.data.network.retorfit.response.LessonsResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.TheoryResponse
-import kotlinx.android.synthetic.main.fragment_theory.view.*
 import kotlinx.android.synthetic.main.holder_theory_lesson.view.*
 
 class TheoryLessonAdapter(
-    private val theoryMap: Map<Long, List<TheoryResponse>>,
     private val lessonsList: List<LessonsResponse.LessonResponse>,
     private val onTopicItemListener: (topicId: Int) -> Unit
 ) : RecyclerView.Adapter<TheoryLessonAdapter.TheoryLessonViewHolder>() {
@@ -28,8 +25,7 @@ class TheoryLessonAdapter(
 
     override fun onBindViewHolder(holder: TheoryLessonViewHolder, position: Int) {
         val lesson = lessonsList[position]
-        val theory = theoryMap[lesson.id] ?: return
-        holder.bind(lesson, theory)
+        holder.bind(lesson)
     }
 
     override fun getItemCount(): Int {
@@ -44,11 +40,11 @@ class TheoryLessonAdapter(
         private val topicsList = view.theoryTopicsList
         private val adapter = TheoryTopicsAdapter(onTopicItemListener)
 
-        fun bind(lesson: LessonsResponse.LessonResponse, theoryLesson: List<TheoryResponse>) {
+        fun bind(lesson: LessonsResponse.LessonResponse) {
             lessonHeader.text = lesson.title
             timeStamp.text = "${lesson.getDateString()} ${lesson.getTiming()}"
 
-            adapter.prepareList(theoryLesson)
+            adapter.mainList = lesson.lessonTopicsList
             topicsList.adapter = adapter
             topicsList.layoutManager =
                 LinearLayoutManager(view.context, RecyclerView.VERTICAL, false)

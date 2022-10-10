@@ -2,20 +2,21 @@ package com.example.projectmaximummodule.data
 
 import com.example.projectmaximummodule.data.network.retorfit.response.TheoryResponse
 
-data class TheoryItem (
+@kotlinx.serialization.Serializable
+data class TheoryTopicItem (
     val title: String,
     val id: Int,
     var isOpen: Boolean,
-    val sublist: MutableList<TheoryItem>?,
+    val sublist: MutableList<TheoryTopicItem>?,
     val hasContent: Boolean?,
     val isRoot: Boolean?,
     ) {
     companion object {
-        fun convertFromKbs(rawList: List<TheoryResponse.TheoryKbsResponse>?): MutableList<TheoryItem> {
-            val newList: MutableList<TheoryItem> = mutableListOf()
+        fun convertFromKbs(rawList: List<TheoryResponse.TheoryKbsResponse>?): MutableList<TheoryTopicItem> {
+            val newList: MutableList<TheoryTopicItem> = mutableListOf()
             rawList?.forEach { item ->
                 newList.add(
-                    TheoryItem(
+                    TheoryTopicItem(
                         title = item.title,
                         id = item.id,
                         isOpen = false,

@@ -1,8 +1,6 @@
 package com.example.projectmaximummodule.ui.theory.viewmodels
 
-import android.text.Html.ImageGetter
 import android.view.View
-import androidx.core.text.HtmlCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.projectmaximummodule.application.AppSharedPreferences

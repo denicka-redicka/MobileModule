@@ -9,7 +9,7 @@
         android:label="ChatsFragment" />
     <fragment
         android:id="@+id/homeworkFragment"
-        android:name="com.example.projectmaximummodule.ui.HomeworkFragment"
+        android:name="com.example.projectmaximummodule.ui.debts.view.HomeworkFragment"
         android:label="HomeworkFragment" />
     <fragment
         android:id="@+id/profileFragment"

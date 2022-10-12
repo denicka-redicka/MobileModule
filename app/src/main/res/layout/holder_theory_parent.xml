@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/arrow"
         android:rotation="-90"
+        android:layout_marginHorizontal="4dp"
         android:layout_gravity="center_vertical"
         android:backgroundTint="@color/light_gray"/>
 

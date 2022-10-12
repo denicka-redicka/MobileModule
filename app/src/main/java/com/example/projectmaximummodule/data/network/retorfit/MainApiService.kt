@@ -23,6 +23,10 @@ interface MainApiService {
     @GET("schedule/student/schedule/groups/{id}/lessons")
     suspend fun getLessons(@Path("id") groupId: Long): LessonsResponse
 
+
+    @GET("schedule/student/schedule/groups/{id}/debts")
+    suspend fun getDebts(@Path("id") groupId: Long): DebtsResponse
+
     @GET("profile/external/group/{id}/rating/leaderboard/short")
     suspend fun getShortList(@Path("id") groupId: Long): List<ShortPositionResponse>
 

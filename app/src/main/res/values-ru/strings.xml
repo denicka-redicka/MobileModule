@@ -64,4 +64,9 @@
     <string name="your_score">Your score on the course</string>
     <string name="scores">scores</string>
     <string name="your_ranked">You are ranked 345th in the group</string>
+
+    <!--    Homework Screen-->
+    <string name="practice_debts">Practice debts</string>
+    <string name="push_and_close_debts">We need to push and close all the debts, and then you can watch TikTok.</string>
+    <string name="total_debts">Total debts</string>
 </resources>

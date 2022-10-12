@@ -25,7 +25,7 @@ data class ToDoResponse (
         @SerialName("tests_right_solved_count")
         val testsRightSolvedCount: Int? = null
 ) {
-        fun getStatsTryPracticeCount(): Int {
+        fun getStatsTryCount(): Int {
                 var tried = 0
                 stats?.forEach{
                        tried += it.tried?: 0
@@ -33,7 +33,15 @@ data class ToDoResponse (
                 return tried
         }
 
-        fun getStatsAllPracticecont(): Int {
+        fun getStatsCompletedCount(): Int {
+                var completed = 0
+                stats?.forEach{
+                        completed += it.completed?: 0
+                }
+                return completed
+        }
+
+        fun getStatsAllCount(): Int {
                 var all = 0
                 stats?.forEach{
                         all += it.all?: 0
@@ -70,6 +78,7 @@ data class ToDoStats (
         val all: Int? = null,
         @SerialName("try")
         val tried: Int? = null,
+        val completed: Int? = null,
         val text: String? = null
 )
 

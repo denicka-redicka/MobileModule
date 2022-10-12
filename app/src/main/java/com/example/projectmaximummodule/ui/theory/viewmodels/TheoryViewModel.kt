@@ -27,18 +27,21 @@ class TheoryViewModel @Inject constructor(
     val theoryLiveData: LiveData<List<LessonsResponse.LessonResponse>> = mutableTheoryLiveData
 
     fun getAllTheory() {
-        groupId = prefs.getGroupId()
-        if (groupId != -1L) {
-            coroutineScope.launch {
-                val lessonsWithTheoryList = api.getLessonsListWithType(groupId, THEORY).items
-                val theoryMap = api.getAllTheory(groupId)
-                lessonsWithTheoryList.forEach { lesson ->
-                    val theoryList = theoryMap.get(lesson.id)
-                    if (theoryList != null) lesson.submitTheoryTopicsList(theoryList)
+        val idFromPrefs = prefs.getGroupId()
+        if (theoryLiveData.value == null || groupId != idFromPrefs) {
+            groupId = idFromPrefs
+            if (groupId != -1L) {
+                coroutineScope.launch {
+                    val lessonsWithTheoryList = api.getLessonsListWithType(groupId, THEORY).items
+                    val theoryMap = api.getAllTheory(groupId)
+                    lessonsWithTheoryList.forEach { lesson ->
+                        val theoryList = theoryMap.get(lesson.id)
+                        if (theoryList != null)
+                            lesson.submitTheoryTopicsList(theoryList)
+                    }
+                    mutableTheoryLiveData.postValue(lessonsWithTheoryList)
                 }
-                mutableTheoryLiveData.postValue(lessonsWithTheoryList)
             }
         }
-
     }
 }

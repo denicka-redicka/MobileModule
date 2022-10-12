@@ -25,14 +25,16 @@
     <string name="points">points</string>
 
 <!--    ToDoList Strings-->
-    <string name="consolidate">Consolidate</string>
+    <string name="repeat">Repeat</string>
+    <string name="prepare">Prepare</string>
     <string name="solved">Solved</string>
-    <string name="lessons_number">Lesson $n</string>
+    <string name="lessons_number">Lesson</string>
     <string name="done_exercise">Done %1$d from %2$d</string>
+    <string name="done_theory">Theory %1$d from %2$d</string>
     <string name="connect">Connect</string>
     <string name="online_lesson">Online-lesson</string>
     <string name="corrected_mistakes">Correct %1$d from %2$d</string>
-    <string name="correct_mistakes">Correction mistakes</string>
+    <string name="correct_mistakes">Correct mistakes</string>
     <string name="lefted_exercise">Left to resolve %1$d</string>
 
 <!--    Lessons Strings-->

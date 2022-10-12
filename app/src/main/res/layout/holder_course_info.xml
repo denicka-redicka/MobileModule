@@ -166,7 +166,6 @@
         android:padding="50dp"
         android:indeterminateOnly="false"
         android:progress="60"
-        android:progressDrawable="@drawable/circle"
         app:layout_constraintTop_toBottomOf="@id/separationLine"
         app:layout_constraintStart_toEndOf="@id/guidelineStart"
         app:layout_constraintEnd_toStartOf="@id/yourScoreHeader"

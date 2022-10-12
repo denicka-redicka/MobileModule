@@ -16,19 +16,26 @@
         android:name="com.example.projectmaximummodule.ui.profile.view.ProfileFragment"
         android:label="ProfileFragment" />
     <fragment
-        android:id="@+id/theoryFragment"
-        android:name="com.example.projectmaximummodule.ui.theory.view.TheoryFragment"
-        android:label="TheoryFragment" >
-        <action
-            android:id="@+id/action_theoryFragment_to_theoryItemFragment"
-            app:destination="@id/theoryItemFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/timeTableFragment"
         android:name="com.example.projectmaximummodule.ui.sсhedule.view.TimeTableFragment"
-        android:label="TimeTableFragment" />
-    <fragment
-        android:id="@+id/theoryItemFragment"
-        android:name="com.example.projectmaximummodule.ui.theory.view.TheoryItemFragment"
-        android:label="TheoryItemFragment" />
+        android:label="TimeTableFragment" >
+        <action
+            android:id="@+id/action_timeTableFragment_to_theoryItemFragment"
+            app:destination="@id/theoryItemFragment" />
+    </fragment>
+    <navigation android:id="@+id/theoryNavigationGraph"
+        app:startDestination="@id/theoryFragment">
+        <fragment
+            android:id="@+id/theoryFragment"
+            android:name="com.example.projectmaximummodule.ui.theory.view.TheoryFragment"
+            android:label="TheoryFragment">
+            <action
+                android:id="@+id/action_theoryFragment_to_theoryItemFragment"
+                app:destination="@id/theoryItemFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/theoryItemFragment"
+            android:name="com.example.projectmaximummodule.ui.theory.view.TheoryItemFragment"
+            android:label="TheoryItemFragment" />
+    </navigation>
 </navigation>

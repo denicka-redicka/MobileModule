@@ -33,7 +33,15 @@ class TimeTableAdapter(
     private val lessons: List<LessonsResponse.LessonResponse>,
     private val teacher: TeacherResponse,
     private val statistics: GroupStatisticsResponse,
-    private val toDoList: List<ToDoResponse>?): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val toDoList: List<ToDoResponse>?,
+    private val onToDoClickListener: OnToDoClickListener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+
+    interface OnToDoClickListener {
+
+        fun onTheoryItemClicked(id: Int)
+    }
 
     private companion object {
 
@@ -45,13 +53,18 @@ class TimeTableAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             R.layout.holder_course_info -> CourseInformationViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.holder_course_info, parent, false), context)
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.holder_course_info, parent, false)
+            )
 
             R.layout.holder_todo -> ToDoListViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.holder_todo, parent, false), context)
+                LayoutInflater.from(parent.context).inflate(R.layout.holder_todo, parent, false),
+                onToDoClickListener
+            )
 
             R.layout.holder_lesson -> LessonViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.holder_lesson, parent, false), context)
+                LayoutInflater.from(parent.context).inflate(R.layout.holder_lesson, parent, false)
+            )
 
             else -> throw IllegalArgumentException("Illegal type: $viewType")
 
@@ -78,7 +91,7 @@ class TimeTableAdapter(
         }
     }
 
-    private class LessonViewHolder(view: View, val context: Context?) : RecyclerView.ViewHolder(view) {
+    private class LessonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val header: TextView = view.lessonHeader
         private val address: TextView = view.addressLine
@@ -89,6 +102,7 @@ class TimeTableAdapter(
         private val progress: TextView = view.progressText
         private val progressBar: ProgressBar = view.progressBar
         private val topicsList: RecyclerView = view.topicList
+        private val context = view.context
 
         private companion object {
             const val FAILURE_STATUS = "failure"
@@ -100,7 +114,11 @@ class TimeTableAdapter(
             address.text = when {
                 lesson.lessonType == WEBINAR -> ""
                 lesson.lessonType == OFFLINE && lesson.place.subway.isNotEmpty() ->
-                    context?.getString(R.string.address_line_with_subway, lesson.place.subway, lesson.place.address)
+                    context?.getString(
+                        R.string.address_line_with_subway,
+                        lesson.place.subway,
+                        lesson.place.address
+                    )
                 lesson.lessonType == OFFLINE && lesson.place.subway.isEmpty() ->
                     context?.getString(R.string.address_line, lesson.place.address)
                 else -> ""
@@ -123,13 +141,12 @@ class TimeTableAdapter(
 
             location.text = if (lesson.lessonType == WEBINAR) {
                 context?.getString(R.string.webinar)
-            }
-            else context?.getString(R.string.offline)
+            } else context?.getString(R.string.offline)
         }
 
     }
 
-    private class CourseInformationViewHolder(view: View, val context: Context?): RecyclerView.ViewHolder(view) {
+    private class CourseInformationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val teacherName: TextView = view.teacherName
         private val teacherImg: ImageView = view.teacherAvatar
@@ -137,11 +154,12 @@ class TimeTableAdapter(
         private val progressBar: ProgressBar = view.progressBar
         private val progressPercent: TextView = view.percentText
         private val moreDetailsButton: MaterialButton = view.detailsButton
+        private val context = view.context
 
         @SuppressLint("SetTextI18n")
         fun bind(teacher: TeacherResponse, statistics: GroupStatisticsResponse) {
             teacherName.text = teacher.fullName
-            val url = teacher.userpick?: ""
+            val url = teacher.userpick ?: ""
             if (url != "null") {
                 teacherImg.load(url) {
                     crossfade(true)
@@ -152,8 +170,8 @@ class TimeTableAdapter(
             }
 
             scorePoint.text = ""
-            progressBar.progress = statistics.progress?: 0
-            progressPercent.text = "${statistics.progress?: 0}%"
+            progressBar.progress = statistics.progress ?: 0
+            progressPercent.text = "${statistics.progress ?: 0}%"
 
             moreDetailsButton.setOnClickListener {
                 showDialog(statistics)
@@ -162,86 +180,112 @@ class TimeTableAdapter(
 
         @SuppressLint("UseCompatLoadingForDrawables")
         private fun showDialog(statistics: GroupStatisticsResponse) {
-            if (context != null) {
-                val dialog = Dialog(context)
-                dialog.setContentView(R.layout.dialog_statistics)
-                dialog.window?.setBackgroundDrawable(context.getDrawable(R.drawable.super_rect))
+            val dialog = Dialog(context)
+            dialog.setContentView(R.layout.dialog_statistics)
+            dialog.window?.setBackgroundDrawable(context.getDrawable(R.drawable.super_rect))
 
-                val progressHeader = dialog.progressHeader
-                val progressBar = dialog.progressBar
-                val exerciseCount = dialog.exercisesCount
-                val videoCount = dialog.videoCount
-                val lessonsCount = dialog.lessonsCount
-                val theoryCount = dialog.theoryCount
-                val doneButton = dialog.doneButton
+            val progressHeader = dialog.progressHeader
+            val progressBar = dialog.progressBar
+            val exerciseCount = dialog.exercisesCount
+            val videoCount = dialog.videoCount
+            val lessonsCount = dialog.lessonsCount
+            val theoryCount = dialog.theoryCount
+            val doneButton = dialog.doneButton
 
-                progressHeader.text = context.getString(R.string.your_progress, statistics.progress)
-                progressBar.progress = statistics.progress?: 0
+            progressHeader.text = context.getString(R.string.your_progress, statistics.progress)
+            progressBar.progress = statistics.progress ?: 0
 
-                exerciseCount.text = context.getString(
-                    R.string.items_count,
-                    statistics.attemptEducationTest ?: 0, statistics.educationTest ?: 0
-                )
-                videoCount.text = context.getString(
-                    R.string.items_count,
-                    statistics.attemptKnowledgeBaseSection ?: 0,
-                    statistics.knowledgeBaseSection ?: 0
-                )
-                theoryCount.text = context.getString(
-                    R.string.items_count,
-                    statistics.attemptEducationVideo ?: 0, statistics.educationVideo ?: 0
-                )
-                lessonsCount.text = context.getString(
-                    R.string.items_count,
-                    statistics.present ?: 0, statistics.lessonOffline ?: 0
-                )
+            exerciseCount.text = context.getString(
+                R.string.items_count,
+                statistics.attemptEducationTest ?: 0, statistics.educationTest ?: 0
+            )
+            theoryCount.text = context.getString(
+                R.string.items_count,
+                statistics.attemptKnowledgeBaseSection ?: 0,
+                statistics.knowledgeBaseSection ?: 0
+            )
+            videoCount.text = context.getString(
+                R.string.items_count,
+                statistics.attemptEducationVideo ?: 0, statistics.educationVideo ?: 0
+            )
+            lessonsCount.text = context.getString(
+                R.string.items_count,
+                statistics.present ?: 0, statistics.lessonOffline ?: 0
+            )
 
-                doneButton.setOnClickListener {
-                    dialog.dismiss()
-                }
-
-                dialog.show()
+            doneButton.setOnClickListener {
+                dialog.dismiss()
             }
+
+            dialog.show()
         }
     }
 
-    private class ToDoListViewHolder(view: View, val context: Context?): RecyclerView.ViewHolder(view) {
+    private class ToDoListViewHolder(view: View, val onToDoClickListener: OnToDoClickListener) :
+        RecyclerView.ViewHolder(view) {
 
-        private val pin: LinearLayoutCompat = view.repeatLayout
+        private val repeat: LinearLayoutCompat = view.repeatLayout
+        private val prepare: LinearLayoutCompat = view.prepareLayout
         private val connect: LinearLayoutCompat = view.connectLayout
         private val correct: LinearLayoutCompat = view.correctLayout
         private val practice: LinearLayoutCompat = view.practiceLayout
+        private val context = view.context
 
         fun bind(toDoList: List<ToDoResponse>?) {
             toDoList?.forEach { toDoItem ->
                 when (toDoItem.type) {
                     "repeat" -> {
-                        pin.visibility = View.VISIBLE
-                        pin.consolidateLessonNumber.text = toDoItem.title.toString()
-                        pin.consolidateCount.text = context?.getString(R.string.done_exercise,
-                            toDoItem.getStatsTryPracticeCount(), toDoItem.getStatsAllPracticecont())
+                        repeat.visibility = View.VISIBLE
+                        repeat.repeatLessonNumber.text = toDoItem.title.toString()
+                        repeat.repeatCount.text = context?.getString(
+                            R.string.done_exercise,
+                            toDoItem.getStatsTryCount(), toDoItem.getStatsAllCount()
+                        )
+                    }
+                    "prepare" -> {
+                        prepare.visibility = View.VISIBLE
+                        prepare.prepareLessonNumber.text = toDoItem.title.toString()
+                        prepare.prepareCount.text = context?.getString(
+                            R.string.done_theory,
+                            toDoItem.getStatsCompletedCount(), toDoItem.getStatsAllCount()
+                        )
+                        prepare.setOnClickListener {
+                            onToDoClickListener.onTheoryItemClicked(-1)
+                        }
                     }
                     "connect" -> {
                         connect.visibility = View.VISIBLE
                         connect.connectLessonNumber.text = toDoItem.title.toString()
                         connect.connectDate.text = toDoItem.getTimeStamp()
-                        connect.setOnClickListener{
+                        connect.setOnClickListener {
                             if (toDoItem.connectLink != null)
-                                context?.startActivity(Intent(Intent.ACTION_VIEW, toDoItem.connectLink.toUri()))
-                            else Toast.makeText(context, "Something wrong with Lesson's link", Toast.LENGTH_SHORT).show()
+                                context?.startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW,
+                                        toDoItem.connectLink.toUri()
+                                    )
+                                )
+                            else Toast.makeText(
+                                context,
+                                "Something wrong with Lesson's link",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                     "correction" -> {
                         if ((toDoItem.testsCount ?: 0) > 0) {
-                            correct.visibility =  View.VISIBLE
-                            correct.correctCount.text = context?.getString(R.string.corrected_mistakes,
-                                toDoItem.testsRightSolvedCount?: 0, toDoItem.testsCount?: 0)
+                            correct.visibility = View.VISIBLE
+                            correct.correctCount.text = context?.getString(
+                                R.string.corrected_mistakes,
+                                toDoItem.testsRightSolvedCount ?: 0, toDoItem.testsCount ?: 0
+                            )
                         }
 
                     }
                     "debts" -> {
                         practice.visibility = View.VISIBLE
-                        practice.resolveCount.text = context?.getString(R.string.lefted_exercise, toDoItem.getResolveCount())
+                        practice.resolveCount.text =
+                            context?.getString(R.string.lefted_exercise, toDoItem.getResolveCount())
                     }
                 }
             }

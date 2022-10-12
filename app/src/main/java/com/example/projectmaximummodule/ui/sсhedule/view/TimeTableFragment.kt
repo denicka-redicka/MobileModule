@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_shedule.view.*
 
 @AndroidEntryPoint
-class TimeTableFragment: Fragment(R.layout.fragment_shedule), SelectGroupReceiver.OnGroupSelectedListener {
+class TimeTableFragment: Fragment(R.layout.fragment_shedule), SelectGroupReceiver.OnGroupSelectedListener, TimeTableAdapter.OnToDoClickListener {
 
     private val viewModel: TimeTableViewModel by viewModels()
     private lateinit var selectGroupReceiver: SelectGroupReceiver
@@ -30,7 +30,8 @@ class TimeTableFragment: Fragment(R.layout.fragment_shedule), SelectGroupReceive
                 lessons.items,
                 viewModel.teacher,
                 viewModel.statistics,
-                viewModel.toDoList
+                viewModel.toDoList,
+                this
             )
             view.lessonsList.adapter = adapter
             view.lessonsList.layoutManager =
@@ -48,12 +49,19 @@ class TimeTableFragment: Fragment(R.layout.fragment_shedule), SelectGroupReceive
         })
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        super.onPause()
         context?.unregisterReceiver(selectGroupReceiver)
     }
 
     override fun onGroupSelected(id: Long) {
         viewModel.setSelectedGroup(id)
+    }
+
+    override fun onTheoryItemClicked(lessonId: Int) {
+//        val theoryTopicId = viewModel
+//        val bundle = Bundle()
+//        bundle.putInt("topic_id", )
+//        findNavController().navigate(R.id.action_timeTableFragment_to_theoryItemFragment)
     }
 }

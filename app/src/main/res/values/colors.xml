@@ -21,6 +21,7 @@
     <color name="connect_green">#7BA845</color>
     <color name="mistakes_red">#A62729</color>
     <color name="practice_gray">#777</color>
+    <color name="prepare_blue">#198cc3</color>
 
     <color name="connected_green">#4CAF50</color>
     <color name="disconnected_red">#ff5e62</color>

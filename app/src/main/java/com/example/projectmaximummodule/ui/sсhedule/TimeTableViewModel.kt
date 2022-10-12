@@ -12,8 +12,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TimeTableViewModel @Inject constructor (
-    val api: MainApiService,
-    val prefs: AppSharedPreferences
+    private val api: MainApiService,
+    private val prefs: AppSharedPreferences
     ): BaseViewModel() {
 
     private var groupId = prefs.getGroupId()
@@ -33,6 +33,10 @@ class TimeTableViewModel @Inject constructor (
         } else {
             return
         }
+    }
+
+    fun getTopicId(lessonId: Long): Int {
+        return -1
     }
 
     fun updateScheduleList() {

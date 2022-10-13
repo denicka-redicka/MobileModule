@@ -10,6 +10,4 @@
         android:layout_marginHorizontal="8dp"
         android:paddingVertical="1dp"/>
 
-
-
 </RelativeLayout>

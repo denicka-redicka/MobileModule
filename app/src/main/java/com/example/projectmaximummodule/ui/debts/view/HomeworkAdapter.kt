@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.main.holder_debt_parent.view.*
 
 class HomeworkAdapter (
     private val debts: MutableList<DebtsResponse.DebtsItems>,
-    private val allDebtsCount: Int
+    private val allDebtsCount: Int,
+    private val onTopicClickListener: (id: Long) -> Unit
     ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private companion object {
@@ -36,7 +37,7 @@ class HomeworkAdapter (
                     .inflate(R.layout.holder_debt_parent, parent, false))
             R.layout.holder_debt_child -> DebtsChildViewHolder(
                 LayoutInflater.from(parent.context)
-                .inflate(R.layout.holder_debt_child, parent, false))
+                .inflate(R.layout.holder_debt_child, parent, false), onTopicClickListener)
             else -> throw IllegalArgumentException()
         }
     }
@@ -116,12 +117,17 @@ class HomeworkAdapter (
 
     }
 
-    private class DebtsChildViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    private class DebtsChildViewHolder(private val view: View, private val clickListener: (id: Long) -> Unit): RecyclerView.ViewHolder(view) {
 
         private val title = view.topicTitle
         private val count = view.topicDebtsCount
 
         fun bind(debtsItem: DebtsResponse.DebtsItems) {
+
+            view.setOnClickListener {
+                clickListener(debtsItem.id)
+            }
+
             title.text = debtsItem.title
             count.text = "${debtsItem.debtsCount}"
         }

@@ -7,7 +7,7 @@
     <item android:id="@+id/theoryNavigationGraph"
         android:title="Theory"
         android:icon="@drawable/all_theory_icon"/>
-    <item android:id="@id/homeworkFragment"
+    <item android:id="@id/homeworkNavigationGraph"
         android:title="Homework"
         android:icon="@drawable/debts_icon"/>
     <item android:id="@+id/chatsFragment"

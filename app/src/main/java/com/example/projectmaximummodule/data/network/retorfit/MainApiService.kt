@@ -23,9 +23,18 @@ interface MainApiService {
     @GET("schedule/student/schedule/groups/{id}/lessons")
     suspend fun getLessons(@Path("id") groupId: Long): LessonsResponse
 
-
     @GET("schedule/student/schedule/groups/{id}/debts")
     suspend fun getDebts(@Path("id") groupId: Long): DebtsResponse
+
+    @GET("content/practice/curriculumsubject/{id}")
+    suspend fun getHomeworkCurriculumSubject(@Path("id") id: Long): HomeworkCurriculumSubjectResponse
+
+    @GET("content/practice/curriculumsubject/{group_id}/knowledgebase/{subject_id}/{type}/tests")
+    suspend fun getTests(
+        @Path("group_id") groupId: Long,
+        @Path("subject_id") subjectId: Int,
+        @Path("type") type: String
+    ): List<TestResponse>
 
     @GET("profile/external/group/{id}/rating/leaderboard/short")
     suspend fun getShortList(@Path("id") groupId: Long): List<ShortPositionResponse>
@@ -40,7 +49,7 @@ interface MainApiService {
     suspend fun getAllTheory(@Path("id") id: Long): @kotlinx.serialization.Serializable Map<Long, List<TheoryResponse>>
 
     @GET("content/knowledgebase/{id}")
-    suspend fun getKnowledgeBase(@Path("id") id:Int): TheoryItem
+    suspend fun getKnowledgeBase(@Path("id") id: Int): TheoryItem
 
     @GET("schedule/student/schedule/groups/{id}/lessons?&withCurriculums=0&all=1")
     suspend fun getLessonsListWithType(

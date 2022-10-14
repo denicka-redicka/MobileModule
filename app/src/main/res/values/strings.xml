@@ -68,4 +68,9 @@
     <string name="practice_debts">Practice debts</string>
     <string name="push_and_close_debts">We need to push and close all the debts, and then you can watch TikTok.</string>
     <string name="total_debts">Total debts</string>
+    <string name="exercise_title">Homework exercise (from %1$d)</string>
+    <string name="tries_count_text">You have %1$d try</string>
+    <string name="answer">ANSWER</string>
+    <string name="error">Error?</string>
+    <string name="show_results_button_text">Show results</string>
 </resources>

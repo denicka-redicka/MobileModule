@@ -27,11 +27,10 @@ class MainFragment: Fragment(R.layout.fragment_main), AdapterView.OnItemSelected
         view.bottomNavigation.setupWithNavController(navController)
 
         viewModel.groupsLiveData.observe(viewLifecycleOwner) { groups ->
-            val groupsTitle = ArrayList<String>(groups.size)
-            groups.forEach { groupResponse ->
-                groupsTitle.add(groupResponse.educationCourse.title)
+            val groupsTitles = groups.map { response ->
+                response.title
             }
-            view.groupsPicker.adapter =  ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, groupsTitle)
+            view.groupsPicker.adapter =  ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, groupsTitles)
         }
 
         view.groupsPicker.onItemSelectedListener = this

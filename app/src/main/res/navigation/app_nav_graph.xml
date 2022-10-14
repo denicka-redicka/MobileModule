@@ -8,10 +8,6 @@
         android:name="com.example.projectmaximummodule.ui.ChatsFragment"
         android:label="ChatsFragment" />
     <fragment
-        android:id="@+id/homeworkFragment"
-        android:name="com.example.projectmaximummodule.ui.debts.view.HomeworkFragment"
-        android:label="HomeworkFragment" />
-    <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.projectmaximummodule.ui.profile.view.ProfileFragment"
         android:label="ProfileFragment" />
@@ -22,6 +18,9 @@
         <action
             android:id="@+id/action_timeTableFragment_to_theoryItemFragment"
             app:destination="@id/theoryItemFragment" />
+        <action
+            android:id="@+id/action_timeTableFragment_to_homeworkItemFragment"
+            app:destination="@id/homeworkItemFragment" />
     </fragment>
     <navigation android:id="@+id/theoryNavigationGraph"
         app:startDestination="@id/theoryFragment">
@@ -37,5 +36,20 @@
             android:id="@+id/theoryItemFragment"
             android:name="com.example.projectmaximummodule.ui.theory.view.TheoryItemFragment"
             android:label="TheoryItemFragment" />
+    </navigation>
+    <navigation android:id="@+id/homeworkNavigationGraph"
+        app:startDestination="@id/homeworkFragment">
+        <fragment
+            android:id="@+id/homeworkFragment"
+            android:name="com.example.projectmaximummodule.ui.debts.view.HomeworkFragment"
+            android:label="HomeworkFragment">
+            <action
+                android:id="@+id/action_homeworkFragment_to_homeworkItemFragment"
+                app:destination="@id/homeworkItemFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/homeworkItemFragment"
+            android:name="com.example.projectmaximummodule.ui.debts.view.HomeworkItemFragment"
+            android:label="HomeworkItemFragment" />
     </navigation>
 </navigation>

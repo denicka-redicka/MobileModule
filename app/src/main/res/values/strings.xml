@@ -73,4 +73,5 @@
     <string name="answer">ANSWER</string>
     <string name="error">Error?</string>
     <string name="show_results_button_text">Show results</string>
+    <string name="add_file">Add file</string>
 </resources>

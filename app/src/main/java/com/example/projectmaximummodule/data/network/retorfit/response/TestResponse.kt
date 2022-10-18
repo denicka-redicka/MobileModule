@@ -9,5 +9,7 @@ data class TestResponse (
     val maxPoints: Int,
     val question: String,
     val solution: String? = null,
-    val educationTestFileId: Int
+    val educationTestFileId: Int,
+    val educationTestAnswers: List<EducationTestAnswerResponse>,
+    val type: String
     )

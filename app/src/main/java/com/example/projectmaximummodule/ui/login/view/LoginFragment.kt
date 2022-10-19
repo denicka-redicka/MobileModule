@@ -2,6 +2,7 @@ package com.example.projectmaximummodule.ui.login.view
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -32,6 +33,8 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
         }
 
         viewModel.loginLiveData.observe(viewLifecycleOwner) { user ->
+            loginButton.isEnabled = true
+            loginButton.backgroundTintMode = PorterDuff.Mode.CLEAR
             if (user != null ) {
                 findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
             } else {
@@ -44,6 +47,8 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
         }
 
         loginButton.setOnClickListener {
+            it.isEnabled = false
+            it.backgroundTintMode = PorterDuff.Mode.DARKEN
             hideKeyboard()
             val inputUser = LoginRequest(
                 loginInputText.text.toString(),

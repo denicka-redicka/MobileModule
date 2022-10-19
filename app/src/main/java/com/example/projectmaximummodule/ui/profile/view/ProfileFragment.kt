@@ -40,8 +40,8 @@ class ProfileFragment: Fragment(R.layout.fragment_profile), SelectGroupReceiver.
         })
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        super.onPause()
         context?.unregisterReceiver(selectGroupReceiver)
     }
 

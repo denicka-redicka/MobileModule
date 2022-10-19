@@ -52,6 +52,6 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
         viewModel.fetchTestsList(curriculumSubjectId, position)
     }
 
-    override fun onNothingSelected(p0: AdapterView<*>?) {
+    override fun onNothingSelected(view: AdapterView<*>?) {
     }
 }

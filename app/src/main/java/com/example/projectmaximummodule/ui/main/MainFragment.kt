@@ -7,16 +7,19 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.application.SelectGroupReceiver.Companion.GROUP_SELECTED
 import com.example.projectmaximummodule.application.SelectGroupReceiver.Companion.SELECTED_GROUP_ID
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 @AndroidEntryPoint
-class MainFragment: Fragment(R.layout.fragment_main), AdapterView.OnItemSelectedListener {
+class MainFragment: Fragment(R.layout.fragment_main), AdapterView.OnItemSelectedListener, NavController.OnDestinationChangedListener {
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -47,5 +50,15 @@ class MainFragment: Fragment(R.layout.fragment_main), AdapterView.OnItemSelected
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
+    }
+
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
+    ) {
+        if (destination.id == R.id.homeworkItemFragment) {
+            bottomNavigation.visibility = View.GONE
+        }
     }
 }

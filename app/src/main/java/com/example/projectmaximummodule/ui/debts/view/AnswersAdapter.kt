@@ -21,9 +21,9 @@ class AnswersAdapter(
 
     val studentAnswers: List<String>
         get() = when (type) {
-            "type1" -> listOf(answersVariants[selectedPosition].variants[0])
-            "type2" -> answersVariants.filter { it.isSelected }.map { it.variants[0] }
-            "type6" -> answersVariants.map { it.inputAnswer }
+            "type1" -> listOf(answersVariants[selectedPosition].id.toString())
+            "type2" -> answersVariants.filter { it.isSelected }.map { it.id.toString() }
+            "type6" -> listOf()
             else -> answersVariants.map { it.inputAnswer }
         }
 
@@ -54,12 +54,13 @@ class AnswersAdapter(
             is RadioButtonViewHolder -> holder.bind(answersVariants[position], position)
             is CheckboxViewHolder -> holder.bind(answersVariants[position])
             is InputTextViewHolder -> holder.bind(answersVariants[position])
-            is InputTextWithAdditionalViewHolder -> holder.bind(answersVariants[position])
+            is InputTextWithAdditionalViewHolder -> holder.bind()
         }
     }
 
     override fun getItemCount(): Int {
-        return answersVariants.size
+        val count = if (!type.equals("type6")) answersVariants.size else 1
+        return count
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -74,15 +75,12 @@ class AnswersAdapter(
     inner class RadioButtonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val radioButton = view.selectButton
-        private val answerDescription = view.answerDescriptionImage
+        private val answerDescription = view.answerDescription
 
         fun bind(variant: EducationTestAnswerResponse, position: Int) {
             radioButton.isChecked = position == selectedPosition
-            var description = variant.variants[0]
 
-            if (description.contains("image_description")) {
-            }
-            radioButton.text = description
+            answerDescription.loadData(variant.variants[0], "text/html", "UTF-8")
 
             radioButton.setOnCheckedChangeListener { compoundButton, isChecked ->
                 if (isChecked) {
@@ -97,10 +95,11 @@ class AnswersAdapter(
     inner class CheckboxViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val checkbox = view.checkboxAnswer
-        private val answerText = view.answerCheckboxDescriptionImage
+        private val answerDescription = view.answerCheckboxDescription
 
         fun bind(variant: EducationTestAnswerResponse) {
-            checkbox.text = variant.variants[0]
+
+            answerDescription.loadData(variant.variants[0], "text/html", "UTF-8")
 
             checkbox.setOnCheckedChangeListener { compoundButton, isChecked ->
                 variant.isSelected = isChecked
@@ -123,9 +122,8 @@ class AnswersAdapter(
         private val inputAnswerEditText = view.answerInputText
         private val addFileButton = view.addFileButton
 
-        fun bind(variant: EducationTestAnswerResponse) {
+        fun bind() {
             inputAnswerEditText.doOnTextChanged { text, start, before, count ->
-                variant.inputAnswer = text.toString()
             }
         }
     }

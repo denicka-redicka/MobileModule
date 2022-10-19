@@ -12,10 +12,11 @@ import kotlinx.android.synthetic.main.holder_debt_count.view.*
 import kotlinx.android.synthetic.main.holder_debt_parent.view.*
 
 class HomeworkAdapter(
-    private val debts: MutableList<DebtsResponse.DebtsItems>,
-    private val allDebtsCount: Int,
     private val onTopicClickListener: (curriculumId: Long, lessonId: Long) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    var debts: MutableList<DebtsResponse.DebtsItems> = mutableListOf()
+    var allDebtsCount = 0
 
     private companion object {
         private const val ADDITIONAL_VIEW_COUNT = 3

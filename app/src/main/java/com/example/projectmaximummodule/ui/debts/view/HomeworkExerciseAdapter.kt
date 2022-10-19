@@ -34,6 +34,7 @@ class HomeworkExerciseAdapter: ListAdapter<TestResponse, HomeworkExerciseAdapter
         private val triesCount = view.triesCount
         private val answerHoldersList = view.answerInputsList
         private val answerButton = view.answerButton
+        private val testChronometer = view.chronometer
 
         fun bind(test: TestResponse, number: Int, itemCount: Int) {
             title.text = view.context.getString(R.string.exercise_title, itemCount)

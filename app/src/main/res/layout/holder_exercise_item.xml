@@ -54,6 +54,20 @@
         android:layout_marginTop="8dp"
         tools:text="1"/>
 
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/exerciseTitle"
+            app:layout_constraintBottom_toBottomOf="@id/exerciseTitle"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/exerciseNumber"
+            android:background="@drawable/gray_rect"
+            android:textSize="16sp"
+            android:paddingHorizontal="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="6dp"/>
+
     <WebView
         android:id="@+id/questionLayout"
         android:layout_width="0dp"
@@ -105,7 +119,7 @@
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/white"
         android:elevation="6dp"
-        app:rippleColor="@color/lighter_gray"
+        app:rippleColor="@color/border_gray"
         android:drawableLeft="@drawable/ic_mistakes_button"
         android:text="@string/error"
         android:textColor="@color/button_blue"

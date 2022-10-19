@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:text="@string/show_results_button_text"
             android:textColor="@color/orange"
-            app:rippleColor="@color/lighter_gray"
+            app:rippleColor="@color/border_gray"
             android:textSize="12sp"
             app:cornerRadius="60dp"
             android:backgroundTint="@color/white"

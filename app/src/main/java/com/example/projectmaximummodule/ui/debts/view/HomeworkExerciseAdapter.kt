@@ -3,17 +3,17 @@ package com.example.projectmaximummodule.ui.debts.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.data.network.retorfit.request.TestAnswerRequest
 import com.example.projectmaximummodule.data.network.retorfit.response.TestResponse
 import kotlinx.android.synthetic.main.holder_exercise_item.view.*
 
-class HomeworkExerciseAdapter :
-    RecyclerView.Adapter<HomeworkExerciseAdapter.ExerciseViewHolder>() {
+class HomeworkExerciseAdapter: ListAdapter<TestResponse, HomeworkExerciseAdapter.ExerciseViewHolder>(DiffCallback()) {
 
-    var testsList: List<TestResponse> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
         return ExerciseViewHolder(
@@ -23,14 +23,10 @@ class HomeworkExerciseAdapter :
     }
 
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
-        holder.bind(testsList[position], position)
+        holder.bind(getItem(position), position, itemCount)
     }
 
-    override fun getItemCount(): Int {
-        return testsList.size
-    }
-
-    inner class ExerciseViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class ExerciseViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         private val title = view.exerciseTitle
         private val exerciseNumber = view.exerciseNumber
@@ -39,8 +35,8 @@ class HomeworkExerciseAdapter :
         private val answerHoldersList = view.answerInputsList
         private val answerButton = view.answerButton
 
-        fun bind(test: TestResponse, number: Int) {
-            title.text = view.context.getString(R.string.exercise_title, testsList.size)
+        fun bind(test: TestResponse, number: Int, itemCount: Int) {
+            title.text = view.context.getString(R.string.exercise_title, itemCount)
             triesCount.text =
                 view.context.getString(R.string.tries_count_text, test.attemptsCountLeft ?: 0)
             exerciseNumber.text = "${number + 1}"
@@ -57,6 +53,16 @@ class HomeworkExerciseAdapter :
                     spentTime = 0
                 )
             }
+        }
+    }
+
+    class DiffCallback : DiffUtil.ItemCallback<TestResponse>() {
+        override fun areItemsTheSame(oldItem: TestResponse, newItem: TestResponse): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: TestResponse, newItem: TestResponse): Boolean {
+            return oldItem == newItem
         }
     }
 }

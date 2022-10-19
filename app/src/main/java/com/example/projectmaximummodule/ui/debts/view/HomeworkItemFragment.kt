@@ -38,8 +38,7 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
         }
 
         viewModel.testLiveData.observe(viewLifecycleOwner) { tests ->
-            adapter.testsList = tests
-            adapter.notifyDataSetChanged()
+            adapter.submitList(tests)
         }
 
         view.subjectsPicker.onItemSelectedListener = this

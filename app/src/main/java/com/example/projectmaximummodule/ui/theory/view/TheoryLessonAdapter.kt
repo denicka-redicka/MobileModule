@@ -3,12 +3,10 @@ package com.example.projectmaximummodule.ui.theory.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.data.network.retorfit.response.LessonsResponse
-import com.example.projectmaximummodule.data.network.retorfit.response.TheoryResponse
 import kotlinx.android.synthetic.main.holder_theory_lesson.view.*
 
 class TheoryLessonAdapter(
@@ -48,16 +46,6 @@ class TheoryLessonAdapter(
             topicsList.adapter = adapter
             topicsList.layoutManager =
                 LinearLayoutManager(view.context, RecyclerView.VERTICAL, false)
-        }
-    }
-
-    class DiffCallback : DiffUtil.ItemCallback<TheoryResponse>() {
-        override fun areItemsTheSame(oldItem: TheoryResponse, newItem: TheoryResponse): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: TheoryResponse, newItem: TheoryResponse): Boolean {
-            return oldItem == newItem
         }
     }
 }

@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.ui.debts.HomeworkViewModel
 import com.example.projectmaximummodule.ui.debts.view.HomeworkItemFragment.Companion.CURRICULUM_SUBJECT_ID
+import com.example.projectmaximummodule.ui.debts.view.HomeworkItemFragment.Companion.LESSON_ID
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_homework.view.*
 
 @AndroidEntryPoint
-class HomeworkFragment: Fragment(R.layout.fragment_homework) {
+class HomeworkFragment : Fragment(R.layout.fragment_homework) {
 
     private val viewModel: HomeworkViewModel by viewModels()
 
@@ -22,9 +23,14 @@ class HomeworkFragment: Fragment(R.layout.fragment_homework) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.debtsLiveData.observe(viewLifecycleOwner) { debts ->
-            val adapter = HomeworkAdapter(debts.debtsItems, debts.allDebts - debts.paidDebts) { id ->
+            val adapter = HomeworkAdapter(
+                debts.debtsItems,
+                debts.allDebts - debts.paidDebts
+            ) { curriculumId, lessonId ->
+
                 val bundle = Bundle()
-                bundle.putLong(CURRICULUM_SUBJECT_ID, id)
+                bundle.putLong(CURRICULUM_SUBJECT_ID, curriculumId)
+                bundle.putLong(LESSON_ID, lessonId)
                 findNavController().navigate(R.id.action_homeworkFragment_to_homeworkItemFragment, bundle)
             }
             view.debtsList.adapter = adapter

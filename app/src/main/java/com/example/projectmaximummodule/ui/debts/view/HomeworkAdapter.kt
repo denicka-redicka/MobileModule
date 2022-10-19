@@ -11,11 +11,11 @@ import kotlinx.android.synthetic.main.holder_debt_child.view.*
 import kotlinx.android.synthetic.main.holder_debt_count.view.*
 import kotlinx.android.synthetic.main.holder_debt_parent.view.*
 
-class HomeworkAdapter (
+class HomeworkAdapter(
     private val debts: MutableList<DebtsResponse.DebtsItems>,
     private val allDebtsCount: Int,
-    private val onTopicClickListener: (id: Long) -> Unit
-    ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val onTopicClickListener: (curriculumId: Long, lessonId: Long) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private companion object {
         private const val ADDITIONAL_VIEW_COUNT = 3
@@ -25,19 +25,24 @@ class HomeworkAdapter (
         return when (viewType) {
             R.layout.holder_debts_title -> HeaderViewHolder(
                 LayoutInflater.from(parent.context)
-                .inflate(R.layout.holder_debts_title, parent, false))
+                    .inflate(R.layout.holder_debts_title, parent, false)
+            )
             R.layout.holder_debts_body -> BodyViewHolder(
                 LayoutInflater.from(parent.context)
-                .inflate(R.layout.holder_debts_body, parent, false))
+                    .inflate(R.layout.holder_debts_body, parent, false)
+            )
             R.layout.holder_debt_count -> CountViewHolder(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.holder_debt_count, parent, false))
+                    .inflate(R.layout.holder_debt_count, parent, false)
+            )
             R.layout.holder_debt_parent -> DebtsParentViewHolder(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.holder_debt_parent, parent, false))
+                    .inflate(R.layout.holder_debt_parent, parent, false)
+            )
             R.layout.holder_debt_child -> DebtsChildViewHolder(
                 LayoutInflater.from(parent.context)
-                .inflate(R.layout.holder_debt_child, parent, false), onTopicClickListener)
+                    .inflate(R.layout.holder_debt_child, parent, false), onTopicClickListener
+            )
             else -> throw IllegalArgumentException()
         }
     }
@@ -57,7 +62,7 @@ class HomeworkAdapter (
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(position in 0..2) {
+        return if (position in 0..2) {
             when (position) {
                 0 -> R.layout.holder_debts_title
                 1 -> R.layout.holder_debts_body
@@ -66,7 +71,7 @@ class HomeworkAdapter (
             }
         } else if (debts[position - ADDITIONAL_VIEW_COUNT].knowledgeBaseSectionId == null)
             R.layout.holder_debt_parent
-         else R.layout.holder_debt_child
+        else R.layout.holder_debt_child
     }
 
     fun openOrCloseView(position: Int, imageButton: ImageButton) {
@@ -78,10 +83,11 @@ class HomeworkAdapter (
     }
 
     private fun openView(position: Int, imageButton: ImageButton) {
-        val items = debts[position].lessonsDebtsItems
+        val lesson = debts[position]
+        val items = lesson.lessonsDebtsItems
         if (items.isEmpty()) {
-            debts[position].curriculumSubjects?.forEach {
-                items.add(it.value.convertToDebtsItem())
+            lesson.curriculumSubjects?.forEach {
+                items.add(it.value.convertToDebtsItem(lesson.lessonId ?: -1))
             }
         }
         imageButton.rotation += 180f
@@ -98,7 +104,8 @@ class HomeworkAdapter (
         notifyItemRangeRemoved(position + ADDITIONAL_VIEW_COUNT + 1, items.size)
     }
 
-    private inner class DebtsParentViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
+    private inner class DebtsParentViewHolder(private val view: View) :
+        RecyclerView.ViewHolder(view) {
 
         private val title = view.debtsLessonTitle
         private val timeStamp = view.debtsLessonTimeStamp
@@ -117,7 +124,10 @@ class HomeworkAdapter (
 
     }
 
-    private class DebtsChildViewHolder(private val view: View, private val clickListener: (id: Long) -> Unit): RecyclerView.ViewHolder(view) {
+    private class DebtsChildViewHolder(
+        private val view: View,
+        private val clickListener: (curriculumId: Long, lessonId: Long) -> Unit
+    ) : RecyclerView.ViewHolder(view) {
 
         private val title = view.topicTitle
         private val count = view.topicDebtsCount
@@ -125,7 +135,7 @@ class HomeworkAdapter (
         fun bind(debtsItem: DebtsResponse.DebtsItems) {
 
             view.setOnClickListener {
-                clickListener(debtsItem.id)
+                clickListener(debtsItem.curriculumSubjectId ?: -1, debtsItem.lessonId ?: -1)
             }
 
             title.text = debtsItem.title
@@ -134,11 +144,11 @@ class HomeworkAdapter (
 
     }
 
-    private class HeaderViewHolder(view: View): RecyclerView.ViewHolder(view)
+    private class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
-    private class BodyViewHolder(view: View): RecyclerView.ViewHolder(view)
+    private class BodyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
-    private class CountViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    private class CountViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val countView = view.debtsCount
 

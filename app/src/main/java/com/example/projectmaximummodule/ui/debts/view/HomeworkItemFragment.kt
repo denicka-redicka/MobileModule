@@ -15,16 +15,19 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
     AdapterView.OnItemSelectedListener {
 
     private val viewModel: HomeworkItemViewModel by viewModels()
-    private var id = -1L
+    private var curriculumSubjectId = -1L
+    private var parentLessonId = -1L
 
     companion object {
         const val CURRICULUM_SUBJECT_ID = "curriculum_subject_id"
+        const val LESSON_ID = "lesson_id"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        id = arguments?.getLong(CURRICULUM_SUBJECT_ID) ?: -1
+        curriculumSubjectId = arguments?.getLong(CURRICULUM_SUBJECT_ID) ?: -1
+        parentLessonId = arguments?.getLong(LESSON_ID) ?: -1
 
         val adapter = HomeworkExerciseAdapter()
         view.itemsPageView.adapter = adapter
@@ -42,12 +45,12 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
         view.subjectsPicker.onItemSelectedListener = this
 
         if (savedInstanceState == null) {
-            viewModel.fetchHomeworksItems(id)
+            viewModel.fetchHomeworksItems(curriculumSubjectId)
         }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, itemId: Long) {
-        viewModel.fetchTestsList(id, position)
+        viewModel.fetchTestsList(curriculumSubjectId, position)
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {

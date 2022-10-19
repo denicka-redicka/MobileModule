@@ -12,8 +12,9 @@ data class CurriculumSubjectsResponse(
     val paidDebts: Int,
 ) {
 
-    fun convertToDebtsItem() = DebtsResponse.DebtsItems(
-        id = this.id,
+    fun convertToDebtsItem(lessonIdFromParent: Long) = DebtsResponse.DebtsItems(
+        lessonId = lessonIdFromParent,
+        curriculumSubjectId = this.id,
         title = this.title,
         startAt = null,
         knowledgeBaseSectionId = this.knowledgeBaseSectionId,

@@ -14,7 +14,8 @@ data class DebtsResponse(
 
     @Serializable
     data class DebtsItems(
-        val id: Long,
+        val lessonId: Long?,
+        val curriculumSubjectId: Long?,
         val title: String,
         val startAt: Long?,
         val knowledgeBaseSectionId: Long?,
@@ -39,7 +40,8 @@ data class DebtsResponse(
 
     fun addDebtsLessons(lesson: DebtsLessonResponse) {
         val item = DebtsItems(
-            id = lesson.id,
+            lessonId = lesson.id,
+            curriculumSubjectId = null,
             title = lesson.title,
             startAt = lesson.startAt,
             knowledgeBaseSectionId = null,

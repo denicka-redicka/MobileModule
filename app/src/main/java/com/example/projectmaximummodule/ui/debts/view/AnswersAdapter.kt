@@ -119,7 +119,7 @@ class AnswersAdapter(
 
     inner class InputTextWithAdditionalViewHolder(view: View) :
         RecyclerView.ViewHolder(view) {
-        private val inputAnswerEditText = view.answerInputText
+        private val inputAnswerEditText = view.extendedAnswerInputText
         private val addFileButton = view.addFileButton
 
         fun bind() {

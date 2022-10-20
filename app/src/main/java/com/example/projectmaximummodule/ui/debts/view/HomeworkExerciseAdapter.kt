@@ -12,8 +12,7 @@ import com.example.projectmaximummodule.data.network.retorfit.request.TestAnswer
 import com.example.projectmaximummodule.data.network.retorfit.response.TestResponse
 import kotlinx.android.synthetic.main.holder_exercise_item.view.*
 
-class HomeworkExerciseAdapter: ListAdapter<TestResponse, HomeworkExerciseAdapter.ExerciseViewHolder>(DiffCallback()) {
-
+class HomeworkExerciseAdapter(private val lessonId: Long): ListAdapter<TestResponse, HomeworkExerciseAdapter.ExerciseViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
         return ExerciseViewHolder(
@@ -26,7 +25,7 @@ class HomeworkExerciseAdapter: ListAdapter<TestResponse, HomeworkExerciseAdapter
         holder.bind(getItem(position), position, itemCount)
     }
 
-    class ExerciseViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    inner class ExerciseViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         private val title = view.exerciseTitle
         private val exerciseNumber = view.exerciseNumber
@@ -50,8 +49,9 @@ class HomeworkExerciseAdapter: ListAdapter<TestResponse, HomeworkExerciseAdapter
             answerButton.setOnClickListener {
                 val answerRequest = TestAnswerRequest(
                     answer = adapter.studentAnswers,
-                    lessonId = -1L,
-                    spentTime = 0
+                    lessonId = lessonId,
+                    spentTime = 0,
+                    attaches = listOf()
                 )
             }
         }

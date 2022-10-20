@@ -62,7 +62,7 @@
 <!--    Profile Screen-->
     <string name="your_score">Your score on the course</string>
     <string name="scores">scores</string>
-    <string name="your_ranked">You are ranked 345th in the group</string>
+    <string name="your_ranked">You are ranked %1$dth in the group</string>
 
 <!--    Homework Screen-->
     <string name="practice_debts">Practice debts</string>

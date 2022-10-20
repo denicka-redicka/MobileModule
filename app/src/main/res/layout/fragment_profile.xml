@@ -119,7 +119,7 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:textSize="16sp"
-            android:text="Ты набрал на курсе "/>
+            android:text="@string/your_score"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/mySummary"
@@ -139,7 +139,7 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:textSize="16sp"
-            android:text="баллов"/>
+            android:text="@string/scores"/>
 
         <View
             android:layout_width="match_parent"
@@ -150,13 +150,13 @@
             android:background="@color/border_gray"/>
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/rankedText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/light_gray"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:textSize="16sp"
-            android:text="Ты занимаешь 345 место в группе"/>
+            android:textSize="16sp"/>
 
         <View
             android:layout_width="match_parent"

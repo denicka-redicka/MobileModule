@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.application.AppSharedPreferences
 import com.example.projectmaximummodule.application.BaseViewModel
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
@@ -36,7 +37,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun provideProfileUi(view: View) {
-        var user = profileLiveData.value ?: return
+        val user = profileLiveData.value ?: return
 
         view.nameText.text = "${user.firstName} ${user.lastName}"
         view.emailText.text = user.email
@@ -90,5 +91,6 @@ class ProfileViewModel @Inject constructor(
         view.lastPositionNumber.text = list[3].position.toString()
 
         view.mySummary.text = list[3].summary.toString()
+        view.rankedText.text = view.context.getString(R.string.your_ranked, list[3].position)
     }
 }

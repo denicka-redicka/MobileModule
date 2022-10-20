@@ -1,4 +1,4 @@
-package com.example.projectmaximummodule.ui.sсhedule.view
+package com.example.projectmaximummodule.ui.schedule.view
 
 import android.content.IntentFilter
 import android.os.Bundle
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.application.SelectGroupReceiver
 import com.example.projectmaximummodule.application.SelectGroupReceiver.Companion.GROUP_SELECTED
-import com.example.projectmaximummodule.ui.sсhedule.TimeTableViewModel
+import com.example.projectmaximummodule.ui.schedule.TimeTableViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_shedule.view.*
 

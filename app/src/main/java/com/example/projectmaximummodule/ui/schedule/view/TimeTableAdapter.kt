@@ -1,4 +1,4 @@
-package com.example.projectmaximummodule.ui.sсhedule.view
+package com.example.projectmaximummodule.ui.schedule.view
 
 import android.annotation.SuppressLint
 import android.app.Dialog

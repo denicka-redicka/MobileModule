@@ -1,4 +1,4 @@
-package com.example.projectmaximummodule.ui.sсhedule.view
+package com.example.projectmaximummodule.ui.schedule.view
 
 import android.view.LayoutInflater
 import android.view.View

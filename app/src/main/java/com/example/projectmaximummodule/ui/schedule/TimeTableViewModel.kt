@@ -1,4 +1,4 @@
-package com.example.projectmaximummodule.ui.sсhedule
+package com.example.projectmaximummodule.ui.schedule
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

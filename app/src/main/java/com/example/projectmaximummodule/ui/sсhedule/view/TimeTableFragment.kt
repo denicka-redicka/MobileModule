@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
@@ -19,14 +21,16 @@ class TimeTableFragment: Fragment(R.layout.fragment_shedule), SelectGroupReceive
 
     private val viewModel: TimeTableViewModel by viewModels()
     private lateinit var selectGroupReceiver: SelectGroupReceiver
+    private var navController: NavController? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        navController = findNavController()
+
         viewModel.lessonsLiveData.observe(viewLifecycleOwner) { lessons ->
             val adapter = TimeTableAdapter(
-                context,
                 lessons.items,
                 viewModel.teacher,
                 viewModel.statistics,
@@ -59,9 +63,9 @@ class TimeTableFragment: Fragment(R.layout.fragment_shedule), SelectGroupReceive
     }
 
     override fun onTheoryItemClicked(lessonId: Int) {
-//        val theoryTopicId = viewModel
-//        val bundle = Bundle()
-//        bundle.putInt("topic_id", )
-//        findNavController().navigate(R.id.action_timeTableFragment_to_theoryItemFragment)
+    }
+
+    override fun onDebtsItemClicked() {
+
     }
 }

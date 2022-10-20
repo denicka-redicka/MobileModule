@@ -29,7 +29,7 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
         curriculumSubjectId = arguments?.getLong(CURRICULUM_SUBJECT_ID) ?: -1
         parentLessonId = arguments?.getLong(LESSON_ID) ?: -1
 
-        val adapter = HomeworkExerciseAdapter()
+        val adapter = HomeworkExerciseAdapter(parentLessonId)
         view.itemsPageView.adapter = adapter
 
 

@@ -2,7 +2,6 @@ package com.example.projectmaximummodule.ui.sсhedule.view
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +28,6 @@ import kotlinx.android.synthetic.main.holder_todo.view.*
 import kotlin.IllegalArgumentException
 
 class TimeTableAdapter(
-    private val context: Context?,
     private val lessons: List<LessonsResponse.LessonResponse>,
     private val teacher: TeacherResponse,
     private val statistics: GroupStatisticsResponse,
@@ -41,6 +39,7 @@ class TimeTableAdapter(
     interface OnToDoClickListener {
 
         fun onTheoryItemClicked(id: Int)
+        fun onDebtsItemClicked()
     }
 
     private companion object {
@@ -286,6 +285,9 @@ class TimeTableAdapter(
                         practice.visibility = View.VISIBLE
                         practice.resolveCount.text =
                             context?.getString(R.string.lefted_exercise, toDoItem.getResolveCount())
+                        practice.setOnClickListener {
+                            onToDoClickListener.onDebtsItemClicked()
+                        }
                     }
                 }
             }

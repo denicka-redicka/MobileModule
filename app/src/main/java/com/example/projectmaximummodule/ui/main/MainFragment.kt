@@ -19,21 +19,25 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 @AndroidEntryPoint
-class MainFragment: Fragment(R.layout.fragment_main), AdapterView.OnItemSelectedListener, NavController.OnDestinationChangedListener {
+class MainFragment: Fragment(R.layout.fragment_main), AdapterView.OnItemSelectedListener,
+    NavController.OnDestinationChangedListener {
 
     private val viewModel: MainViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navController = (childFragmentManager.findFragmentById(R.id.mainContainerView) as NavHostFragment).navController
+        val navController =
+            (childFragmentManager.findFragmentById(R.id.mainContainerView) as NavHostFragment).navController
+        navController.addOnDestinationChangedListener(this)
         view.bottomNavigation.setupWithNavController(navController)
 
         viewModel.groupsLiveData.observe(viewLifecycleOwner) { groups ->
             val groupsTitles = groups.map { response ->
                 response.title
             }
-            view.groupsPicker.adapter =  ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, groupsTitles)
+            view.groupsPicker.adapter =
+                ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, groupsTitles)
         }
 
         view.groupsPicker.onItemSelectedListener = this
@@ -57,8 +61,13 @@ class MainFragment: Fragment(R.layout.fragment_main), AdapterView.OnItemSelected
         destination: NavDestination,
         arguments: Bundle?
     ) {
-        if (destination.id == R.id.homeworkItemFragment) {
+        if (bottomNavigation.visibility == View.VISIBLE && destination.id == R.id.homeworkItemFragment) {
             bottomNavigation.visibility = View.GONE
+            topLayout.visibility = View.GONE
+
+        } else if (bottomNavigation.visibility == View.GONE) {
+            bottomNavigation.visibility = View.VISIBLE
+            topLayout.visibility = View.VISIBLE
         }
     }
 }

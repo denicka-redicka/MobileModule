@@ -7,4 +7,5 @@ data class TestAnswerRequest (
     val answer: List<String>,
     val lessonId: Long,
     val spentTime: Int,
+    val attaches: List<AttachesRequest>
 )

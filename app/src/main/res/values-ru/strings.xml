@@ -3,76 +3,74 @@
     <string name="app_name">Maximum Education</string>
 
     <string name="login_text">Login</string>
-    <string name="main_text">Main</string>
-    <string name="splash_text">Splash</string>
-    <string name="login_input_text">Email or phone number</string>
-    <string name="password_input_text">Password</string>
-    <string name="forgot_password">Forgot password?</string>
-    <string name="restore_password">Restore password</string>
-    <string name="new_user">New user?</string>
-    <string name="create_account">Create account</string>
-    <string name="change">Change</string>
-    <string name="more_details">More details</string>
-    <string name="practice">Practice</string>
-    <string name="video">Video</string>
-    <string name="theory">Theory</string>
-    <string name="Settings">Settings</string>
-    <string name="AccountSettings">Account Settings</string>
-    <string name="messages">Messages</string>
-    <string name="soon_there_will_be_messages_from_you_classmates_and_teachers">Soon there will be messages from you classmates and teachers.</string>
-    <string name="your_teacher">Your teacher</string>
-    <string name="message">Write message</string>
-    <string name="your_score_on_the_course">Your score on the course</string>
-    <string name="points">points</string>
+    <string name="login_input_text">Телефон или E-mail</string>
+    <string name="password_input_text">Пароль</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="restore_password">Восстановить пароль</string>
+    <string name="new_user">Новый пользователь?</string>
+    <string name="create_account">Зарегистрироваться</string>
+    <string name="change">Изменить</string>
+    <string name="more_details">Подробнее</string>
+    <string name="practice">Практика</string>
+    <string name="video">Видео</string>
+    <string name="theory">Теория</string>
+    <string name="Settings">Настройки</string>
+    <string name="AccountSettings">Настройки аккаунта</string>
+    <string name="messages">Сообщения</string>
+    <string name="soon_there_will_be_messages_from_you_classmates_and_teachers">Скоро здесь появятся сообщения от преподавателя и твоих одногруппников</string>
+    <string name="your_teacher">Твой преподаватель</string>
+    <string name="message">В приложении</string>
+    <string name="your_score_on_the_course">Ты набрал на курсе</string>
+    <string name="points">баллов</string>
 
     <!--    ToDoList Strings-->
-    <string name="repeat">Repeat</string>
-    <string name="prepare">Prepare</string>
-    <string name="solved">Solved</string>
-    <string name="lessons_number">Lesson $n</string>
-    <string name="done_exercise">Done %1$d from %2$d</string>
-    <string name="done_theory">Theory %1$d from %2$d</string>
-    <string name="connect">Connect</string>
-    <string name="online_lesson">Online-lesson</string>
-    <string name="corrected_mistakes">Correct %1$d from %2$d</string>
-    <string name="correct_mistakes">Correct mistakes</string>
-    <string name="lefted_exercise">Left to resolve %1$d</string>
+    <string name="repeat">Закрепить</string>
+    <string name="prepare">Подготовиться</string>
+    <string name="solved">Решено</string>
+    <string name="lessons_number">Урок $n</string>
+    <string name="done_exercise">Выполнено %1$d из %2$d</string>
+    <string name="done_theory">Теории %1$d из %2$d</string>
+    <string name="connect">Подключиться</string>
+    <string name="online_lesson">Онлайн-урок</string>
+    <string name="corrected_mistakes">Отработано %1$d из %2$d</string>
+    <string name="correct_mistakes">Исправление ошибок</string>
+    <string name="lefted_exercise">Осталось заданий %1$d</string>
 
     <!--    Lessons Strings-->
-    <string name="lessons">Lessons:</string>
-    <string name="address_line_with_subway">Address: subway: %1$s, %2$s</string>
-    <string name="address_line">Address: %1$s</string>
-    <string name="text_progress">Progress: %1$d</string>
-    <string name="visit">Visit</string>
-    <string name="not_visit">Not visit</string>
-    <string name="webinar">Webinar</string>
-    <string name="offline">Offline lesson</string>
+    <string name="lessons">Урок:</string>
+    <string name="address_line_with_subway">Адресс: метро: %1$s, %2$s</string>
+    <string name="address_line">Адресс: %1$s</string>
+    <string name="text_progress">Прогресс: %1$d</string>
+    <string name="visit">Посмотрел</string>
+    <string name="not_visit">Не посмотрел</string>
+    <string name="webinar">Вебинар</string>
+    <string name="offline">Занятие в классе</string>
 
     <!--    Stats dialog-->
-    <string name="your_progress">Your progress - %1$d</string>
-    <string name="exercises_stats_text">Exercises:</string>
-    <string name="theory_stats_text">Theory:</string>
-    <string name="video_stats_text">Videos:</string>
-    <string name="lessons_stats_text">Lessons:</string>
-    <string name="items_count">%1$d from %2$d</string>
-    <string name="done_button_text">Done</string>
+    <string name="your_progress">Твой прогресс - %1$d</string>
+    <string name="exercises_stats_text">Заданий:</string>
+    <string name="theory_stats_text">Теории:</string>
+    <string name="video_stats_text">Видео:</string>
+    <string name="lessons_stats_text">Посещения:</string>
+    <string name="items_count">%1$d из %2$d</string>
+    <string name="done_button_text">Готов</string>
 
     <!--    AllTheoryList-->
-    <string name="lesson_header_text">Lesson: %1$s</string>
+    <string name="lesson_header_text">Урок: %1$s</string>
 
     <!--    Profile Screen-->
-    <string name="your_score">Your score on the course</string>
-    <string name="scores">scores</string>
-    <string name="your_ranked">You are ranked %1$dth in the group</string>
+    <string name="your_score">Ты набрал на курсе</string>
+    <string name="scores">баллов</string>
+    <string name="your_ranked">Ты занимаешь %1$d место в группе</string>
 
     <!--    Homework Screen-->
-    <string name="practice_debts">Practice debts</string>
-    <string name="push_and_close_debts">We need to push and close all the debts, and then you can watch TikTok.</string>
-    <string name="total_debts">Total debts</string>
-    <string name="exercise_title">Homework exercise (from %1$d)</string>
-    <string name="tries_count_text">You have %1$d try</string>
-    <string name="answer">ANSWER</string>
-    <string name="error">Error?</string>
-    <string name="show_results_button_text">Show results</string>
-    <string name="add_file">Add file</string>
+    <string name="practice_debts">Долги по практике</string>
+    <string name="push_and_close_debts">Надо поднажать и закрыть все долги, а потом можно и TikTok посмотреть.</string>
+    <string name="total_debts">Всего долгов</string>
+    <string name="exercise_title">Домашнее задание (из %1$d)</string>
+    <string name="tries_count_text">Осталось %1$d попытки</string>
+    <string name="answer">ОТВЕТИТЬ</string>
+    <string name="error">Ошибка?</string>
+    <string name="show_results_button_text">Резульаты</string>
+    <string name="add_file">+ Файл</string>
 </resources>

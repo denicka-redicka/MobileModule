@@ -2,8 +2,6 @@
     <string name="app_name">Maximum Education</string>
 
     <string name="login_text">Login</string>
-    <string name="main_text">Main</string>
-    <string name="splash_text">Splash</string>
     <string name="login_input_text">Email or phone number</string>
     <string name="password_input_text">Password</string>
     <string name="forgot_password">Forgot password?</string>

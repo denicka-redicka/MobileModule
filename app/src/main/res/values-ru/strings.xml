@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Maximum Education</string>
 
-    <string name="login_text">Login</string>
+    <string name="login_text">Войти</string>
     <string name="login_input_text">Телефон или E-mail</string>
     <string name="password_input_text">Пароль</string>
     <string name="forgot_password">Забыли пароль?</string>
@@ -53,7 +53,7 @@
     <string name="video_stats_text">Видео:</string>
     <string name="lessons_stats_text">Посещения:</string>
     <string name="items_count">%1$d из %2$d</string>
-    <string name="done_button_text">Готов</string>
+    <string name="done_button_text">Готово</string>
 
     <!--    AllTheoryList-->
     <string name="lesson_header_text">Урок: %1$s</string>
@@ -69,6 +69,7 @@
     <string name="total_debts">Всего долгов</string>
     <string name="exercise_title">Домашнее задание (из %1$d)</string>
     <string name="tries_count_text">Осталось %1$d попытки</string>
+    <string name="no_tries_left">Не осталось попыток</string>
     <string name="answer">ОТВЕТИТЬ</string>
     <string name="error">Ошибка?</string>
     <string name="show_results_button_text">Резульаты</string>

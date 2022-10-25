@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_margin="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="2dp"
         android:background="@drawable/super_rect"
-        android:elevation="4dp"
-        android:layout_margin="2dp">
-        
+        android:elevation="4dp">
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineStart"
             android:layout_width="0dp"
@@ -29,114 +29,126 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintGuide_end="12dp" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@id/exerciseTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintBottom_toBottomOf="@id/exerciseNumber"
-        tools:text="Homework exercise (from 15)"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@id/exerciseTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/exerciseNumber"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Homework exercise (from 15)" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/exerciseNumber"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:background="@drawable/border"
-        android:paddingVertical="4dp"
-        android:paddingHorizontal="8dp"
-        android:layout_marginHorizontal="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/exerciseTitle"
-        android:layout_marginTop="8dp"
-        tools:text="1"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/exerciseNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/border"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/exerciseTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1" />
 
-        <Chronometer
+        <com.example.projectmaximummodule.ui.customview.Timer
             android:id="@+id/chronometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/exerciseTitle"
+            android:background="@drawable/gray_rect"
+            android:paddingHorizontal="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="6dp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/exerciseTitle"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/exerciseNumber"
-            android:background="@drawable/gray_rect"
-            android:textSize="16sp"
-            android:paddingHorizontal="8dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="6dp"/>
+            app:layout_constraintTop_toTopOf="@id/exerciseTitle" />
 
-    <WebView
-        android:id="@+id/questionLayout"
-        android:layout_width="0dp"
-        android:background="@color/white"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/exerciseNumber"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-        android:layout_marginVertical="8dp"
-        tools:ignore="WebViewLayout" />
+        <WebView
+            android:id="@+id/questionLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/exerciseNumber"
+            tools:ignore="WebViewLayout" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/answerInputsList"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/questionLayout"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/answerInputsList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/questionLayout" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/answerButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/answer"
-        app:layout_constraintTop_toBottomOf="@id/answerInputsList"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/white"
-        app:cornerRadius="60dp"
-        android:backgroundTint="@color/orange"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/answerButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/main_button_state_colors"
+            android:text="@string/answer"
+            android:textColor="@color/white"
+            app:cornerRadius="60dp"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/answerInputsList" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/triesCount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        tools:text="You have 3 try"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/answerButton"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/triesCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/answerButton"
+            tools:text="You have 3 try" />
 
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/errorButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="8dp"
-        android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/white"
-        android:elevation="6dp"
-        app:rippleColor="@color/border_gray"
-        android:drawableLeft="@drawable/ic_mistakes_button"
-        android:text="@string/error"
-        android:textColor="@color/button_blue"
-        android:textSize="12sp"
-        app:cornerRadius="60dp"
-        app:layout_constraintEnd_toStartOf="@id/solutionButton"
-        app:layout_constraintTop_toBottomOf="@id/triesCount"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/errorButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/ic_mistakes_button"
+            android:elevation="6dp"
+            android:text="@string/error"
+            android:textColor="@color/button_blue"
+            android:textSize="12sp"
+            app:cornerRadius="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/solutionButton"
+            app:layout_constraintTop_toBottomOf="@id/triesCount"
+            app:rippleColor="@color/border_gray" />
 
-    <ImageButton
-        android:id="@+id/solutionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_solution"
-        app:layout_constraintBottom_toBottomOf="@id/errorButton"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-        app:layout_constraintTop_toTopOf="@id/errorButton" />
+        <ImageButton
+            android:id="@+id/solutionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_solution"
+            app:layout_constraintBottom_toBottomOf="@id/errorButton"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintTop_toTopOf="@id/errorButton" />
+
+        <ImageButton
+            android:id="@+id/retryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_retry"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/errorButton"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toTopOf="@id/errorButton" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

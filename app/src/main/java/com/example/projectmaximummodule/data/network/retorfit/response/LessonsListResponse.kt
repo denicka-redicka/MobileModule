@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @Serializable
-data class LessonsResponse(
+data class LessonsListResponse(
     val items: List<LessonResponse>,
     val nextItemsCount: Int,
     val previousItemsCount: Int

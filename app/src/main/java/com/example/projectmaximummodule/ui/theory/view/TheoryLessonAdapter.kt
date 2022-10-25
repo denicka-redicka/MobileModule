@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
-import com.example.projectmaximummodule.data.network.retorfit.response.LessonsResponse
+import com.example.projectmaximummodule.data.network.retorfit.response.LessonsListResponse
 import kotlinx.android.synthetic.main.holder_theory_lesson.view.*
 
 class TheoryLessonAdapter(
-    private val lessonsList: List<LessonsResponse.LessonResponse>,
+    private val lessonsList: List<LessonsListResponse.LessonResponse>,
     private val onTopicItemListener: (topicId: Int) -> Unit
 ) : RecyclerView.Adapter<TheoryLessonAdapter.TheoryLessonViewHolder>() {
 
@@ -38,7 +38,7 @@ class TheoryLessonAdapter(
         private val topicsList = view.theoryTopicsList
         private val adapter = TheoryTopicsAdapter(onTopicItemListener)
 
-        fun bind(lesson: LessonsResponse.LessonResponse) {
+        fun bind(lesson: LessonsListResponse.LessonResponse) {
             lessonHeader.text = lesson.title
             timeStamp.text = "${lesson.getDateString()} ${lesson.getTiming()}"
 

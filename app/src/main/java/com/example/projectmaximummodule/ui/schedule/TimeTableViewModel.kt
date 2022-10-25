@@ -18,8 +18,8 @@ class TimeTableViewModel @Inject constructor (
 
     private var groupId = prefs.getGroupId()
 
-    private val lessonsMutableLiveData = MutableLiveData<LessonsResponse>()
-    val lessonsLiveData: LiveData<LessonsResponse> = lessonsMutableLiveData
+    private val lessonsMutableLiveData = MutableLiveData<LessonsListResponse>()
+    val lessonsLiveData: LiveData<LessonsListResponse> = lessonsMutableLiveData
 
     var toDoList: List<ToDoResponse>? = null
 

@@ -5,9 +5,9 @@ import android.view.View
 import android.widget.ArrayAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.projectmaximummodule.application.AppSharedPreferences
 import com.example.projectmaximummodule.application.BaseViewModel
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
+import com.example.projectmaximummodule.data.network.retorfit.request.TestAnswerRequest
 import com.example.projectmaximummodule.data.network.retorfit.response.HomeworkCurriculumSubjectResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.TestResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.TreeResponse
@@ -18,8 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeworkItemViewModel @Inject constructor(
-    private val api: MainApiService,
-    private val prefs: AppSharedPreferences
+    private val api: MainApiService
 ) : BaseViewModel() {
 
     companion object {
@@ -36,7 +35,8 @@ class HomeworkItemViewModel @Inject constructor(
 
     private var homeworkTitle = ""
     private var type = ""
-    var knowledgeBaseList: List<TreeResponse.KnowledgeBaseInfo> = listOf()
+    private var knowledgeBaseList: List<TreeResponse.KnowledgeBaseInfo> = listOf()
+    private var tests: List<TestResponse> = listOf()
 
     fun fetchHomeworksItems(id: Long) {
         if (id != -1L) {
@@ -64,7 +64,7 @@ class HomeworkItemViewModel @Inject constructor(
 
     fun fetchTestsList(id: Long, position: Int) {
         coroutineScope.launch {
-            val tests = api.getTests(id, knowledgeBaseList[position].id, type)
+            tests = api.getTests(id, knowledgeBaseList[position].id, type)
             mutableTestLiveData.postValue(tests)
         }
     }
@@ -77,5 +77,15 @@ class HomeworkItemViewModel @Inject constructor(
         val adapter = ArrayAdapter(view.context, R.layout.simple_list_item_1, knowledgeBaseTitles)
         view.subjectsPicker.adapter = adapter
 
+    }
+
+    fun sendAnswer(answer: TestAnswerRequest, lessonId: Long, testId: Int) {
+        coroutineScope.launch {
+            val answer = api.sendAnswer(answer, lessonId, testId)
+            tests.forEach { test ->
+                if (test.id == testId) test.studentTestResult = answer
+            }
+            mutableTestLiveData.postValue(tests)
+        }
     }
 }

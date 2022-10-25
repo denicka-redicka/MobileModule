@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.projectmaximummodule.application.AppSharedPreferences
 import com.example.projectmaximummodule.application.BaseViewModel
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
-import com.example.projectmaximummodule.data.network.retorfit.response.LessonsResponse
+import com.example.projectmaximummodule.data.network.retorfit.response.LessonsListResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,9 +22,9 @@ class TheoryViewModel @Inject constructor(
 
     private var groupId = -1L
 
-    private val mutableTheoryLiveData = MutableLiveData<List<LessonsResponse.LessonResponse>>()
+    private val mutableTheoryLiveData = MutableLiveData<List<LessonsListResponse.LessonResponse>>()
 
-    val theoryLiveData: LiveData<List<LessonsResponse.LessonResponse>> = mutableTheoryLiveData
+    val theoryLiveData: LiveData<List<LessonsListResponse.LessonResponse>> = mutableTheoryLiveData
 
     fun getAllTheory() {
         val idFromPrefs = prefs.getGroupId()

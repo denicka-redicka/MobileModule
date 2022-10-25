@@ -14,8 +14,7 @@
         android:textSize="16sp"
         android:padding="8dp"
         android:layout_margin="2dp"
-        android:background="@drawable/border"
-        />
+        android:background="@drawable/border" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

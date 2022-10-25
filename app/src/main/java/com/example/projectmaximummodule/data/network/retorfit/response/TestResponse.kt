@@ -3,7 +3,7 @@ package com.example.projectmaximummodule.data.network.retorfit.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TestResponse (
+data class TestResponse(
     val id: Int,
     val attemptsCountLeft: Int? = null,
     val maxPoints: Int,
@@ -11,5 +11,6 @@ data class TestResponse (
     val solution: String? = null,
     val educationTestFileId: Int,
     val educationTestAnswers: List<EducationTestAnswerResponse>,
-    val type: String
+    val type: String,
+    var studentTestResult: AnswerResultResponse?
     )

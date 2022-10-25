@@ -5,20 +5,26 @@ data class AnswerResultResponse(
     val addRightAnswerBeforeShowSolution: Boolean?,
     //val additional: null,
     //val attaches: List,
-    //val answer: List<>,
+    val answer: List<AnswerValueResponse>,
     val attemptsCount: Int,
     val educationSubjectId: Long,
     val educationSubjectType: String,
     val educationTestId: Long,
-    val endDate: Long,
-    val examLessonId: Long,
+    val endDate: Long?,
+    val examLessonId: Long?,
     val id: Long,
     val percent: Int,
     val points: String,
     val result: String,
-    val showSolution: Boolean,
+    val showSolution: Boolean?,
     val spentTime: Int,
     val studentId: Long,
     //val teacherComment: null,
     //val teacherFeedback:
-)
+) {
+    @kotlinx.serialization.Serializable
+    data class AnswerValueResponse(
+        val value: String?,
+        val result: Boolean
+    )
+}

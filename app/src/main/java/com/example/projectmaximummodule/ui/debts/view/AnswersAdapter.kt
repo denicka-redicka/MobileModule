@@ -19,13 +19,16 @@ class AnswersAdapter(
 
     private var selectedPosition = -1
 
-    val studentAnswers: List<String>
-        get() = when (type) {
-            "type1" -> listOf(answersVariants[selectedPosition].id.toString())
-            "type2" -> answersVariants.filter { it.isSelected }.map { it.id.toString() }
-            "type6" -> listOf()
-            else -> answersVariants.map { it.inputAnswer }
-        }
+    var studentAnswers: List<String> = listOf()
+
+    var result: Boolean? = null
+
+    fun getAnswers(): List<String> = when (type) {
+        "type1" -> listOf(answersVariants[selectedPosition].id.toString())
+        "type2" -> answersVariants.filter { it.isSelected }.map { it.id.toString() }
+        "type6" -> listOf()
+        else -> answersVariants.map { it.inputAnswer }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -78,6 +81,14 @@ class AnswersAdapter(
         private val answerDescription = view.answerDescription
 
         fun bind(variant: EducationTestAnswerResponse, position: Int) {
+            result?.let {
+                if (studentAnswers.isNotEmpty() && studentAnswers[0] == variant.id.toString()) {
+                    selectedPosition = position
+                }
+                if (layoutPosition == selectedPosition) {
+                }
+                radioButton.isEnabled = false
+            }
             radioButton.isChecked = position == selectedPosition
 
             answerDescription.loadData(variant.variants[0], "text/html", "UTF-8")
@@ -98,6 +109,9 @@ class AnswersAdapter(
         private val answerDescription = view.answerCheckboxDescription
 
         fun bind(variant: EducationTestAnswerResponse) {
+            if (studentAnswers.isNotEmpty()) {
+                checkbox.isChecked = studentAnswers.contains(variant.id.toString())
+            }
 
             answerDescription.loadData(variant.variants[0], "text/html", "UTF-8")
 
@@ -107,10 +121,20 @@ class AnswersAdapter(
         }
     }
 
-    inner class InputTextViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class InputTextViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         private val inputAnswerEditText = view.answerInputText
 
         fun bind(variant: EducationTestAnswerResponse) {
+            if (studentAnswers.isNotEmpty()) {
+                inputAnswerEditText.setText(studentAnswers[layoutPosition])
+            }
+
+            result?.let {
+                inputAnswerEditText.background =
+                    view.context.getDrawable(if (it) R.drawable.border_right_answer else R.drawable.border_wrong_answer)
+                inputAnswerEditText.isEnabled = false
+            }
+
             inputAnswerEditText.doOnTextChanged { text, start, before, count ->
                 variant.inputAnswer = text.toString()
             }
@@ -123,6 +147,10 @@ class AnswersAdapter(
         private val addFileButton = view.addFileButton
 
         fun bind() {
+            if (studentAnswers.isNotEmpty()) {
+                inputAnswerEditText.setText(studentAnswers[0])
+            }
+
             inputAnswerEditText.doOnTextChanged { text, start, before, count ->
             }
         }

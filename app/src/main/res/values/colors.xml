@@ -28,4 +28,6 @@
     <color name="connected_green">#4CAF50</color>
     <color name="disconnected_red">#ff5e62</color>
 
+    <color name="right_answer">#A3A4D16C</color>
+    <color name="wrong_answer">#A3EF777A</color>
 </resources>

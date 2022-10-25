@@ -24,7 +24,7 @@ interface MainApiService {
 
     //Schedule
     @GET("schedule/student/schedule/groups/{id}/lessons")
-    suspend fun getLessons(@Path("id") groupId: Long): LessonsResponse
+    suspend fun getLessons(@Path("id") groupId: Long): LessonsListResponse
 
     @GET("schedule/student/schedule/groups/{id}/todolist")
     suspend fun getToDoList(@Path("id") groupId: Long): List<ToDoResponse>
@@ -71,5 +71,5 @@ interface MainApiService {
     suspend fun getLessonsListWithType(
         @Path("id") id: Long,
         @Query("lessonType") lessonType: String
-    ): LessonsResponse
+    ): LessonsListResponse
 }

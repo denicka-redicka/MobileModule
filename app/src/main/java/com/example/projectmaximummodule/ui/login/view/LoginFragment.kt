@@ -48,7 +48,6 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
 
         loginButton.setOnClickListener {
             it.isEnabled = false
-            it.backgroundTintMode = PorterDuff.Mode.DARKEN
             hideKeyboard()
             val inputUser = LoginRequest(
                 loginInputText.text.toString(),

@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.holder_todo.view.*
 import kotlin.IllegalArgumentException
 
 class TimeTableAdapter(
-    private val lessons: List<LessonsResponse.LessonResponse>,
+    private val lessons: List<LessonsListResponse.LessonResponse>,
     private val teacher: TeacherResponse,
     private val statistics: GroupStatisticsResponse,
     private val toDoList: List<ToDoResponse>?,
@@ -108,7 +108,7 @@ class TimeTableAdapter(
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
-        fun bind(lesson: LessonsResponse.LessonResponse) {
+        fun bind(lesson: LessonsListResponse.LessonResponse) {
             header.text = lesson.title
             address.text = when {
                 lesson.lessonType == WEBINAR -> ""

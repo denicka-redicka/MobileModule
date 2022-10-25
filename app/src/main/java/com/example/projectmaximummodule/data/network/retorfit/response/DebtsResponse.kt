@@ -38,7 +38,7 @@ data class DebtsResponse(
 
     val debtsItems: MutableList<DebtsItems> = mutableListOf()
 
-    fun addDebtsLessons(lesson: DebtsLessonResponse) {
+    fun addDebtsItem(lesson: DebtsLessonResponse) {
         val item = DebtsItems(
             lessonId = lesson.id,
             curriculumSubjectId = null,

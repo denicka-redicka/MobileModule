@@ -21,7 +21,6 @@ class HomeworkViewModel @Inject constructor(
     }
 
     private val mutableDebtsLiveData = MutableLiveData<DebtsResponse>()
-
     val debtsLiveData: LiveData<DebtsResponse> = mutableDebtsLiveData
 
     private var groupId = -1L
@@ -35,10 +34,8 @@ class HomeworkViewModel @Inject constructor(
                 val debts = api.getDebts(groupId)
 
                 lessonWithPractice.items.forEach { lessonWithPractice ->
-                    val lesson = debts.lessons[lessonWithPractice.id]
-                    lesson?.let {
-                        debts.addDebtsLessons(it)
-                    }
+                    val lesson = debts.lessons[lessonWithPractice.id]?: return@forEach
+                    debts.addDebtsItem(lesson)
                 }
                 mutableDebtsLiveData.postValue(debts)
             }

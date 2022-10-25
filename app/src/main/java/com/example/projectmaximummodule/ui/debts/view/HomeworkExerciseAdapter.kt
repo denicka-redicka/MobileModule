@@ -72,17 +72,19 @@ class HomeworkExerciseAdapter(
 
             solution.visibility = if (test.studentTestResult?.showSolution == true) View.VISIBLE else View.GONE
             solutionButton.visibility = if (test.studentTestResult?.showSolution == true) View.GONE else View.VISIBLE
+            retryButton.visibility = if (test.studentTestResult?.showSolution == true) View.GONE else View.VISIBLE
+
             if (solution.visibility == View.VISIBLE)
                 solution.solutionView.loadData(test.solution?: "", "text/html", "UTF-8")
 
             val adapter = AnswersAdapter(test.educationTestAnswers, test.type)
-
-            test.studentTestResult?.let { result -> //Result != null
-                testChronometer.setSpentTime(result.spentTime)
+            val studentResult = test.studentTestResult
+            if (studentResult != null) {  //Result != null
+                testChronometer.setSpentTime(studentResult.spentTime)
                 //If student showed solution displaying right answer
-                if (result.showSolution != true) {
-                    adapter.studentAnswers = result.answer.map { it.value ?: "" }
-                    adapter.result = result.result.toBoolean()
+                if (studentResult.showSolution != true) {
+                    adapter.studentAnswers = studentResult.answer.map { it.value ?: "" }
+                    adapter.result = studentResult.result.toBoolean()
                 } else {
                     //Otherwise displaying student's answer
                     adapter.studentAnswers = test.educationTestAnswers.map { it.variants[0] }
@@ -118,7 +120,7 @@ class HomeworkExerciseAdapter(
                     ShowSolutionRequest(
                         lessonId,
                         testChronometer.getTimeCount(),
-                        true
+                        showSolution = true
                     ), test.id
                 )
                 if (test.studentTestResult?.addRightAnswerBeforeShowSolution != true) {

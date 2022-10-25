@@ -34,7 +34,7 @@ class MainFragment: Fragment(R.layout.fragment_main), AdapterView.OnItemSelected
 
         viewModel.groupsLiveData.observe(viewLifecycleOwner) { groups ->
             val groupsTitles = groups.map { response ->
-                response.title
+                response.educationCourse.title
             }
             view.groupsPicker.adapter =
                 ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, groupsTitles)

@@ -69,8 +69,10 @@
     <string name="exercise_title">Homework exercise (from %1$d)</string>
     <string name="tries_count_text">You have %1$d try</string>
     <string name="no_tries_left">No tries are left</string>
+    <string name="showed_solution">You have seen the solution</string>
     <string name="answer">ANSWER</string>
     <string name="error">Error?</string>
     <string name="show_results_button_text">Show results</string>
     <string name="add_file">Add file</string>
+    <string name="solution_steps">Solution steps</string>
 </resources>

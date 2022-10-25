@@ -6,6 +6,7 @@ import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.projectmaximummodule.R
+import com.example.projectmaximummodule.data.network.retorfit.request.ShowSolutionRequest
 import com.example.projectmaximummodule.data.network.retorfit.request.TestAnswerRequest
 import com.example.projectmaximummodule.ui.debts.HomeworkItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_homework_items.view.*
 
 @AndroidEntryPoint
 class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
-    AdapterView.OnItemSelectedListener, HomeworkExerciseAdapter.OnAnswerButtonListener {
+    AdapterView.OnItemSelectedListener, HomeworkExerciseAdapter.OnButtonsClickListener {
 
     private val viewModel: HomeworkItemViewModel by viewModels()
     private var curriculumSubjectId = -1L
@@ -62,8 +63,12 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
     override fun onNothingSelected(view: AdapterView<*>?) {
     }
 
-    override fun onClick(answer: TestAnswerRequest, testId: Int, exercisePosition: Int) {
+    override fun onAnswerButtonClick(answer: TestAnswerRequest, testId: Int, exercisePosition: Int) {
         currentExercisePosition = exercisePosition
         viewModel.sendAnswer(answer, curriculumSubjectId, testId)
+    }
+
+    override fun onSolutionButtonClick(answer: ShowSolutionRequest, testId: Int) {
+        viewModel.sendShowSolution(answer, curriculumSubjectId, testId)
     }
 }

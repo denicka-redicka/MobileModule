@@ -73,7 +73,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
-            android:background="@color/white"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/exerciseNumber"
@@ -88,6 +87,32 @@
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/questionLayout" />
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/solutionLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="8dp"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/answerInputsList">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/light_gray"
+                android:text="@string/solution_steps"/>
+
+            <WebView
+                android:id="@+id/solutionView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                tools:ignore="WebViewLayout" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/answerButton"
             android:layout_width="0dp"
@@ -99,7 +124,7 @@
             app:cornerRadius="60dp"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/answerInputsList" />
+            app:layout_constraintTop_toBottomOf="@id/solutionLayout" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/triesCount"

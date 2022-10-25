@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.projectmaximummodule.application.BaseViewModel
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
+import com.example.projectmaximummodule.data.network.retorfit.request.ShowSolutionRequest
 import com.example.projectmaximummodule.data.network.retorfit.request.TestAnswerRequest
 import com.example.projectmaximummodule.data.network.retorfit.response.HomeworkCurriculumSubjectResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.TestResponse
@@ -86,6 +87,12 @@ class HomeworkItemViewModel @Inject constructor(
                 if (test.id == testId) test.studentTestResult = answer
             }
             mutableTestLiveData.postValue(tests)
+        }
+    }
+
+    fun sendShowSolution(answer: ShowSolutionRequest, lessonId: Long, testId: Int) {
+        coroutineScope.launch {
+            api.sendShowSolution(answer, lessonId, testId)
         }
     }
 }

@@ -70,8 +70,10 @@
     <string name="exercise_title">Домашнее задание (из %1$d)</string>
     <string name="tries_count_text">Осталось %1$d попытки</string>
     <string name="no_tries_left">Не осталось попыток</string>
+    <string name="showed_solution">Вы посмотрели ответ</string>
     <string name="answer">ОТВЕТИТЬ</string>
     <string name="error">Ошибка?</string>
     <string name="show_results_button_text">Резульаты</string>
     <string name="add_file">+ Файл</string>
+    <string name="solution_steps">Ход решения</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.projectmaximummodule.data.network.retorfit
 
 import com.example.projectmaximummodule.data.network.retorfit.request.OauthRequest
+import com.example.projectmaximummodule.data.network.retorfit.request.ShowSolutionRequest
 import com.example.projectmaximummodule.data.network.retorfit.request.TestAnswerRequest
 import com.example.projectmaximummodule.data.network.retorfit.response.*
 import retrofit2.http.Body
@@ -52,6 +53,13 @@ interface MainApiService {
         @Path("lesson_id") lessonId: Long,
         @Path("test_id") testId: Int
     ): AnswerResultResponse
+
+    @POST("content/practice/curriculumsubject/{lesson_id}/tests/{test_id}")
+    suspend fun sendShowSolution(
+        @Body answer: ShowSolutionRequest,
+        @Path("lesson_id") lessonId: Long,
+        @Path("test_id") testId: Int
+    )
 
     //Profile
     @GET("profile/external/auth/me")

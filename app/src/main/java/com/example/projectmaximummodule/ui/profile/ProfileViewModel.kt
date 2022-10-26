@@ -49,6 +49,10 @@ class ProfileViewModel @Inject constructor(
         }
 
         view.statsLayout.visibility = if(user.role == "student") View.VISIBLE else View.GONE
+
+        view.changeButton.setOnClickListener {
+            clearToken()
+        }
     }
 
     fun updateShortList() {
@@ -92,5 +96,9 @@ class ProfileViewModel @Inject constructor(
 
         view.mySummary.text = list[3].summary.toString()
         view.rankedText.text = view.context.getString(R.string.your_ranked, list[3].position)
+    }
+
+    private fun clearToken() {
+        prefs.setAccessToken("")
     }
 }

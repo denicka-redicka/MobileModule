@@ -3,6 +3,7 @@ package com.example.projectmaximummodule.ui.debts.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
@@ -86,8 +87,11 @@ class AnswersAdapter(
                     selectedPosition = position
                 }
                 if (layoutPosition == selectedPosition) {
+
+                } else {
+                    radioButton.isEnabled = false
                 }
-                radioButton.isEnabled = false
+
             }
             radioButton.isChecked = position == selectedPosition
 
@@ -131,7 +135,7 @@ class AnswersAdapter(
 
             result?.let {
                 inputAnswerEditText.background =
-                    view.context.getDrawable(if (it) R.drawable.border_right_answer else R.drawable.border_wrong_answer)
+                    AppCompatResources.getDrawable(view.context, if (it) R.drawable.border_right_answer else R.drawable.border_wrong_answer)
                 inputAnswerEditText.isEnabled = false
             }
 

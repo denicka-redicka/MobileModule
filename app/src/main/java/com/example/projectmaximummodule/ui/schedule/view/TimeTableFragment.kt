@@ -1,6 +1,7 @@
 package com.example.projectmaximummodule.ui.schedule.view
 
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -17,7 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_shedule.view.*
 
 @AndroidEntryPoint
-class TimeTableFragment: Fragment(R.layout.fragment_shedule), SelectGroupReceiver.OnGroupSelectedListener, TimeTableAdapter.OnToDoClickListener {
+class TimeTableFragment: Fragment(R.layout.fragment_shedule), SelectGroupReceiver.OnGroupSelectedListener,
+    TimeTableAdapter.ClickListener {
 
     private val viewModel: TimeTableViewModel by viewModels()
     private lateinit var selectGroupReceiver: SelectGroupReceiver
@@ -62,10 +64,13 @@ class TimeTableFragment: Fragment(R.layout.fragment_shedule), SelectGroupReceive
         viewModel.setSelectedGroup(id)
     }
 
-    override fun onTheoryItemClicked(lessonId: Int) {
+    override fun onTheoryItemClicked(lessonId: Long) {
     }
 
     override fun onDebtsItemClicked() {
+    }
 
+    override fun onPracticeClicked(curriculumSubjectId: Long, lessonId: Long) {
+        navController?.navigate(Uri.parse("https://education.maximumtest.ru/lesson/$lessonId/subjects/$curriculumSubjectId/practice/kbs/"))
     }
 }

@@ -24,8 +24,8 @@ class HomeworkFragment : Fragment(R.layout.fragment_homework) {
 
         val adapter = HomeworkAdapter() { curriculumId, lessonId ->
             val bundle = Bundle()
-            bundle.putLong(CURRICULUM_SUBJECT_ID, curriculumId)
-            bundle.putLong(LESSON_ID, lessonId)
+            bundle.putString(CURRICULUM_SUBJECT_ID, curriculumId.toString())
+            bundle.putString(LESSON_ID, lessonId.toString())
             findNavController().navigate(R.id.action_homeworkFragment_to_homeworkItemFragment, bundle)
         }
         debtsList.adapter = adapter

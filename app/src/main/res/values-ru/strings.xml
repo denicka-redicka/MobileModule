@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">Maximum Education</string>
 
+    <!--    Bottom Navigation-->
+    <string name="shedule">Расписание</string>
+    <string name="profile">Профиль</string>
+
     <string name="login_text">Войти</string>
     <string name="login_input_text">Телефон или E-mail</string>
     <string name="password_input_text">Пароль</string>

@@ -1,10 +1,10 @@
 package com.example.projectmaximummodule.data.network.retorfit.response
 
-@kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class AnswerResultResponse(
     val addRightAnswerBeforeShowSolution: Boolean?,
-    //val additional: null,
-    //val attaches: List,
     val answer: List<AnswerValueResponse>,
     val attemptsCount: Int,
     val educationSubjectId: Long,
@@ -19,12 +19,14 @@ data class AnswerResultResponse(
     val showSolution: Boolean?,
     val spentTime: Int,
     val studentId: Long,
+    //val additional: null,
+    //val attaches: List,
     //val teacherComment: null,
     //val teacherFeedback:
 ) {
-    @kotlinx.serialization.Serializable
+    @Serializable
     data class AnswerValueResponse(
         val value: String?,
-        val result: Boolean
+        //val result: Boolean  <-- it may be Boolean or String from Backend
     )
 }

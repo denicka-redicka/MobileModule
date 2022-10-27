@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/timeTableFragment"
-        android:title="Time table"
+        android:title="@string/shedule"
         android:icon="@drawable/schedule_icon"/>
-    <item android:id="@+id/theoryNavigationGraph"
-        android:title="Theory"
+    <item android:id="@+id/theoryNavigation"
+        android:title="@string/theory"
         android:icon="@drawable/all_theory_icon"/>
-    <item android:id="@id/homeworkNavigationGraph"
-        android:title="Homework"
+    <item android:id="@id/homeworkNavigation"
+        android:title="@string/practice"
         android:icon="@drawable/debts_icon"/>
     <item android:id="@+id/chatsFragment"
-        android:title="Messenger"
+        android:title="@string/messages"
         android:icon="@drawable/chat_icon"/>
     <item android:id="@+id/profileFragment"
-        android:title="Profile"
+        android:title="@string/profile"
         android:icon="@drawable/profile_icon"/>
 
 

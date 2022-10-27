@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Maximum Education</string>
+    
+<!--    Bottom Navigation-->
+    <string name="shedule">Schedule</string>
+    <string name="profile">Profile</string>
 
     <string name="login_text">Login</string>
     <string name="login_input_text">Email or phone number</string>

@@ -10,7 +10,9 @@ import com.example.projectmaximummodule.data.network.retorfit.response.SubjectRe
 import kotlinx.android.synthetic.main.holder_topic.view.*
 
 class TopicAdapter (
-    private val topics: List<SubjectResponse>
+    private val parentId: Long,
+    private val topics: List<SubjectResponse>,
+    private val clickListener: TimeTableAdapter.ClickListener
     ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -25,7 +27,7 @@ class TopicAdapter (
         return topics.size
     }
 
-    private class TopicViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class TopicViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
         private val topicName: TextView = view.topicName
         private val theoryCount: TextView = view.theoryCountTxt
@@ -37,6 +39,9 @@ class TopicAdapter (
             theoryCount.text = "${topic.statistics.theory.all}"
             videoCount.text = "${topic.statistics.video.all}"
             practiceCount.text = "${topic.statistics.practice.all}"
+            practiceCount.setOnClickListener {
+                clickListener.onPracticeClicked(topic.id, parentId)
+            }
         }
     }
 }

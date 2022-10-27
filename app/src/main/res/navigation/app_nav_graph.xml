@@ -14,15 +14,8 @@
     <fragment
         android:id="@+id/timeTableFragment"
         android:name="com.example.projectmaximummodule.ui.schedule.view.TimeTableFragment"
-        android:label="TimeTableFragment" >
-        <action
-            android:id="@+id/action_timeTableFragment_to_theoryItemFragment"
-            app:destination="@id/theoryItemFragment" />
-        <action
-            android:id="@+id/action_timeTableFragment_to_homeworkItemFragment"
-            app:destination="@id/homeworkItemFragment" />
-    </fragment>
-    <navigation android:id="@+id/theoryNavigationGraph"
+        android:label="TimeTableFragment" />
+    <navigation android:id="@+id/theoryNavigation"
         app:startDestination="@id/theoryFragment">
         <fragment
             android:id="@+id/theoryFragment"
@@ -37,8 +30,16 @@
             android:name="com.example.projectmaximummodule.ui.theory.view.TheoryItemFragment"
             android:label="TheoryItemFragment" />
     </navigation>
-    <navigation android:id="@+id/homeworkNavigationGraph"
+    <navigation android:id="@+id/homeworkNavigation"
         app:startDestination="@id/homeworkFragment">
+        <fragment
+            android:id="@+id/homeworkItemFragment"
+            android:name="com.example.projectmaximummodule.ui.debts.view.HomeworkItemFragment"
+            android:label="HomeworkItemFragment">
+            <deepLink
+                android:id="@+id/deepLink"
+                app:uri="https://education.maximumtest.ru/lesson/{lesson_id}/subjects/{curriculum_subject_id}/practice/kbs/"/>
+        </fragment>
         <fragment
             android:id="@+id/homeworkFragment"
             android:name="com.example.projectmaximummodule.ui.debts.view.HomeworkFragment"
@@ -47,9 +48,5 @@
                 android:id="@+id/action_homeworkFragment_to_homeworkItemFragment"
                 app:destination="@id/homeworkItemFragment" />
         </fragment>
-        <fragment
-            android:id="@+id/homeworkItemFragment"
-            android:name="com.example.projectmaximummodule.ui.debts.view.HomeworkItemFragment"
-            android:label="HomeworkItemFragment" />
     </navigation>
 </navigation>

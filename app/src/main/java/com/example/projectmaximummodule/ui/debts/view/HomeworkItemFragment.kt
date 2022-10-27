@@ -29,8 +29,8 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        curriculumSubjectId = arguments?.getLong(CURRICULUM_SUBJECT_ID) ?: -1
-        parentLessonId = arguments?.getLong(LESSON_ID) ?: -1
+        curriculumSubjectId = arguments?.getString(CURRICULUM_SUBJECT_ID)?.toLong()?: -1
+        parentLessonId = arguments?.getString(LESSON_ID)?.toLong()?: -1
 
         val callBack = ExercisePageChangedCallback()
         val adapter = HomeworkExerciseAdapter(parentLessonId, this, callBack)

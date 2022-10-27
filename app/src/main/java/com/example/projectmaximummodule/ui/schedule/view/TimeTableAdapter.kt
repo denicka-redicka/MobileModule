@@ -32,14 +32,15 @@ class TimeTableAdapter(
     private val teacher: TeacherResponse,
     private val statistics: GroupStatisticsResponse,
     private val toDoList: List<ToDoResponse>?,
-    private val onToDoClickListener: OnToDoClickListener
+    private val clickListener: ClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    interface OnToDoClickListener {
+    interface ClickListener {
 
-        fun onTheoryItemClicked(id: Int)
+        fun onTheoryItemClicked(lessonId: Long)
         fun onDebtsItemClicked()
+        fun onPracticeClicked(curriculumSubjectId: Long, lessonId: Long)
     }
 
     private companion object {
@@ -58,11 +59,12 @@ class TimeTableAdapter(
 
             R.layout.holder_todo -> ToDoListViewHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.holder_todo, parent, false),
-                onToDoClickListener
+                clickListener
             )
 
             R.layout.holder_lesson -> LessonViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.holder_lesson, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.holder_lesson, parent, false),
+                clickListener
             )
 
             else -> throw IllegalArgumentException("Illegal type: $viewType")
@@ -90,7 +92,7 @@ class TimeTableAdapter(
         }
     }
 
-    private class LessonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private class LessonViewHolder(view: View, private val clickListener: ClickListener) : RecyclerView.ViewHolder(view) {
 
         private val header: TextView = view.lessonHeader
         private val address: TextView = view.addressLine
@@ -122,7 +124,7 @@ class TimeTableAdapter(
                     context?.getString(R.string.address_line, lesson.place.address)
                 else -> ""
             }
-            val adapter = TopicAdapter(lesson.subjects ?: listOf())
+            val adapter = TopicAdapter(lesson.id,lesson.subjects ?: listOf(), clickListener)
             topicsList.adapter = adapter
             topicsList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
@@ -220,7 +222,7 @@ class TimeTableAdapter(
         }
     }
 
-    private class ToDoListViewHolder(view: View, val onToDoClickListener: OnToDoClickListener) :
+    private class ToDoListViewHolder(view: View, val onToDoClickListener: ClickListener) :
         RecyclerView.ViewHolder(view) {
 
         private val repeat: LinearLayoutCompat = view.repeatLayout

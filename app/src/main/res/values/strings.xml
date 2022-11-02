@@ -79,4 +79,5 @@
     <string name="show_results_button_text">Show results</string>
     <string name="add_file">Add file</string>
     <string name="solution_steps">Solution steps</string>
+    <string name="your_message">Your message</string>
 </resources>

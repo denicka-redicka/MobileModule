@@ -1,16 +1,22 @@
 package com.example.projectmaximummodule.data.network.retorfit
 
+import com.example.projectmaximummodule.data.network.retorfit.request.MessageRequest
 import com.example.projectmaximummodule.data.network.retorfit.request.OauthRequest
 import com.example.projectmaximummodule.data.network.retorfit.request.ShowSolutionRequest
 import com.example.projectmaximummodule.data.network.retorfit.request.TestAnswerRequest
 import com.example.projectmaximummodule.data.network.retorfit.response.*
+import kotlinx.serialization.Serializable
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MainApiService {
+
+    @GET("profile/external/auth/me")
+    suspend fun getInfoAboutMe(): AboutMeResponse
 
     //Oauth
     @GET("auth/redirect-to-oauth-provider?from_url=https://education.maximumtest.ru/")
@@ -40,26 +46,42 @@ interface MainApiService {
     @GET("content/practice/curriculumsubject/{id}")
     suspend fun getHomeworkCurriculumSubject(@Path("id") id: Long): HomeworkCurriculumSubjectResponse
 
-    @GET("content/practice/curriculumsubject/{group_id}/knowledgebase/{subject_id}/{type}/tests")
+    @GET("content/practice/curriculumsubject/{group_id}/knowledgebase/{curriculum_subject_id}/{type}/tests")
     suspend fun getTests(
         @Path("group_id") groupId: Long,
-        @Path("subject_id") subjectId: Int,
+        @Path("curriculum_subject_id") subjectId: Int,
         @Path("type") type: String
     ): List<TestResponse>
 
-    @POST("content/practice/curriculumsubject/{lesson_id}/tests/{test_id}")
+    @POST("content/practice/curriculumsubject/{curriculum_subject_id}/tests/{test_id}")
     suspend fun sendAnswer(
         @Body answer: TestAnswerRequest,
-        @Path("lesson_id") lessonId: Long,
+        @Path("curriculum_subject_id") lessonId: Long,
         @Path("test_id") testId: Int
     ): AnswerResultResponse
 
-    @POST("content/practice/curriculumsubject/{lesson_id}/tests/{test_id}")
+    @POST("content/practice/curriculumsubject/{curriculum_subject_id}/tests/{test_id}")
     suspend fun sendShowSolution(
         @Body answer: ShowSolutionRequest,
-        @Path("lesson_id") lessonId: Long,
+        @Path("curriculum_subject_id") lessonId: Long,
         @Path("test_id") testId: Int
     )
+
+    //Messenger
+    @GET("chat/dialogs")
+    suspend fun getAllChats(): List<ChatInfoResponse>
+
+    @GET("chat/dialogs/{chatId}")
+    suspend fun getChat(@Path("chatId") chatId: Long): ChatBodyResponse
+
+    @GET("chat/dialogs/unread")
+    suspend fun getUnreadCount(): @Serializable Int
+
+    @PATCH("chat/dialogs/{chatId}/viewed")
+    suspend fun setChatViewed(@Path("chatId") chatId: Long)
+
+    @POST("chat/dialogs/{chatId}")
+    suspend fun sendMessage(@Body message: MessageRequest, @Path("chatId") chatId: Long)
 
     //Profile
     @GET("profile/external/auth/me")
@@ -70,7 +92,7 @@ interface MainApiService {
 
     //Theory
     @GET("schedule/student/schedule/groups/{id}/curriculums?withKbs=1")
-    suspend fun getAllTheory(@Path("id") id: Long): @kotlinx.serialization.Serializable Map<Long, List<TheoryResponse>>
+    suspend fun getAllTheory(@Path("id") id: Long): @Serializable Map<Long, List<TheoryResponse>>
 
     @GET("content/knowledgebase/{id}")
     suspend fun getKnowledgeBase(@Path("id") id: Int): TheoryItem

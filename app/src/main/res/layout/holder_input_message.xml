@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp"
+    android:layout_marginEnd="36dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/senderImg"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_gravity="bottom"
+        tools:src="@drawable/img_movie_cast_1" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/super_rect"
+        android:elevation="4dp"
+        android:layout_margin="8dp"
+        android:paddingBottom="4dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/messageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="4dp"
+            android:textColor="@color/light_gray"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/senderName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintWidth="0dp"
+            tools:text="Привет!" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/senderName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textColor="@color/button_blue"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            tools:text="Robert Downey Jr" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sentAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/messageText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/messageText"
+            app:layout_constraintHorizontal_bias="1"
+            android:layout_marginHorizontal="8dp"
+            android:textSize="10sp"
+            tools:text="21.01.2019 14:45" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

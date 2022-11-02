@@ -19,8 +19,13 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 @AndroidEntryPoint
-class MainFragment: Fragment(R.layout.fragment_main), AdapterView.OnItemSelectedListener,
+class MainFragment : Fragment(R.layout.fragment_main), AdapterView.OnItemSelectedListener,
     NavController.OnDestinationChangedListener {
+
+    private companion object {
+        private val DestinationWithoutBottomMenu =
+            listOf(R.id.homeworkItemFragment, R.id.chatItemFragment)
+    }
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -61,7 +66,7 @@ class MainFragment: Fragment(R.layout.fragment_main), AdapterView.OnItemSelected
         destination: NavDestination,
         arguments: Bundle?
     ) {
-        if (bottomNavigation.visibility == View.VISIBLE && destination.id == R.id.homeworkItemFragment) {
+        if (bottomNavigation.visibility == View.VISIBLE && destination.id in DestinationWithoutBottomMenu) {
             bottomNavigation.visibility = View.GONE
             topLayout.visibility = View.GONE
 

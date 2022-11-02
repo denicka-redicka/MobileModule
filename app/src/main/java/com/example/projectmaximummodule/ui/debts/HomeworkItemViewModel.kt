@@ -34,15 +34,16 @@ class HomeworkItemViewModel @Inject constructor(
     private val mutableTestLiveData = MutableLiveData<List<TestResponse>>()
     val testLiveData: LiveData<List<TestResponse>> = mutableTestLiveData
 
+    var curriculumSubjectId = -1L
     private var homeworkTitle = ""
     private var type = ""
     private var knowledgeBaseList: List<TreeResponse.KnowledgeBaseInfo> = listOf()
     private var tests: List<TestResponse> = listOf()
 
-    fun fetchHomeworksItems(id: Long) {
-        if (id != -1L) {
+    fun fetchHomeworksItems() {
+        if (curriculumSubjectId != -1L) {
             coroutineScope.launch {
-                val subjects = api.getHomeworkCurriculumSubject(id)
+                val subjects = api.getHomeworkCurriculumSubject(curriculumSubjectId)
                 homeworkTitle = subjects.curriculumSubjects.title
                 when {
                     subjects.tree.aftertheory.isNotEmpty() -> {
@@ -63,9 +64,9 @@ class HomeworkItemViewModel @Inject constructor(
         }
     }
 
-    fun fetchTestsList(id: Long, position: Int) {
+    fun fetchTestsList(position: Int) {
         coroutineScope.launch {
-            tests = api.getTests(id, knowledgeBaseList[position].id, type)
+            tests = api.getTests(curriculumSubjectId, knowledgeBaseList[position].id, type)
             mutableTestLiveData.postValue(tests)
         }
     }
@@ -80,9 +81,9 @@ class HomeworkItemViewModel @Inject constructor(
 
     }
 
-    fun sendAnswer(answer: TestAnswerRequest, lessonId: Long, testId: Int) {
+    fun sendAnswer(answer: TestAnswerRequest, testId: Int) {
         coroutineScope.launch {
-            val answer = api.sendAnswer(answer, lessonId, testId)
+            val answer = api.sendAnswer(answer, curriculumSubjectId, testId)
             tests.forEach { test ->
                 if (test.id == testId) test.studentTestResult = answer
             }
@@ -90,9 +91,9 @@ class HomeworkItemViewModel @Inject constructor(
         }
     }
 
-    fun sendShowSolution(answer: ShowSolutionRequest, lessonId: Long, testId: Int) {
+    fun sendShowSolution(answer: ShowSolutionRequest, testId: Int) {
         coroutineScope.launch {
-            api.sendShowSolution(answer, lessonId, testId)
+            api.sendShowSolution(answer, curriculumSubjectId, testId)
         }
     }
 }

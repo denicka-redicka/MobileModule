@@ -4,10 +4,6 @@
     android:id="@+id/app_nav_graph"
     app:startDestination="@id/timeTableFragment">
     <fragment
-        android:id="@+id/chatsFragment"
-        android:name="com.example.projectmaximummodule.ui.ChatsFragment"
-        android:label="ChatsFragment" />
-    <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.projectmaximummodule.ui.profile.view.ProfileFragment"
         android:label="ProfileFragment" />
@@ -47,6 +43,21 @@
             <action
                 android:id="@+id/action_homeworkFragment_to_homeworkItemFragment"
                 app:destination="@id/homeworkItemFragment" />
+        </fragment>
+    </navigation>
+    <navigation android:id="@+id/messengerNavigation"
+        app:startDestination="@id/chatsFragment">
+        <fragment
+            android:id="@+id/chatItemFragment"
+            android:name="com.example.projectmaximummodule.ui.messenger.view.ChatItemFragment"
+            android:label="ChatItemFragment" />
+        <fragment
+            android:id="@+id/chatsFragment"
+            android:name="com.example.projectmaximummodule.ui.messenger.view.ChatsFragment"
+            android:label="ChatsFragment" >
+            <action
+                android:id="@+id/action_chatsFragment_to_chatItemFragment"
+                app:destination="@id/chatItemFragment" />
         </fragment>
     </navigation>
 </navigation>

@@ -9,6 +9,7 @@ import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.application.SelectGroupReceiver
 import com.example.projectmaximummodule.ui.profile.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 @AndroidEntryPoint
@@ -19,6 +20,10 @@ class ProfileFragment: Fragment(R.layout.fragment_profile), SelectGroupReceiver.
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        changeButton.setOnClickListener {
+            viewModel.clearToken()
+        }
 
         viewModel.profileLiveData.observe(viewLifecycleOwner) {
             viewModel.provideProfileUi(view)

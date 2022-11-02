@@ -98,7 +98,7 @@ class ProfileViewModel @Inject constructor(
         view.rankedText.text = view.context.getString(R.string.your_ranked, list[3].position)
     }
 
-    private fun clearToken() {
+    fun clearToken() {
         prefs.setAccessToken("")
     }
 }

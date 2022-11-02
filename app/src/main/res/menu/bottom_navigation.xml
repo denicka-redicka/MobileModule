@@ -10,7 +10,7 @@
     <item android:id="@id/homeworkNavigation"
         android:title="@string/practice"
         android:icon="@drawable/debts_icon"/>
-    <item android:id="@+id/chatsFragment"
+    <item android:id="@+id/messengerNavigation"
         android:title="@string/messages"
         android:icon="@drawable/chat_icon"/>
     <item android:id="@+id/profileFragment"

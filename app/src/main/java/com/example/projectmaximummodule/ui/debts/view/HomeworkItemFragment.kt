@@ -17,7 +17,6 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
     AdapterView.OnItemSelectedListener, HomeworkExerciseAdapter.OnButtonsClickListener {
 
     private val viewModel: HomeworkItemViewModel by viewModels()
-    private var curriculumSubjectId = -1L
     private var parentLessonId = -1L
     private var currentExercisePosition = -1
 
@@ -29,7 +28,7 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        curriculumSubjectId = arguments?.getString(CURRICULUM_SUBJECT_ID)?.toLong()?: -1
+        viewModel.curriculumSubjectId = arguments?.getString(CURRICULUM_SUBJECT_ID)?.toLong()?: -1
         parentLessonId = arguments?.getString(LESSON_ID)?.toLong()?: -1
 
         val callBack = ExercisePageChangedCallback()
@@ -52,12 +51,13 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
         view.subjectsPicker.onItemSelectedListener = this
 
         if (savedInstanceState == null) {
-            viewModel.fetchHomeworksItems(curriculumSubjectId)
+            viewModel.fetchHomeworksItems()
         }
+
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, itemId: Long) {
-        viewModel.fetchTestsList(curriculumSubjectId, position)
+        viewModel.fetchTestsList(position)
     }
 
     override fun onNothingSelected(view: AdapterView<*>?) {
@@ -65,10 +65,10 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
 
     override fun onAnswerButtonClick(answer: TestAnswerRequest, testId: Int, exercisePosition: Int) {
         currentExercisePosition = exercisePosition
-        viewModel.sendAnswer(answer, curriculumSubjectId, testId)
+        viewModel.sendAnswer(answer, testId)
     }
 
     override fun onSolutionButtonClick(answer: ShowSolutionRequest, testId: Int) {
-        viewModel.sendShowSolution(answer, curriculumSubjectId, testId)
+        viewModel.sendShowSolution(answer, testId)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.projectmaximummodule.data.network.retorfit.request
+package com.example.projectmaximummodule.data.auth.remote.request
 
 import kotlinx.serialization.Serializable
 

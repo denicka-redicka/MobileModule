@@ -1,7 +1,7 @@
 package com.example.projectmaximummodule.data.network.retorfit
 
 import com.example.projectmaximummodule.data.network.retorfit.request.MessageRequest
-import com.example.projectmaximummodule.data.network.retorfit.request.OauthRequest
+import com.example.projectmaximummodule.data.auth.remote.request.OauthRequest
 import com.example.projectmaximummodule.data.network.retorfit.request.ShowSolutionRequest
 import com.example.projectmaximummodule.data.network.retorfit.request.TestAnswerRequest
 import com.example.projectmaximummodule.data.network.retorfit.response.*

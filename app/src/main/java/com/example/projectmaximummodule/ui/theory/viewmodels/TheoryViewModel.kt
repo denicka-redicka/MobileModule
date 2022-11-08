@@ -23,7 +23,6 @@ class TheoryViewModel @Inject constructor(
     private var groupId = -1L
 
     private val mutableTheoryLiveData = MutableLiveData<List<LessonsListResponse.LessonResponse>>()
-
     val theoryLiveData: LiveData<List<LessonsListResponse.LessonResponse>> = mutableTheoryLiveData
 
     fun getAllTheory() {

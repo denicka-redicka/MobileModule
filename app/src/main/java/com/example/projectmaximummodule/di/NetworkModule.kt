@@ -4,7 +4,7 @@ import com.example.projectmaximummodule.application.AppSharedPreferences
 import com.example.projectmaximummodule.data.network.interceptors.AddCookieTokenInterceptor
 import com.example.projectmaximummodule.data.network.interceptors.GetCookieTokenInterceptor
 import java.util.concurrent.TimeUnit
-import com.example.projectmaximummodule.data.network.retorfit.LoginApiService
+import com.example.projectmaximummodule.data.auth.remote.LoginApiService
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -25,11 +25,9 @@ class NetworkModule {
     private val loginUrl = "https://login.maximumtest.ru/api/v1/"
     private  val baseUrl = "https://education.maximumtest.ru/api/v1/"
 
-
     private val json = Json {
         prettyPrint = true
         ignoreUnknownKeys = true
-
     }
 
     private val contentType = "application/json".toMediaType()
@@ -59,7 +57,7 @@ class NetworkModule {
         .build()
 
     @Provides
-    fun providesLoginApi(@Login client: OkHttpClient) : LoginApiService  {
+    fun providesLoginApi(@Login client: OkHttpClient) : LoginApiService {
         val retrofitLogin = Retrofit.Builder()
             .baseUrl(loginUrl)
             .addConverterFactory(json.asConverterFactory(contentType))

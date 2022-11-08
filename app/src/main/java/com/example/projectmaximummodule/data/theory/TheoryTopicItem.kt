@@ -1,4 +1,4 @@
-package com.example.projectmaximummodule.data
+package com.example.projectmaximummodule.data.theory
 
 import com.example.projectmaximummodule.data.network.retorfit.response.TheoryResponse
 

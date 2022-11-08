@@ -1,8 +1,8 @@
-package com.example.projectmaximummodule.data.network.retorfit
+package com.example.projectmaximummodule.data.auth.remote
 
-import com.example.projectmaximummodule.data.network.retorfit.request.LoginRequest
-import com.example.projectmaximummodule.data.network.retorfit.response.OauthResponse
-import com.example.projectmaximummodule.data.network.retorfit.response.UserResponse
+import com.example.projectmaximummodule.data.auth.remote.request.LoginRequest
+import com.example.projectmaximummodule.data.auth.remote.resposne.OauthResponse
+import com.example.projectmaximummodule.data.auth.remote.resposne.UserResponse
 import retrofit2.http.*
 
 interface LoginApiService {

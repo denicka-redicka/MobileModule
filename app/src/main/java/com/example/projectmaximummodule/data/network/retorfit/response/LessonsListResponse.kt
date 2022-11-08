@@ -1,7 +1,7 @@
 package com.example.projectmaximummodule.data.network.retorfit.response
 
 import android.annotation.SuppressLint
-import com.example.projectmaximummodule.data.TheoryTopicItem
+import com.example.projectmaximummodule.data.theory.TheoryTopicItem
 import kotlinx.serialization.Serializable
 import java.text.SimpleDateFormat
 import java.util.*

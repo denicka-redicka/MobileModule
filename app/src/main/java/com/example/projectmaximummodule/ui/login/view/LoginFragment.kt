@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.application.AppSharedPreferences.Companion.ACCESS_TOKEN_KEY
 import com.example.projectmaximummodule.application.AppSharedPreferences.Companion.SHARED_PREFS
-import com.example.projectmaximummodule.data.network.retorfit.request.LoginRequest
+import com.example.projectmaximummodule.data.auth.remote.request.LoginRequest
 import com.example.projectmaximummodule.ui.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_login.*

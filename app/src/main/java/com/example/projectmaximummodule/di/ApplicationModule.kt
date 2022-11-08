@@ -13,7 +13,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 class ApplicationModule {
 
-
     @Provides
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)

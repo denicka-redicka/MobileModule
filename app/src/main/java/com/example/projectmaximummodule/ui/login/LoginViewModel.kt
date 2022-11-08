@@ -5,13 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projectmaximummodule.application.AppSharedPreferences
-import com.example.projectmaximummodule.application.BaseViewModel
 import com.example.projectmaximummodule.data.network.interceptors.GetCookieTokenInterceptor
-import com.example.projectmaximummodule.data.network.retorfit.LoginApiService
+import com.example.projectmaximummodule.data.auth.remote.LoginApiService
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
-import com.example.projectmaximummodule.data.network.retorfit.request.LoginRequest
-import com.example.projectmaximummodule.data.network.retorfit.request.OauthRequest
-import com.example.projectmaximummodule.data.network.retorfit.response.UserResponse
+import com.example.projectmaximummodule.data.auth.remote.request.LoginRequest
+import com.example.projectmaximummodule.data.auth.remote.request.OauthRequest
+import com.example.projectmaximummodule.data.auth.remote.resposne.UserResponse
 import com.example.projectmaximummodule.di.Oauth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -19,9 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    val loginApi: LoginApiService,
+    private val loginApi: LoginApiService,
     @Oauth val oauthApi: MainApiService,
-    val sharedPreferences: AppSharedPreferences) : ViewModel() {
+    private val sharedPreferences: AppSharedPreferences) : ViewModel() {
 
     private val loginMutableLiveData = MutableLiveData<UserResponse?>()
     val loginLiveData: LiveData<UserResponse?> = loginMutableLiveData

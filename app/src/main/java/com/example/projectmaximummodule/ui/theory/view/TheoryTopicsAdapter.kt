@@ -7,7 +7,7 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
-import com.example.projectmaximummodule.data.TheoryTopicItem
+import com.example.projectmaximummodule.data.theory.TheoryTopicItem
 import kotlinx.android.synthetic.main.holder_theory_children.view.*
 import kotlinx.android.synthetic.main.holder_theory_parent.view.*
 

@@ -8,9 +8,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
+import com.example.projectmaximummodule.data.network.retorfit.response.DebtsResponse
 import com.example.projectmaximummodule.ui.debts.HomeworkViewModel
 import com.example.projectmaximummodule.ui.debts.view.HomeworkItemFragment.Companion.CURRICULUM_SUBJECT_ID
 import com.example.projectmaximummodule.ui.debts.view.HomeworkItemFragment.Companion.LESSON_ID
+import com.example.projectmaximummodule.util.RemoteResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_homework.*
 
@@ -31,15 +33,23 @@ class HomeworkFragment : Fragment(R.layout.fragment_homework) {
         debtsList.adapter = adapter
         debtsList.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
 
-        viewModel.debtsLiveData.observe(viewLifecycleOwner) { debts ->
-            adapter.allDebtsCount = debts.allDebts - debts.paidDebts
-            adapter.debts = debts.debtsItems
-            adapter.notifyItemRangeChanged(2, debts.debtsItems.size)
+        viewModel.debtsLiveData.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is RemoteResult.Success -> updateDebtsList(adapter, result.value)
+                is RemoteResult.Failed -> TODO("notice user that we have problems")
+            }
+
         }
 
         if (savedInstanceState == null) {
             viewModel.getDebts()
         }
 
+    }
+
+    private fun updateDebtsList(adapter: HomeworkAdapter, debts: DebtsResponse) {
+        adapter.allDebtsCount = debts.allDebts - debts.paidDebts
+        adapter.debts = debts.debtsItems
+        adapter.notifyItemRangeChanged(2, debts.debtsItems.size)
     }
 }

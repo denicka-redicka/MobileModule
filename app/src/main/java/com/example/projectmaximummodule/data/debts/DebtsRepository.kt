@@ -16,7 +16,7 @@ interface DebtsRepository {
 
     suspend fun getHomeworkItems(subjectId: Long): RemoteResult<HomeworkCurriculumSubjectResponse, Throwable>
 
-    suspend fun getTestsList(
+    suspend fun getTestList(
         groupId: Long,
         subjectId: Int
     ): RemoteResult<List<TestResponse>, Throwable>
@@ -31,5 +31,5 @@ interface DebtsRepository {
         answer: ShowSolutionRequest,
         subjectId: Long,
         testId: Int
-    ): RemoteResult<Unit, Throwable>
+    ): RemoteResult<AnswerResultResponse, Throwable>
 }

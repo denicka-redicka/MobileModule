@@ -80,4 +80,5 @@
     <string name="add_file">Add file</string>
     <string name="solution_steps">Solution steps</string>
     <string name="your_message">Your message</string>
+    <string name="something_goes_wrong">Something goes wrong..</string>
 </resources>

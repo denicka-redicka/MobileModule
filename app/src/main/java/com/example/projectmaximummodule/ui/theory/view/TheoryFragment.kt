@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.ui.theory.viewmodels.TheoryViewModel
+import com.example.projectmaximummodule.util.RemoteResult
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_theory.view.lessonsList
+import kotlinx.android.synthetic.main.fragment_theory.view.*
 
 @AndroidEntryPoint
 class TheoryFragment: Fragment(R.layout.fragment_theory) {
@@ -20,15 +21,20 @@ class TheoryFragment: Fragment(R.layout.fragment_theory) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.theoryLiveData.observe(viewLifecycleOwner) { theoryLessonsList ->
-            val adapter = TheoryLessonAdapter(theoryLessonsList) { topicId ->
-                moveToTheoryItemFragment(topicId)
+        viewModel.theoryLiveData.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is RemoteResult.Success -> {
+                    val adapter = TheoryLessonAdapter(result.value) { topicId ->
+                        moveToTheoryItemFragment(topicId)
+                    }
+                    adapter.setHasStableIds(true)
+                    view.theoryLessonsList.adapter = adapter
+                    view.theoryLessonsList.layoutManager =
+                        LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+                    view.theoryLessonsList.setHasFixedSize(true)
+                }
+                is RemoteResult.Failed -> viewModel.showErrorUi(view, result.error)
             }
-            adapter.setHasStableIds(true)
-            view.lessonsList.adapter = adapter
-            view.lessonsList.layoutManager =
-                LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
-            view.lessonsList.setHasFixedSize(true)
 
         }
 

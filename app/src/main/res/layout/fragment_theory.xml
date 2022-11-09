@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lessonsList"
+        android:id="@+id/theoryLessonsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
         android:paddingVertical="1dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/theoryErrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/something_goes_wrong"
+        android:textStyle="bold"
+        android:drawableStart="@drawable/ic_error"
+        android:drawablePadding="4dp"
+        android:textColor="@color/light_gray"
+        android:textSize="20sp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        android:visibility="gone"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

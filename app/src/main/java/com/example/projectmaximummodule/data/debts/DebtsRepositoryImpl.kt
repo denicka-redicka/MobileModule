@@ -26,7 +26,7 @@ class DebtsRepositoryImpl @Inject constructor(
         return remoteDataSource.getHomeworkItems(subjectId)
     }
 
-    override suspend fun getTestsList(groupId: Long, subjectId: Int): RemoteResult<List<TestResponse>, Throwable> {
+    override suspend fun getTestList(groupId: Long, subjectId: Int): RemoteResult<List<TestResponse>, Throwable> {
         return remoteDataSource.getTestsList(groupId, subjectId)
     }
 
@@ -34,7 +34,7 @@ class DebtsRepositoryImpl @Inject constructor(
         return remoteDataSource.sendAnswer(answer, subjectId, testId)
     }
 
-    override suspend fun sendShowSolution(answer: ShowSolutionRequest, subjectId: Long, testId: Int): RemoteResult<Unit, Throwable> {
+    override suspend fun sendShowSolution(answer: ShowSolutionRequest, subjectId: Long, testId: Int): RemoteResult<AnswerResultResponse, Throwable> {
         return remoteDataSource.sendShowSolution(answer,subjectId, testId)
     }
 }

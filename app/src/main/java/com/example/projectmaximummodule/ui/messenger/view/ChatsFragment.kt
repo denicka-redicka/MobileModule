@@ -8,8 +8,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
+import com.example.projectmaximummodule.data.network.retorfit.response.ChatInfoResponse
 import com.example.projectmaximummodule.ui.messenger.ChatsViewModel
 import com.example.projectmaximummodule.ui.messenger.ChatsViewModel.Companion.CHAT_ID
+import com.example.projectmaximummodule.util.RemoteResult
+import com.example.projectmaximummodule.util.toGone
+import com.example.projectmaximummodule.util.toVisible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_chats.*
 
@@ -23,14 +27,12 @@ class ChatsFragment : Fragment(R.layout.fragment_chats), ChatsListAdapter.OnDial
 
         val adapter = ChatsListAdapter(this)
 
-        viewModel.chatsLiveData.observe(viewLifecycleOwner) { dialogsList ->
-            if (dialogsList.isNotEmpty()) {
-                adapter.submitList(dialogsList)
+        viewModel.chatsLiveData.observe(viewLifecycleOwner) { result  ->
+            when (result) {
+                is RemoteResult.Success -> setupChatsListUi(adapter, result.value)
+                is RemoteResult.Failed -> TODO("notice user that we have problems")
             }
-            else {
-                chatsList.visibility = View.GONE
-                emptyChatsListMessage.visibility = View.VISIBLE
-            }
+
         }
 
         chatsList.adapter = adapter
@@ -38,6 +40,15 @@ class ChatsFragment : Fragment(R.layout.fragment_chats), ChatsListAdapter.OnDial
 
         if (savedInstanceState == null) {
             viewModel.getChatsList()
+        }
+    }
+
+    private fun setupChatsListUi(adapter: ChatsListAdapter, resultList: List<ChatInfoResponse>) {
+        if (resultList.isNotEmpty()) {
+            adapter.submitList(resultList)
+        } else {
+            chatsList.toGone()
+            emptyChatsListMessage.toVisible()
         }
     }
 

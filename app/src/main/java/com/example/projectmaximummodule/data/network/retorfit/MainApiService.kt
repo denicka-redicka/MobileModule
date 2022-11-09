@@ -65,7 +65,7 @@ interface MainApiService {
         @Body answer: ShowSolutionRequest,
         @Path("curriculum_subject_id") lessonId: Long,
         @Path("test_id") testId: Int
-    )
+    ): AnswerResultResponse
 
     //Messenger
     @GET("chat/dialogs")

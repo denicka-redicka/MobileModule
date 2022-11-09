@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.ui.theory.viewmodels.TheoryItemViewModel
+import com.example.projectmaximummodule.util.RemoteResult
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,8 +17,12 @@ class TheoryItemFragment: Fragment(R.layout.fragment_theory_item) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.theoryItemLiveData.observe(viewLifecycleOwner) { item ->
-            viewModel.setupUi(view, item)
+        viewModel.theoryItemLiveData.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is RemoteResult.Success -> viewModel.setupUi(view, result.value)
+                is RemoteResult.Failed -> viewModel.showErrorUi(view, result.error)
+            }
+
         }
 
         if (savedInstanceState == null) {

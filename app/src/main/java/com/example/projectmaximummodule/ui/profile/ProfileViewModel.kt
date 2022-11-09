@@ -8,9 +8,10 @@ import coil.transform.CircleCropTransformation
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.application.AppSharedPreferences
 import com.example.projectmaximummodule.application.BaseViewModel
-import com.example.projectmaximummodule.data.network.retorfit.MainApiService
 import com.example.projectmaximummodule.data.network.retorfit.response.ProfileResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.ShortPositionResponse
+import com.example.projectmaximummodule.data.profile.ProfileRepository
+import com.example.projectmaximummodule.util.RemoteResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.coroutines.*
@@ -18,26 +19,25 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    val api: MainApiService,
-    val prefs: AppSharedPreferences): BaseViewModel()  {
+    private val repository: ProfileRepository,
+    private val prefs: AppSharedPreferences): BaseViewModel()  {
 
-    private val profileMutableLiveData = MutableLiveData<ProfileResponse>()
-    val profileLiveData: LiveData<ProfileResponse> = profileMutableLiveData
+    private val profileMutableLiveData = MutableLiveData<RemoteResult<ProfileResponse, Throwable>>()
+    val profileLiveData: LiveData<RemoteResult<ProfileResponse, Throwable>> = profileMutableLiveData
 
-    private val shortListMutableLiveData = MutableLiveData<List<ShortPositionResponse>>()
-    val shortListLiveData: LiveData<List<ShortPositionResponse>> = shortListMutableLiveData
+    private val shortListMutableLiveData = MutableLiveData<RemoteResult<List<ShortPositionResponse>, Throwable>>()
+    val shortListLiveData: LiveData<RemoteResult<List<ShortPositionResponse>, Throwable>> = shortListMutableLiveData
 
     private var groupId = prefs.getGroupId()
 
     fun getProfile() {
         coroutineScope.launch {
-            val me = api.getProfile()
-            profileMutableLiveData.postValue(me)
+            profileMutableLiveData.postValue(repository.getProfileInfo())
         }
     }
 
     fun provideProfileUi(view: View) {
-        val user = profileLiveData.value ?: return
+        val user = (profileLiveData.value as RemoteResult.Success).value
 
         view.nameText.text = "${user.firstName} ${user.lastName}"
         view.emailText.text = user.email
@@ -58,11 +58,11 @@ class ProfileViewModel @Inject constructor(
     fun updateShortList() {
         coroutineScope.launch {
             if (shortListLiveData.value == null) {
-                val shortList = api.getShortList(groupId)
+                val shortList = repository.getShortList(groupId)
                 shortListMutableLiveData.postValue(shortList)
             } else if (groupId != prefs.getGroupId()) {
                 groupId = prefs.getGroupId()
-                val shortList = api.getShortList(groupId)
+                val shortList = repository.getShortList(groupId)
                 shortListMutableLiveData.postValue(shortList)
             }
         }
@@ -72,14 +72,14 @@ class ProfileViewModel @Inject constructor(
         coroutineScope.launch {
             if (id != -1L && id != groupId) {
                 groupId = id
-                val shortList = api.getShortList(id)
+                val shortList = repository.getShortList(id)
                 shortListMutableLiveData.postValue(shortList)
             } else return@launch
         }
     }
 
     fun provideShortListUi(view: View) {
-        val list = shortListLiveData.value ?: return
+        val list = (shortListLiveData.value as RemoteResult.Success).value
 
         view.firstPositionName.text = list[0].user.getFullName()
         view.firstPositionSummary.text = list[0].summary.toString()

@@ -20,5 +20,5 @@ interface DebtsRemoteDataSource {
 
     suspend fun sendAnswer(answer: TestAnswerRequest, subjectId: Long, testId: Int): RemoteResult<AnswerResultResponse, Throwable>
 
-    suspend fun sendShowSolution(answer: ShowSolutionRequest, subjectId: Long, testId: Int): RemoteResult<Unit, Throwable>
+    suspend fun sendShowSolution(answer: ShowSolutionRequest, subjectId: Long, testId: Int): RemoteResult<AnswerResultResponse, Throwable>
 }

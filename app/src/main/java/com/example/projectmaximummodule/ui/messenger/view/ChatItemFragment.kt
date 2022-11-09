@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.ui.messenger.ChatsViewModel
 import com.example.projectmaximummodule.ui.messenger.ChatsViewModel.Companion.CHAT_ID
+import com.example.projectmaximummodule.util.RemoteResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_chat_item.*
 
@@ -33,8 +34,12 @@ class ChatItemFragment: Fragment(R.layout.fragment_chat_item) {
         messagesList.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false).also {
             it.stackFromEnd = true
         }
-        viewModel.chatsMessagesLiveData.observe(viewLifecycleOwner) { chatBody ->
-            adapter.submitList(chatBody.messages)
+        viewModel.chatsMessagesLiveData.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is RemoteResult.Success -> adapter.submitList(result.value.messages)
+                is RemoteResult.Failed -> TODO("notice user that we have problems")
+            }
+
         }
 
         if (savedInstanceState == null) {

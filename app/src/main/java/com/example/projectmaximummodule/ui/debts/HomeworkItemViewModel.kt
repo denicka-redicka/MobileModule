@@ -6,12 +6,14 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.projectmaximummodule.application.BaseViewModel
-import com.example.projectmaximummodule.data.network.retorfit.MainApiService
+import com.example.projectmaximummodule.data.debts.DebtsRepository
 import com.example.projectmaximummodule.data.network.retorfit.request.ShowSolutionRequest
 import com.example.projectmaximummodule.data.network.retorfit.request.TestAnswerRequest
+import com.example.projectmaximummodule.data.network.retorfit.response.AnswerResultResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.HomeworkCurriculumSubjectResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.TestResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.TreeResponse
+import com.example.projectmaximummodule.util.RemoteResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.android.synthetic.main.fragment_homework_items.view.*
 import kotlinx.coroutines.launch
@@ -19,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeworkItemViewModel @Inject constructor(
-    private val api: MainApiService
+    private val repository: DebtsRepository
 ) : BaseViewModel() {
 
     companion object {
@@ -28,46 +30,51 @@ class HomeworkItemViewModel @Inject constructor(
         const val ONLINE = "online"
     }
 
-    private val mutableBaseLiveData = MutableLiveData<HomeworkCurriculumSubjectResponse>()
-    val baseLiveData: LiveData<HomeworkCurriculumSubjectResponse> = mutableBaseLiveData
+    private val mutableCurriculumSubjectLiveData = MutableLiveData<RemoteResult<HomeworkCurriculumSubjectResponse, Throwable>>()
+    val curriculumSubjectLiveData: LiveData<RemoteResult<HomeworkCurriculumSubjectResponse, Throwable>> = mutableCurriculumSubjectLiveData
 
-    private val mutableTestLiveData = MutableLiveData<List<TestResponse>>()
-    val testLiveData: LiveData<List<TestResponse>> = mutableTestLiveData
+    private val mutableTestsLiveData = MutableLiveData<RemoteResult<List<TestResponse>, Throwable>>()
+    val testsLiveData: LiveData<RemoteResult<List<TestResponse>, Throwable>> = mutableTestsLiveData
 
     var curriculumSubjectId = -1L
     private var homeworkTitle = ""
-    private var type = ""
     private var knowledgeBaseList: List<TreeResponse.KnowledgeBaseInfo> = listOf()
     private var tests: List<TestResponse> = listOf()
 
     fun fetchHomeworksItems() {
         if (curriculumSubjectId != -1L) {
             coroutineScope.launch {
-                val subjects = api.getHomeworkCurriculumSubject(curriculumSubjectId)
-                homeworkTitle = subjects.curriculumSubjects.title
-                when {
-                    subjects.tree.aftertheory.isNotEmpty() -> {
-                        type = AFTER_THEORY
-                        knowledgeBaseList = subjects.tree.aftertheory
-                    }
-                    subjects.tree.offline.isNotEmpty() -> {
-                        type = OFFLINE
-                        knowledgeBaseList = subjects.tree.offline
-                    }
-                    subjects.tree.online.isNotEmpty() -> {
-                        type = ONLINE
-                        knowledgeBaseList = subjects.tree.online
+                val result = repository.getHomeworkItems(curriculumSubjectId)
+                if (result is RemoteResult.Success) {
+                    val subjects = result.value
+                    homeworkTitle = subjects.curriculumSubjects.title
+                    when {
+                        subjects.tree.aftertheory.isNotEmpty() -> {
+                            repository.setDebtsType(AFTER_THEORY)
+                            knowledgeBaseList = subjects.tree.aftertheory
+                        }
+                        subjects.tree.offline.isNotEmpty() -> {
+                            repository.setDebtsType(OFFLINE)
+                            knowledgeBaseList = subjects.tree.offline
+                        }
+                        subjects.tree.online.isNotEmpty() -> {
+                            repository.setDebtsType(ONLINE)
+                            knowledgeBaseList = subjects.tree.online
+                        }
                     }
                 }
-                mutableBaseLiveData.postValue(subjects)
+
+                mutableCurriculumSubjectLiveData.postValue(result)
             }
         }
     }
 
     fun fetchTestsList(position: Int) {
         coroutineScope.launch {
-            tests = api.getTests(curriculumSubjectId, knowledgeBaseList[position].id, type)
-            mutableTestLiveData.postValue(tests)
+            val result = repository.getTestList(curriculumSubjectId, knowledgeBaseList[position].id)
+            if (result is RemoteResult.Success)
+                tests = result.value
+            mutableTestsLiveData.postValue(result)
         }
     }
 
@@ -83,17 +90,27 @@ class HomeworkItemViewModel @Inject constructor(
 
     fun sendAnswer(answer: TestAnswerRequest, testId: Int) {
         coroutineScope.launch {
-            val answer = api.sendAnswer(answer, curriculumSubjectId, testId)
-            tests.forEach { test ->
-                if (test.id == testId) test.studentTestResult = answer
-            }
-            mutableTestLiveData.postValue(tests)
+            val result = repository.sendAnswer(answer, curriculumSubjectId, testId)
+            onAnswerResultReturn(result, testId)
         }
     }
 
     fun sendShowSolution(answer: ShowSolutionRequest, testId: Int) {
         coroutineScope.launch {
-            api.sendShowSolution(answer, curriculumSubjectId, testId)
+            val result = repository.sendShowSolution(answer, curriculumSubjectId, testId)
+            onAnswerResultReturn(result, testId)
+        }
+    }
+
+    private fun onAnswerResultReturn(
+        result: RemoteResult<AnswerResultResponse, Throwable>,
+        testId: Int
+    ) {
+        if (result is RemoteResult.Success) {
+            tests.forEach { test ->
+                if (test.id == testId) test.studentTestResult = result.value
+            }
+            mutableTestsLiveData.postValue(RemoteResult.Success(tests))
         }
     }
 }

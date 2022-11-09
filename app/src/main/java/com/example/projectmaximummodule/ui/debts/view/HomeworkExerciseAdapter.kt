@@ -14,6 +14,7 @@ import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.data.network.retorfit.request.ShowSolutionRequest
 import com.example.projectmaximummodule.data.network.retorfit.request.TestAnswerRequest
 import com.example.projectmaximummodule.data.network.retorfit.response.TestResponse
+import com.example.projectmaximummodule.util.toGone
 import kotlinx.android.synthetic.main.holder_exercise_item.view.*
 
 class HomeworkExerciseAdapter(
@@ -24,7 +25,7 @@ class HomeworkExerciseAdapter(
 
     interface OnButtonsClickListener {
         fun onAnswerButtonClick(answer: TestAnswerRequest, testId: Int, currentExercisePosition: Int)
-        fun onSolutionButtonClick(answer: ShowSolutionRequest, testId: Int)
+        fun onSolutionButtonClick(answer: ShowSolutionRequest, testId: Int, currentExercisePosition: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
@@ -121,18 +122,10 @@ class HomeworkExerciseAdapter(
                         lessonId,
                         testChronometer.getTimeCount(),
                         showSolution = true
-                    ), test.id
+                    ),
+                    test.id,
+                    layoutPosition
                 )
-                if (test.studentTestResult?.addRightAnswerBeforeShowSolution != true) {
-                    adapter.studentAnswers = test.educationTestAnswers[0].variants
-                    adapter.result = true
-                    adapter.notifyItemRangeChanged(0, test.educationTestAnswers.size)
-                }
-                triesCount.text = view.context.getString(R.string.showed_solution)
-                solution.visibility = View.VISIBLE
-                solution.solutionView.loadData(test.solution?: "", "text/html", "UTF-8")
-                solutionButton.visibility = View.GONE
-                retryButton.visibility = View.GONE
             }
 
             retryButton.visibility = if (isRetryButtonShouldShows) View.VISIBLE else View.GONE
@@ -141,7 +134,7 @@ class HomeworkExerciseAdapter(
                 adapter.result = null
                 adapter.notifyItemRangeChanged(0, test.educationTestAnswers.size)
                 testChronometer.resetAndStart()
-                retryButton.visibility = View.GONE
+                retryButton.toGone()
             }
         }
 

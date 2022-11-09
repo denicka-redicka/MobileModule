@@ -4,24 +4,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.projectmaximummodule.application.AppSharedPreferences
 import com.example.projectmaximummodule.application.BaseViewModel
-import com.example.projectmaximummodule.data.network.retorfit.MainApiService
+import com.example.projectmaximummodule.data.debts.DebtsRepository
 import com.example.projectmaximummodule.data.network.retorfit.response.DebtsResponse
+import com.example.projectmaximummodule.util.RemoteResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeworkViewModel @Inject constructor(
+    private val repository: DebtsRepository,
     private val prefs: AppSharedPreferences,
-    private val api: MainApiService
 ): BaseViewModel() {
 
-    private companion object {
-        private const val PRACTICE = "practice"
-    }
-
-    private val mutableDebtsLiveData = MutableLiveData<DebtsResponse>()
-    val debtsLiveData: LiveData<DebtsResponse> = mutableDebtsLiveData
+    private val mutableDebtsLiveData = MutableLiveData<RemoteResult<DebtsResponse, Throwable>>()
+    val debtsLiveData: LiveData<RemoteResult<DebtsResponse, Throwable>> = mutableDebtsLiveData
 
     private var groupId = -1L
 
@@ -30,14 +27,7 @@ class HomeworkViewModel @Inject constructor(
         if (debtsLiveData.value == null || groupId != idFromPrefs) {
             groupId = idFromPrefs
             coroutineScope.launch {
-                val lessonWithPractice = api.getLessonsListWithType(groupId, PRACTICE)
-                val debts = api.getDebts(groupId)
-
-                lessonWithPractice.items.forEach { lessonWithPractice ->
-                    val lesson = debts.lessons[lessonWithPractice.id]?: return@forEach
-                    debts.addDebtsItem(lesson)
-                }
-                mutableDebtsLiveData.postValue(debts)
+                mutableDebtsLiveData.postValue(repository.getDebts(groupId))
             }
 
         }

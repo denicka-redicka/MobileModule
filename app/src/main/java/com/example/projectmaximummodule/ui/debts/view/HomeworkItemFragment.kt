@@ -3,12 +3,15 @@ package com.example.projectmaximummodule.ui.debts.view
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.data.network.retorfit.request.ShowSolutionRequest
 import com.example.projectmaximummodule.data.network.retorfit.request.TestAnswerRequest
+import com.example.projectmaximummodule.data.network.retorfit.response.TestResponse
 import com.example.projectmaximummodule.ui.debts.HomeworkItemViewModel
+import com.example.projectmaximummodule.util.RemoteResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_homework_items.view.*
 
@@ -37,14 +40,17 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
         view.itemsPageView.registerOnPageChangeCallback(callBack)
 
 
-        viewModel.baseLiveData.observe(viewLifecycleOwner) { base ->
-            viewModel.updateUi(view)
+        viewModel.curriculumSubjectLiveData.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is RemoteResult.Success -> viewModel.updateUi(view)
+                is RemoteResult.Failed -> Toast.makeText(context, "Something goes wrong", Toast.LENGTH_SHORT).show()
+            }
         }
 
-        viewModel.testLiveData.observe(viewLifecycleOwner) { tests ->
-            adapter.submitList(tests)
-            if (currentExercisePosition != -1) {
-                adapter.notifyItemChanged(currentExercisePosition)
+        viewModel.testsLiveData.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is RemoteResult.Success -> updateTestsList(adapter, result.value)
+                is RemoteResult.Failed -> Toast.makeText(context, "Something goes wrong", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -54,6 +60,13 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
             viewModel.fetchHomeworksItems()
         }
 
+    }
+
+    private fun updateTestsList(adapter: HomeworkExerciseAdapter, tests: List<TestResponse>, currentPosition: Int = currentExercisePosition) {
+        adapter.submitList(tests)
+        if (currentPosition != -1) {
+            adapter.notifyItemChanged(currentExercisePosition)
+        }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, itemId: Long) {
@@ -68,7 +81,8 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
         viewModel.sendAnswer(answer, testId)
     }
 
-    override fun onSolutionButtonClick(answer: ShowSolutionRequest, testId: Int) {
+    override fun onSolutionButtonClick(answer: ShowSolutionRequest, testId: Int, exercisePosition: Int) {
+        currentExercisePosition = exercisePosition
         viewModel.sendShowSolution(answer, testId)
     }
 }

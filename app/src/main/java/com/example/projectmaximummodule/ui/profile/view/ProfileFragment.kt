@@ -8,9 +8,9 @@ import androidx.fragment.app.viewModels
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.application.SelectGroupReceiver
 import com.example.projectmaximummodule.ui.profile.ProfileViewModel
+import com.example.projectmaximummodule.util.RemoteResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile.*
-
 
 @AndroidEntryPoint
 class ProfileFragment: Fragment(R.layout.fragment_profile), SelectGroupReceiver.OnGroupSelectedListener {
@@ -25,12 +25,19 @@ class ProfileFragment: Fragment(R.layout.fragment_profile), SelectGroupReceiver.
             viewModel.clearToken()
         }
 
-        viewModel.profileLiveData.observe(viewLifecycleOwner) {
-            viewModel.provideProfileUi(view)
+        viewModel.profileLiveData.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is RemoteResult.Success -> viewModel.provideProfileUi(view)
+                is RemoteResult.Failed -> TODO("notice user that we have problems")
+            }
         }
 
-        viewModel.shortListLiveData.observe(viewLifecycleOwner) {
-            viewModel.provideShortListUi(view)
+        viewModel.shortListLiveData.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is RemoteResult.Success -> viewModel.provideShortListUi(view)
+                is RemoteResult.Failed -> TODO("notice user that we have problems")
+            }
+
         }
         viewModel.getProfile()
 

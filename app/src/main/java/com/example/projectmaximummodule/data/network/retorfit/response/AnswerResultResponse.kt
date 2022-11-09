@@ -16,7 +16,7 @@ data class AnswerResultResponse(
     val percent: Int,
     val points: String,
     val result: String,
-    val showSolution: Boolean?,
+    var showSolution: Boolean?,
     val spentTime: Int,
     val studentId: Long,
     //val additional: null,

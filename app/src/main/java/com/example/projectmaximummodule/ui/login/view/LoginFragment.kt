@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.projectmaximummodule.R
-import com.example.projectmaximummodule.application.AppSharedPreferences.Companion.ACCESS_TOKEN_KEY
-import com.example.projectmaximummodule.application.AppSharedPreferences.Companion.SHARED_PREFS
+import com.example.projectmaximummodule.core.application.AppSharedPreferences.Companion.ACCESS_TOKEN_KEY
+import com.example.projectmaximummodule.core.application.AppSharedPreferences.Companion.SHARED_PREFS
 import com.example.projectmaximummodule.data.auth.remote.request.LoginRequest
 import com.example.projectmaximummodule.ui.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint

@@ -59,7 +59,6 @@ class HomeworkItemFragment: Fragment(R.layout.fragment_homework_items),
         if (savedInstanceState == null) {
             viewModel.fetchHomeworksItems()
         }
-
     }
 
     private fun updateTestsList(adapter: HomeworkExerciseAdapter, tests: List<TestResponse>, currentPosition: Int = currentExercisePosition) {

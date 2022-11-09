@@ -4,7 +4,7 @@ import androidx.core.text.HtmlCompat
 import androidx.core.text.toSpanned
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.projectmaximummodule.application.BaseViewModel
+import com.example.projectmaximummodule.core.application.BaseViewModel
 import com.example.projectmaximummodule.data.messenger.MessengerRepository
 import com.example.projectmaximummodule.data.network.retorfit.request.MessageRequest
 import com.example.projectmaximummodule.data.network.retorfit.response.ChatBodyResponse

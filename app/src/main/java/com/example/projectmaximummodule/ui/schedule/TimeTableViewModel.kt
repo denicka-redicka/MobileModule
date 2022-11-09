@@ -2,8 +2,10 @@ package com.example.projectmaximummodule.ui.schedule
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.projectmaximummodule.application.AppSharedPreferences
-import com.example.projectmaximummodule.application.BaseViewModel
+import com.example.projectmaximummodule.core.application.AppSharedPreferences
+import com.example.projectmaximummodule.core.application.BaseViewModel
+import com.example.projectmaximummodule.core.navigation.NavigationDestination
+import com.example.projectmaximummodule.core.navigation.Router
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
 import com.example.projectmaximummodule.data.network.retorfit.response.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class TimeTableViewModel @Inject constructor (
     private val api: MainApiService,
-    private val prefs: AppSharedPreferences
+    private val prefs: AppSharedPreferences,
+    private val router: Router
     ): BaseViewModel() {
 
     private var groupId = prefs.getGroupId()
@@ -60,5 +63,9 @@ class TimeTableViewModel @Inject constructor (
             val lessons = api.getLessons(groupId)
             lessonsMutableLiveData.postValue(lessons)
         }
+    }
+
+    fun navigate(where: NavigationDestination) {
+        router.navigateTo(where)
     }
 }

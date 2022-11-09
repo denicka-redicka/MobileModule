@@ -1,4 +1,4 @@
-package com.example.projectmaximummodule.application
+package com.example.projectmaximummodule.core.application
 
 import android.content.BroadcastReceiver
 import android.content.Context

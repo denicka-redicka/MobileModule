@@ -11,8 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
-import com.example.projectmaximummodule.application.SelectGroupReceiver
-import com.example.projectmaximummodule.application.SelectGroupReceiver.Companion.GROUP_SELECTED
+import com.example.projectmaximummodule.core.application.SelectGroupReceiver
+import com.example.projectmaximummodule.core.application.SelectGroupReceiver.Companion.GROUP_SELECTED
+import com.example.projectmaximummodule.core.navigation.NavigationDestination
 import com.example.projectmaximummodule.ui.schedule.TimeTableViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_shedule.view.*
@@ -68,6 +69,9 @@ class TimeTableFragment: Fragment(R.layout.fragment_shedule), SelectGroupReceive
     }
 
     override fun onDebtsItemClicked() {
+        viewModel.navigate(NavigationDestination(
+            graphId = R.id.homeworkNavigation
+        ))
     }
 
     override fun onPracticeClicked(curriculumSubjectId: Long, lessonId: Long) {

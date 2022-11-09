@@ -1,5 +1,7 @@
 package com.example.projectmaximummodule.di
 
+import com.example.projectmaximummodule.core.navigation.Router
+import com.example.projectmaximummodule.core.navigation.RouterImpl
 import com.example.projectmaximummodule.data.auth.AuthRepository
 import com.example.projectmaximummodule.data.auth.AuthRepositoryImpl
 import com.example.projectmaximummodule.data.auth.remote.AuthRemoteDataSource
@@ -105,4 +107,11 @@ interface BindsModule {
     fun bindProfileRemoteDataSource(
         impl: ProfileRemoteDataSourceImpl
     ): ProfileRemoteDataSource
+
+
+    //Navigation
+    @Binds
+    fun bindRouter(
+        impl: RouterImpl
+    ): Router
 }

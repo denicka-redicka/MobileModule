@@ -12,11 +12,16 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.projectmaximummodule.R
-import com.example.projectmaximummodule.application.SelectGroupReceiver.Companion.GROUP_SELECTED
-import com.example.projectmaximummodule.application.SelectGroupReceiver.Companion.SELECTED_GROUP_ID
+import com.example.projectmaximummodule.core.application.SelectGroupReceiver.Companion.GROUP_SELECTED
+import com.example.projectmaximummodule.core.application.SelectGroupReceiver.Companion.SELECTED_GROUP_ID
+import com.example.projectmaximummodule.core.navigation.Router
+import com.example.projectmaximummodule.util.isGone
+import com.example.projectmaximummodule.util.isVisible
+import com.example.projectmaximummodule.util.toGone
+import com.example.projectmaximummodule.util.toVisible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_main.view.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main), AdapterView.OnItemSelectedListener,
@@ -27,6 +32,9 @@ class MainFragment : Fragment(R.layout.fragment_main), AdapterView.OnItemSelecte
             listOf(R.id.homeworkItemFragment, R.id.chatItemFragment)
     }
 
+    @Inject
+    lateinit var router: Router
+
     private val viewModel: MainViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,17 +43,23 @@ class MainFragment : Fragment(R.layout.fragment_main), AdapterView.OnItemSelecte
         val navController =
             (childFragmentManager.findFragmentById(R.id.mainContainerView) as NavHostFragment).navController
         navController.addOnDestinationChangedListener(this)
-        view.bottomNavigation.setupWithNavController(navController)
+        bottomNavigation.setupWithNavController(navController)
 
         viewModel.groupsLiveData.observe(viewLifecycleOwner) { groups ->
             val groupsTitles = groups.map { response ->
                 response.educationCourse.title
             }
-            view.groupsPicker.adapter =
+            groupsPicker.adapter =
                 ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, groupsTitles)
         }
 
-        view.groupsPicker.onItemSelectedListener = this
+        groupsPicker.onItemSelectedListener = this
+
+        router.navigationCommand.observe(viewLifecycleOwner) { destination ->
+            if (destination.graphId != null) {
+                bottomNavigation.selectedItemId = destination.graphId
+            }
+        }
 
         if (savedInstanceState == null) {
             viewModel.getGroupList()
@@ -66,13 +80,13 @@ class MainFragment : Fragment(R.layout.fragment_main), AdapterView.OnItemSelecte
         destination: NavDestination,
         arguments: Bundle?
     ) {
-        if (bottomNavigation.visibility == View.VISIBLE && destination.id in DestinationWithoutBottomMenu) {
-            bottomNavigation.visibility = View.GONE
-            topLayout.visibility = View.GONE
+        if (bottomNavigation.isVisible() && destination.id in DestinationWithoutBottomMenu) {
+            bottomNavigation.toGone()
+            topLayout.toGone()
 
-        } else if (bottomNavigation.visibility == View.GONE) {
-            bottomNavigation.visibility = View.VISIBLE
-            topLayout.visibility = View.VISIBLE
+        } else if (bottomNavigation.isGone()) {
+            bottomNavigation.toVisible()
+            topLayout.toVisible()
         }
     }
 }

@@ -6,7 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.projectmaximummodule.R
-import com.example.projectmaximummodule.application.SelectGroupReceiver
+import com.example.projectmaximummodule.core.application.SelectGroupReceiver
 import com.example.projectmaximummodule.ui.profile.ProfileViewModel
 import com.example.projectmaximummodule.util.RemoteResult
 import dagger.hilt.android.AndroidEntryPoint

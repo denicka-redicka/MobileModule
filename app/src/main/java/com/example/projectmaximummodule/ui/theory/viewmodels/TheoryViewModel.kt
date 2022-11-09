@@ -4,8 +4,8 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.projectmaximummodule.application.AppSharedPreferences
-import com.example.projectmaximummodule.application.BaseViewModel
+import com.example.projectmaximummodule.core.application.AppSharedPreferences
+import com.example.projectmaximummodule.core.application.BaseViewModel
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
 import com.example.projectmaximummodule.data.network.retorfit.response.LessonsListResponse
 import com.example.projectmaximummodule.data.theory.TheoryRepository

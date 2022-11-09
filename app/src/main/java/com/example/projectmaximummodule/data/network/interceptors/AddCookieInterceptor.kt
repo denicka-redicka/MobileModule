@@ -1,7 +1,7 @@
 package com.example.projectmaximummodule.data.network.interceptors
 
 
-import com.example.projectmaximummodule.application.AppSharedPreferences
+import com.example.projectmaximummodule.core.application.AppSharedPreferences
 import okhttp3.Interceptor
 import okhttp3.Response
 

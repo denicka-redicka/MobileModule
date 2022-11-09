@@ -1,6 +1,6 @@
 package com.example.projectmaximummodule.data.auth.remote
 
-import com.example.projectmaximummodule.application.AppSharedPreferences
+import com.example.projectmaximummodule.core.application.AppSharedPreferences
 import com.example.projectmaximummodule.data.network.interceptors.GetCookieTokenInterceptor
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
 import com.example.projectmaximummodule.data.auth.remote.request.LoginRequest

@@ -2,9 +2,9 @@ package com.example.projectmaximummodule.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.projectmaximummodule.application.AppSharedPreferences
-import com.example.projectmaximummodule.application.BaseViewModel
-import com.example.projectmaximummodule.application.SelectGroupReceiver.Companion.UNKNOWN_GROUP
+import com.example.projectmaximummodule.core.application.AppSharedPreferences
+import com.example.projectmaximummodule.core.application.BaseViewModel
+import com.example.projectmaximummodule.core.application.SelectGroupReceiver.Companion.UNKNOWN_GROUP
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
 import com.example.projectmaximummodule.data.network.retorfit.response.GroupResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     val api: MainApiService,
-    val prefs: AppSharedPreferences): BaseViewModel() {
+    val prefs: AppSharedPreferences
+): BaseViewModel() {
 
     private val groupsMutableLiveData = MutableLiveData<List<GroupResponse>>()
     val groupsLiveData: LiveData<List<GroupResponse>> = groupsMutableLiveData

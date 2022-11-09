@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.projectmaximummodule.R
-import com.example.projectmaximummodule.application.AppSharedPreferences
-import com.example.projectmaximummodule.application.BaseViewModel
+import com.example.projectmaximummodule.core.application.AppSharedPreferences
+import com.example.projectmaximummodule.core.application.BaseViewModel
 import com.example.projectmaximummodule.data.network.retorfit.response.ProfileResponse
 import com.example.projectmaximummodule.data.network.retorfit.response.ShortPositionResponse
 import com.example.projectmaximummodule.data.profile.ProfileRepository
@@ -20,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val repository: ProfileRepository,
-    private val prefs: AppSharedPreferences): BaseViewModel()  {
+    private val prefs: AppSharedPreferences
+): BaseViewModel()  {
 
     private val profileMutableLiveData = MutableLiveData<RemoteResult<ProfileResponse, Throwable>>()
     val profileLiveData: LiveData<RemoteResult<ProfileResponse, Throwable>> = profileMutableLiveData

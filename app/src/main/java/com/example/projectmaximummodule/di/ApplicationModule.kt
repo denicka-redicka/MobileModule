@@ -2,7 +2,7 @@ package com.example.projectmaximummodule.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.projectmaximummodule.application.AppSharedPreferences.Companion.SHARED_PREFS
+import com.example.projectmaximummodule.core.application.AppSharedPreferences.Companion.SHARED_PREFS
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

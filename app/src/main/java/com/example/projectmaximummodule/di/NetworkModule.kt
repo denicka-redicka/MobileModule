@@ -1,6 +1,6 @@
 package com.example.projectmaximummodule.di
 
-import com.example.projectmaximummodule.application.AppSharedPreferences
+import com.example.projectmaximummodule.core.application.AppSharedPreferences
 import com.example.projectmaximummodule.data.network.interceptors.AddCookieTokenInterceptor
 import com.example.projectmaximummodule.data.network.interceptors.GetCookieTokenInterceptor
 import java.util.concurrent.TimeUnit

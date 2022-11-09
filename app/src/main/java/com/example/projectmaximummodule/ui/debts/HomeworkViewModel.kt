@@ -2,8 +2,8 @@ package com.example.projectmaximummodule.ui.debts
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.projectmaximummodule.application.AppSharedPreferences
-import com.example.projectmaximummodule.application.BaseViewModel
+import com.example.projectmaximummodule.core.application.AppSharedPreferences
+import com.example.projectmaximummodule.core.application.BaseViewModel
 import com.example.projectmaximummodule.data.debts.DebtsRepository
 import com.example.projectmaximummodule.data.network.retorfit.response.DebtsResponse
 import com.example.projectmaximummodule.util.RemoteResult

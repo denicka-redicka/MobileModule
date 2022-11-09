@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.projectmaximummodule.application.AppSharedPreferences
+import com.example.projectmaximummodule.core.application.AppSharedPreferences
 import com.example.projectmaximummodule.data.network.interceptors.GetCookieTokenInterceptor
 import com.example.projectmaximummodule.data.auth.remote.LoginApiService
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
@@ -20,7 +20,8 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val loginApi: LoginApiService,
     @Oauth val oauthApi: MainApiService,
-    private val sharedPreferences: AppSharedPreferences) : ViewModel() {
+    private val sharedPreferences: AppSharedPreferences
+) : ViewModel() {
 
     private val loginMutableLiveData = MutableLiveData<UserResponse?>()
     val loginLiveData: LiveData<UserResponse?> = loginMutableLiveData

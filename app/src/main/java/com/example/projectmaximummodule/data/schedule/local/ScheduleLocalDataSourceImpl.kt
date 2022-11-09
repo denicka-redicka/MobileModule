@@ -1,6 +1,6 @@
 package com.example.projectmaximummodule.data.schedule.local
 
-import com.example.projectmaximummodule.application.AppSharedPreferences
+import com.example.projectmaximummodule.core.application.AppSharedPreferences
 import com.example.projectmaximummodule.data.network.retorfit.response.TeacherResponse
 import javax.inject.Inject
 

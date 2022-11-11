@@ -5,8 +5,9 @@ import com.example.projectmaximummodule.data.network.interceptors.GetCookieToken
 import com.example.projectmaximummodule.data.network.retorfit.MainApiService
 import com.example.projectmaximummodule.data.auth.remote.request.LoginRequest
 import com.example.projectmaximummodule.data.auth.remote.request.OauthRequest
-import com.example.projectmaximummodule.data.auth.remote.resposne.UserResponse
 import com.example.projectmaximummodule.di.Oauth
+import com.example.projectmaximummodule.util.RemoteResult
+import com.example.projectmaximummodule.util.runResultCatching
 import javax.inject.Inject
 
 class AuthRemoteDataSourceImpl @Inject constructor(
@@ -22,13 +23,11 @@ class AuthRemoteDataSourceImpl @Inject constructor(
         private const val SESSION_POSITION = 2
     }
 
-    override val currentUser: UserResponse?
-        get() = TODO("Not yet implemented")
-
-    override suspend fun login(user: LoginRequest) {
-        loginApi.login(user)
-        val user = loginApi.checkAuth()
-        if (user != null) {
+    override suspend fun login(request: LoginRequest) = runResultCatching {
+        loginApi.login(request)
+        val userResponse = loginApi.checkAuth()
+        sharedPreferences.setRefreshToken(GetCookieTokenInterceptor.token)
+        if (userResponse != null) {
             oauthApi.redirectToOauth()
             val oauthResponse = loginApi.authorize(GetCookieTokenInterceptor.state)
             val response = oauthResponse.separateResponse()
@@ -40,10 +39,37 @@ class AuthRemoteDataSourceImpl @Inject constructor(
             )
             oauthApi.oauthResult(oauthRequest)
             sharedPreferences.setAccessToken(GetCookieTokenInterceptor.token)
+            sharedPreferences.setSession(GetCookieTokenInterceptor.session)
         }
     }
 
     override suspend fun logout() {
-        TODO("Do not forget to implement")
+
+    }
+
+    override suspend fun refreshOauthIfNeeded(): RemoteResult<Unit, Throwable> {
+        val result = runResultCatching {
+            oauthApi.getInfoAboutMe()
+        }
+        return when(result) {
+            is RemoteResult.Success -> RemoteResult.Success(Unit)
+            is RemoteResult.Failed -> refreshOauth()
+        }
+    }
+
+    override suspend fun refreshOauth() = runResultCatching {
+        sharedPreferences.clearAccessToken()
+        GetCookieTokenInterceptor.session = sharedPreferences.getSession()?: ""
+        oauthApi.redirectToOauth()
+        val oauthResponse = loginApi.authorize(GetCookieTokenInterceptor.state)
+        val response = oauthResponse.separateResponse()
+        val oauthRequest = OauthRequest(
+            code = response[CODE_POSITION].substring(response[CODE_POSITION].indexOf("=")+1),
+            session = response[SESSION_POSITION].substring(response[SESSION_POSITION].indexOf("=")+1),
+            state = response[STATE_POSITION].substring(response[STATE_POSITION].indexOf("=")+1),
+            fromUrl = EDUCATION_URL
+        )
+        oauthApi.oauthResult(oauthRequest)
+        sharedPreferences.setAccessToken(GetCookieTokenInterceptor.token)
     }
 }

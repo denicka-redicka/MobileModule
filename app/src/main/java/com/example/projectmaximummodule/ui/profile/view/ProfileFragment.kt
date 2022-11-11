@@ -9,6 +9,7 @@ import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.core.application.SelectGroupReceiver
 import com.example.projectmaximummodule.ui.profile.ProfileViewModel
 import com.example.projectmaximummodule.util.RemoteResult
+import com.example.projectmaximummodule.util.showSystemMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile.*
 
@@ -23,19 +24,22 @@ class ProfileFragment: Fragment(R.layout.fragment_profile), SelectGroupReceiver.
 
         changeButton.setOnClickListener {
             viewModel.clearToken()
+            showSystemMessage("You are logged out")
         }
 
         viewModel.profileLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is RemoteResult.Success -> viewModel.provideProfileUi(view)
-                is RemoteResult.Failed -> TODO("notice user that we have problems")
+                is RemoteResult.Failed -> {//TODO("notice user that we have problems")
+                }
             }
         }
 
         viewModel.shortListLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is RemoteResult.Success -> viewModel.provideShortListUi(view)
-                is RemoteResult.Failed -> TODO("notice user that we have problems")
+                is RemoteResult.Failed -> {//TODO("notice user that we have problems")
+                }
             }
 
         }

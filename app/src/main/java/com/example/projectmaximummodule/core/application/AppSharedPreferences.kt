@@ -7,35 +7,61 @@ class AppSharedPreferences @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) {
 
-    fun getAccessToken() = sharedPreferences.getString(ACCESS_TOKEN_KEY, "")
+    fun getRefreshToken() = sharedPreferences.getString(REFRESH_TOKEN_KEY, "")
+
+    fun setRefreshToken(refreshToken: String) {
+        sharedPreferences.edit().putString(REFRESH_TOKEN_KEY, refreshToken).apply()
+    }
+
+    fun clearRefreshToken() {
+        sharedPreferences.edit().remove(REFRESH_TOKEN_KEY).apply()
+    }
+
+    fun getAccessToken() = sharedPreferences.getString(ACCESS_TOKEN_KEY, null)
 
     fun setAccessToken(accessToken: String) {
         sharedPreferences.edit().putString(ACCESS_TOKEN_KEY, accessToken).apply()
     }
 
-    fun getGroupId() = sharedPreferences.getLong(GROUP_ID, -1)
+    fun clearAccessToken() {
+        sharedPreferences.edit().remove(ACCESS_TOKEN_KEY).apply()
+    }
+
+    fun getSession() = sharedPreferences.getString(SESSION_KEY, null)
+
+    fun setSession(session: String) {
+        sharedPreferences.edit().putString(SESSION_KEY, session).apply()
+    }
+
+    fun clearSession() {
+        sharedPreferences.edit().remove(SESSION_KEY).apply()
+    }
+
+    fun getGroupId() = sharedPreferences.getLong(GROUP_ID_KEY, -1)
 
     fun setGroupId(id: Long) {
-        sharedPreferences.edit().putLong(GROUP_ID, id).apply()
+        sharedPreferences.edit().putLong(GROUP_ID_KEY, id).apply()
     }
 
-    fun getTeacherName() = sharedPreferences.getString(TEACHER_NAME, "")
+    fun getTeacherName() = sharedPreferences.getString(TEACHER_NAME_KEY, "")
 
     fun setTeacherName(name: String) {
-        sharedPreferences.edit().putString(TEACHER_NAME, name).apply()
+        sharedPreferences.edit().putString(TEACHER_NAME_KEY, name).apply()
     }
 
-    fun getTeacherAvatar() = sharedPreferences.getString(TEACHER_AVATAR, "")
+    fun getTeacherAvatar() = sharedPreferences.getString(TEACHER_AVATAR_KEY, "")
 
     fun setTeacherAvatar(url: String) {
-        sharedPreferences.edit().putString(TEACHER_AVATAR, url).apply()
+        sharedPreferences.edit().putString(TEACHER_AVATAR_KEY, url).apply()
     }
 
     companion object {
         const val SHARED_PREFS = "APP_SHARED_PREFS"
+        const val REFRESH_TOKEN_KEY = "refresh_token"
         const val ACCESS_TOKEN_KEY = "access_token"
-        private const val GROUP_ID = "group_id"
-        private const val TEACHER_NAME = "teacher"
-        private const val TEACHER_AVATAR = "teacher_avatar"
+        const val SESSION_KEY = "session"
+        private const val GROUP_ID_KEY = "group_id"
+        private const val TEACHER_NAME_KEY = "teacher"
+        private const val TEACHER_AVATAR_KEY = "teacher_avatar"
     }
 }

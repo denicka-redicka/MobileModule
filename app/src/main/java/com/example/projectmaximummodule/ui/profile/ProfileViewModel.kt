@@ -100,6 +100,8 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun clearToken() {
-        prefs.setAccessToken("")
+        prefs.clearRefreshToken()
+        prefs.clearAccessToken()
+        prefs.clearSession()
     }
 }

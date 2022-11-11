@@ -14,14 +14,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.core.application.SelectGroupReceiver.Companion.GROUP_SELECTED
 import com.example.projectmaximummodule.core.application.SelectGroupReceiver.Companion.SELECTED_GROUP_ID
-import com.example.projectmaximummodule.core.navigation.Router
 import com.example.projectmaximummodule.util.isGone
 import com.example.projectmaximummodule.util.isVisible
 import com.example.projectmaximummodule.util.toGone
 import com.example.projectmaximummodule.util.toVisible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main), AdapterView.OnItemSelectedListener,
@@ -31,9 +29,6 @@ class MainFragment : Fragment(R.layout.fragment_main), AdapterView.OnItemSelecte
         private val DestinationWithoutBottomMenu =
             listOf(R.id.homeworkItemFragment, R.id.chatItemFragment)
     }
-
-    @Inject
-    lateinit var router: Router
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -54,13 +49,6 @@ class MainFragment : Fragment(R.layout.fragment_main), AdapterView.OnItemSelecte
         }
 
         groupsPicker.onItemSelectedListener = this
-
-        router.navigationCommand.observe(viewLifecycleOwner) { destination ->
-            if (destination.graphId != null) {
-                bottomNavigation.selectedItemId = destination.graphId
-            }
-        }
-
         if (savedInstanceState == null) {
             viewModel.getGroupList()
         }

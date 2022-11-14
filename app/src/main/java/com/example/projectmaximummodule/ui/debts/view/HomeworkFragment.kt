@@ -13,6 +13,7 @@ import com.example.projectmaximummodule.ui.debts.HomeworkViewModel
 import com.example.projectmaximummodule.ui.debts.view.HomeworkItemFragment.Companion.CURRICULUM_SUBJECT_ID
 import com.example.projectmaximummodule.ui.debts.view.HomeworkItemFragment.Companion.LESSON_ID
 import com.example.projectmaximummodule.util.RemoteResult
+import com.example.projectmaximummodule.util.showSystemMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_homework.*
 
@@ -36,7 +37,10 @@ class HomeworkFragment : Fragment(R.layout.fragment_homework) {
         viewModel.debtsLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is RemoteResult.Success -> updateDebtsList(adapter, result.value)
-                is RemoteResult.Failed -> TODO("notice user that we have problems")
+                is RemoteResult.Failed -> {
+                    viewModel.showErrorUi(view)
+                    showSystemMessage("Error: ${result.error.message}")
+                }
             }
 
         }

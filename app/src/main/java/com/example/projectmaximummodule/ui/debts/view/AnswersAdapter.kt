@@ -1,9 +1,12 @@
 package com.example.projectmaximummodule.ui.debts.view
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
@@ -76,22 +79,28 @@ class AnswersAdapter(
         }
     }
 
-    inner class RadioButtonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class RadioButtonViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         private val radioButton = view.selectButton
         private val answerDescription = view.answerDescription
 
         fun bind(variant: EducationTestAnswerResponse, position: Int) {
-            result?.let {
+            if (result != null) {
                 if (studentAnswers.isNotEmpty() && studentAnswers[0] == variant.id.toString()) {
                     selectedPosition = position
                 }
                 if (layoutPosition == selectedPosition) {
-
+                    radioButton.setTintAuto(
+                        view.context.getColor(
+                            if (result == true)
+                                R.color.right_answer
+                            else
+                                R.color.wrong_answer
+                        )
+                    )
                 } else {
                     radioButton.isEnabled = false
                 }
-
             }
             radioButton.isChecked = position == selectedPosition
 
@@ -105,23 +114,59 @@ class AnswersAdapter(
                 }
             }
         }
+
+        private fun AppCompatRadioButton.setTintAuto(enabledColor: Int) {
+
+            val colorTint = ColorStateList(
+                arrayOf(
+                    intArrayOf(-android.R.attr.state_checked),
+                    intArrayOf(android.R.attr.state_checked)
+                ), intArrayOf(enabledColor, enabledColor)
+            )
+            this.buttonTintList = colorTint
+            this.setTextColor(colorTint)
+        }
     }
 
-    inner class CheckboxViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class CheckboxViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         private val checkbox = view.checkboxAnswer
         private val answerDescription = view.answerCheckboxDescription
 
         fun bind(variant: EducationTestAnswerResponse) {
+
             if (studentAnswers.isNotEmpty()) {
                 checkbox.isChecked = studentAnswers.contains(variant.id.toString())
+                if (result != null && checkbox.isChecked) {
+                    checkbox.setTintAuto(
+                        view.context.getColor(
+                            if (result == true)
+                                R.color.right_answer
+                            else
+                                R.color.wrong_answer
+                        )
+                    )
+                }
             }
+            checkbox.isEnabled = result == null
 
             answerDescription.loadData(variant.variants[0], "text/html", "UTF-8")
 
             checkbox.setOnCheckedChangeListener { compoundButton, isChecked ->
                 variant.isSelected = isChecked
             }
+        }
+
+        private fun AppCompatCheckBox.setTintAuto(enabledColor: Int) {
+
+            val colorTint = ColorStateList(
+                arrayOf(
+                    intArrayOf(-android.R.attr.state_checked),
+                    intArrayOf(android.R.attr.state_checked)
+                ), intArrayOf(enabledColor, enabledColor)
+            )
+            this.buttonTintList = colorTint
+            this.setTextColor(colorTint)
         }
     }
 
@@ -135,7 +180,10 @@ class AnswersAdapter(
 
             result?.let {
                 inputAnswerEditText.background =
-                    AppCompatResources.getDrawable(view.context, if (it) R.drawable.border_right_answer else R.drawable.border_wrong_answer)
+                    AppCompatResources.getDrawable(
+                        view.context,
+                        if (it) R.drawable.border_right_answer else R.drawable.border_wrong_answer
+                    )
                 inputAnswerEditText.isEnabled = false
             }
 

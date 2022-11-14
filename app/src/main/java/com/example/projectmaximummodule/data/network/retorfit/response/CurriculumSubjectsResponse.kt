@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class CurriculumSubjectsResponse(
     val id: Long,
     val educationTestId: Long,
-    val knowledgeBaseSectionId: Long,
+    val knowledgeBaseSectionId: Long?,
     val title: String,
     val allDebts: Int,
     val paidDebts: Int,

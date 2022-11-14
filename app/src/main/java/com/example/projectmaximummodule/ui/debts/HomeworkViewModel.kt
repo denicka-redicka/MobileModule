@@ -1,5 +1,6 @@
 package com.example.projectmaximummodule.ui.debts
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.projectmaximummodule.core.application.AppSharedPreferences
@@ -7,7 +8,10 @@ import com.example.projectmaximummodule.core.application.BaseViewModel
 import com.example.projectmaximummodule.data.debts.DebtsRepository
 import com.example.projectmaximummodule.data.network.retorfit.response.DebtsResponse
 import com.example.projectmaximummodule.util.RemoteResult
+import com.example.projectmaximummodule.util.toGone
+import com.example.projectmaximummodule.util.toVisible
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.android.synthetic.main.fragment_homework.view.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,5 +35,10 @@ class HomeworkViewModel @Inject constructor(
             }
 
         }
+    }
+
+    fun showErrorUi(view: View) {
+        view.debtsList.toGone()
+        view.debtsErrorText.toVisible()
     }
 }

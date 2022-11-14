@@ -35,9 +35,7 @@ class TimeTableAdapter(
     private val clickListener: ClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-
     interface ClickListener {
-
         fun onTheoryItemClicked(lessonId: Long)
         fun onDebtsItemClicked()
         fun onPracticeClicked(curriculumSubjectId: Long, lessonId: Long)
@@ -242,6 +240,10 @@ class TimeTableAdapter(
                             R.string.done_exercise,
                             toDoItem.getStatsTryCount(), toDoItem.getStatsAllCount()
                         )
+                        repeat.setOnClickListener {
+                            if (toDoItem.lesson != null)
+                                onToDoClickListener.onPracticeClicked(toDoItem.lesson.subjectId?: -1, toDoItem.lesson.id?: -1)
+                        }
                     }
                     "prepare" -> {
                         prepare.visibility = View.VISIBLE

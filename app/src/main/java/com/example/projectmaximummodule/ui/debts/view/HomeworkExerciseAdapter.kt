@@ -1,11 +1,8 @@
 package com.example.projectmaximummodule.ui.debts.view
 
-import android.app.Activity
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -14,7 +11,7 @@ import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.data.network.retorfit.request.ShowSolutionRequest
 import com.example.projectmaximummodule.data.network.retorfit.request.TestAnswerRequest
 import com.example.projectmaximummodule.data.network.retorfit.response.TestResponse
-import com.example.projectmaximummodule.util.toGone
+import com.example.projectmaximummodule.util.*
 import kotlinx.android.synthetic.main.holder_exercise_item.view.*
 
 class HomeworkExerciseAdapter(
@@ -24,8 +21,17 @@ class HomeworkExerciseAdapter(
 ) : ListAdapter<TestResponse, HomeworkExerciseAdapter.ExerciseViewHolder>(DiffCallback()) {
 
     interface OnButtonsClickListener {
-        fun onAnswerButtonClick(answer: TestAnswerRequest, testId: Int, currentExercisePosition: Int)
-        fun onSolutionButtonClick(answer: ShowSolutionRequest, testId: Int, currentExercisePosition: Int)
+        fun onAnswerButtonClick(
+            answer: TestAnswerRequest,
+            testId: Int,
+            currentExercisePosition: Int
+        )
+
+        fun onSolutionButtonClick(
+            answer: ShowSolutionRequest,
+            testId: Int,
+            currentExercisePosition: Int
+        )
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
@@ -61,35 +67,44 @@ class HomeworkExerciseAdapter(
             testChronometer.isAvailable = test.studentTestResult == null
             title.text = view.context.getString(R.string.exercise_title, itemCount)
 
+            triesCount.toGoneWithIf(test.studentTestResult?.result.toBoolean())
             val tries = 3 - (test.studentTestResult?.attemptsCount ?: 0)
-            triesCount.text = when {
-                test.studentTestResult?.showSolution
-                    ?: false -> view.context.getString(R.string.showed_solution)
-                (tries > 0) -> view.context.getString(R.string.tries_count_text, tries)
-                else -> view.context.getString(R.string.no_tries_left)
-            }
+            if (triesCount.isVisible())
+                triesCount.text = when {
+                    test.studentTestResult?.showSolution
+                        ?: false -> view.context.getString(R.string.showed_solution)
+                    (tries > 0) -> view.context.getString(R.string.tries_count_text, tries)
+                    else -> view.context.getString(R.string.no_tries_left)
+                }
+
             exerciseNumber.text = "${number + 1}"
             question.loadData(test.question, "text/html", "UTF-8")
 
-            solution.visibility = if (test.studentTestResult?.showSolution == true) View.VISIBLE else View.GONE
-            solutionButton.visibility = if (test.studentTestResult?.showSolution == true) View.GONE else View.VISIBLE
-            retryButton.visibility = if (test.studentTestResult?.showSolution == true) View.GONE else View.VISIBLE
+            solution.toVisibleIf(test.studentTestResult?.showSolution)
+            solutionButton.toGoneWithIf(test.studentTestResult?.showSolution)
 
-            if (solution.visibility == View.VISIBLE)
-                solution.solutionView.loadData(test.solution?: "", "text/html", "UTF-8")
+            if (solution.isVisible())
+                solution.solutionView.loadData(test.solution ?: "", "text/html", "UTF-8")
 
             val adapter = AnswersAdapter(test.educationTestAnswers, test.type)
             val studentResult = test.studentTestResult
-            if (studentResult != null) {  //Result != null
+            if (studentResult != null) {
                 testChronometer.setSpentTime(studentResult.spentTime)
                 //If student showed solution displaying right answer
-                if (studentResult.showSolution != true) {
-                    adapter.studentAnswers = studentResult.answer.map { it.value ?: "" }
-                    adapter.result = studentResult.result.toBoolean()
+                if (studentResult.showSolution == true) {
+                    adapter.studentAnswers = test.educationTestAnswers.filter { it.isRightAnswer }
+                        .map { educationTestAnswer ->
+                            when (test.type) {
+                                "type1", "type2" -> educationTestAnswer.id.toString()
+                                else -> educationTestAnswer.variants[0]
+                            }
+
+                        }
+                    adapter.result = true
                 } else {
                     //Otherwise displaying student's answer
-                    adapter.studentAnswers = test.educationTestAnswers.map { it.variants[0] }
-                    adapter.result = true
+                    adapter.studentAnswers = studentResult.answer.map { it.value ?: "" }
+                    adapter.result = studentResult.result.toBoolean()
                 }
             }
             answerHoldersList.adapter = adapter
@@ -99,7 +114,7 @@ class HomeworkExerciseAdapter(
             answerButton.setOnClickListener {
                 testChronometer.stop()
                 answerButton.isEnabled = false
-                view.context.hideKeyboard(view)
+                view.hideKeyboard()
                 val answerRequest = TestAnswerRequest(
                     answer = adapter.getAnswers(),
                     lessonId = lessonId,
@@ -111,24 +126,33 @@ class HomeworkExerciseAdapter(
 
             val isRetryButtonShouldShows =
                 !answerButton.isEnabled && tries > 0 && (test.studentTestResult?.result?.equals("false")
-                    ?: true)
+                    ?: true) && test.studentTestResult?.showSolution != true
 
             solutionButton.setOnClickListener {
-                testChronometer.stop()
-                view.context.hideKeyboard(view)
-                answerButton.isEnabled = false
-                onButtonsClickListener.onSolutionButtonClick(
-                    ShowSolutionRequest(
-                        lessonId,
-                        testChronometer.getTimeCount(),
-                        showSolution = true
-                    ),
-                    test.id,
-                    layoutPosition
-                )
+                if (test.studentTestResult?.result.toBoolean()) {
+                    //If user's answer is right -> don't send request
+                    solution.toVisible()
+                    solution.solutionView.loadData(test.solution?: "", "text/html", "UTF-8")
+                    solutionButton.toGone()
+                    retryButton.toGone()
+                } else {
+                    //otherwise -> send request
+                    testChronometer.stop()
+                    view.hideKeyboard()
+                    answerButton.isEnabled = false
+                    onButtonsClickListener.onSolutionButtonClick(
+                        ShowSolutionRequest(
+                            lessonId,
+                            testChronometer.getTimeCount(),
+                            showSolution = true
+                        ),
+                        test.id,
+                        layoutPosition
+                    )
+                }
             }
 
-            retryButton.visibility = if (isRetryButtonShouldShows) View.VISIBLE else View.GONE
+            retryButton.toVisibleIf(isRetryButtonShouldShows)
             retryButton.setOnClickListener {
                 answerButton.isEnabled = true
                 adapter.result = null
@@ -136,12 +160,6 @@ class HomeworkExerciseAdapter(
                 testChronometer.resetAndStart()
                 retryButton.toGone()
             }
-        }
-
-        private fun Context.hideKeyboard(view: View) {
-            val inputMethodManager =
-                getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 

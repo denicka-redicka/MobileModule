@@ -15,6 +15,7 @@ import com.example.projectmaximummodule.core.application.SelectGroupReceiver
 import com.example.projectmaximummodule.core.application.SelectGroupReceiver.Companion.GROUP_SELECTED
 import com.example.projectmaximummodule.core.navigation.NavigationDestination
 import com.example.projectmaximummodule.ui.schedule.TimeTableViewModel
+import com.example.projectmaximummodule.util.showSystemMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_shedule.view.*
 
@@ -75,6 +76,10 @@ class TimeTableFragment: Fragment(R.layout.fragment_shedule), SelectGroupReceive
     }
 
     override fun onPracticeClicked(curriculumSubjectId: Long, lessonId: Long) {
-        navController?.navigate(Uri.parse("https://education.maximumtest.ru/lesson/$lessonId/subjects/$curriculumSubjectId/practice/kbs/"))
+        if (curriculumSubjectId != -1L || lessonId != -1L) {
+            navController?.navigate(Uri.parse("https://education.maximumtest.ru/lesson/$lessonId/subjects/$curriculumSubjectId/practice/kbs/"))
+        } else {
+            showSystemMessage("Something goes wrong..")
+        }
     }
 }

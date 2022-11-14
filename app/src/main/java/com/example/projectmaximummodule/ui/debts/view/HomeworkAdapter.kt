@@ -70,7 +70,7 @@ class HomeworkAdapter(
                 2 -> R.layout.holder_debt_count
                 else -> throw IllegalArgumentException()
             }
-        } else if (debts[position - ADDITIONAL_VIEW_COUNT].knowledgeBaseSectionId == null)
+        } else if (debts[position - ADDITIONAL_VIEW_COUNT].curriculumSubjects != null)
             R.layout.holder_debt_parent
         else R.layout.holder_debt_child
     }

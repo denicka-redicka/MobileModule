@@ -63,6 +63,14 @@ fun View.toVisible() {
     visibility = View.VISIBLE
 }
 
+fun View.toVisibleIf(condition: Boolean?) {
+    this.visibility = if (condition == true) View.VISIBLE else View.GONE
+}
+
+fun View.toGoneWithIf(condition: Boolean?) {
+    this.visibility = if (condition == true) View.GONE else View.VISIBLE
+}
+
 fun View.isVisible(): Boolean {
     return visibility == View.VISIBLE
 }

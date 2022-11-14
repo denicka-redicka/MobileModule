@@ -11,6 +11,10 @@ import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.data.network.retorfit.response.EducationTestAnswerResponse
+import com.example.projectmaximummodule.data.network.retorfit.response.TestResponse.Companion.ANSWERS_FIRST_TYPE
+import com.example.projectmaximummodule.data.network.retorfit.response.TestResponse.Companion.ANSWERS_SECOND_TYPE
+import com.example.projectmaximummodule.data.network.retorfit.response.TestResponse.Companion.ANSWERS_SIXTH_TYPE
+import com.example.projectmaximummodule.util.toDisable
 import kotlinx.android.synthetic.main.holder_checkbox_text.view.*
 import kotlinx.android.synthetic.main.holder_input_text_answer.view.*
 import kotlinx.android.synthetic.main.holder_input_text_with_additional_answer.view.*
@@ -28,9 +32,9 @@ class AnswersAdapter(
     var result: Boolean? = null
 
     fun getAnswers(): List<String> = when (type) {
-        "type1" -> listOf(answersVariants[selectedPosition].id.toString())
-        "type2" -> answersVariants.filter { it.isSelected }.map { it.id.toString() }
-        "type6" -> listOf()
+        ANSWERS_FIRST_TYPE -> listOf(answersVariants[selectedPosition].id.toString())
+        ANSWERS_SECOND_TYPE -> answersVariants.filter { it.isSelected }.map { it.id.toString() }
+        ANSWERS_SIXTH_TYPE -> listOf()
         else -> answersVariants.map { it.inputAnswer }
     }
 
@@ -72,9 +76,9 @@ class AnswersAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (type) {
-            "type1" -> R.layout.holder_radiobutton_answer
-            "type2" -> R.layout.holder_checkbox_text
-            "type6" -> R.layout.holder_input_text_with_additional_answer
+            ANSWERS_FIRST_TYPE  -> R.layout.holder_radiobutton_answer
+            ANSWERS_SECOND_TYPE -> R.layout.holder_checkbox_text
+            ANSWERS_SIXTH_TYPE  -> R.layout.holder_input_text_with_additional_answer
             else -> R.layout.holder_input_text_answer
         }
     }
@@ -99,7 +103,7 @@ class AnswersAdapter(
                         )
                     )
                 } else {
-                    radioButton.isEnabled = false
+                    radioButton.toDisable()
                 }
             }
             radioButton.isChecked = position == selectedPosition

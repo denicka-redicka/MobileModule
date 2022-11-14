@@ -78,3 +78,11 @@ fun View.isVisible(): Boolean {
 fun View.isGone(): Boolean {
     return visibility == View.GONE
 }
+
+fun View.toEnable() {
+    isEnabled = true
+}
+
+fun View.toDisable() {
+    isEnabled = false
+}

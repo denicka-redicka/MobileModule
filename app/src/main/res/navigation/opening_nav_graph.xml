@@ -21,6 +21,7 @@
         <action
             android:id="@+id/action_mainFragment_to_loginFragment"
             app:destination="@id/loginFragment"
+            app:popUpTo="@id/app_nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -30,10 +31,12 @@
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_mainFragment"
             app:destination="@id/mainFragment"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@+id/app_nav_graph"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

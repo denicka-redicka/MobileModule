@@ -11,6 +11,8 @@ import com.example.projectmaximummodule.R
 import com.example.projectmaximummodule.data.network.retorfit.request.ShowSolutionRequest
 import com.example.projectmaximummodule.data.network.retorfit.request.TestAnswerRequest
 import com.example.projectmaximummodule.data.network.retorfit.response.TestResponse
+import com.example.projectmaximummodule.data.network.retorfit.response.TestResponse.Companion.ANSWERS_FIRST_TYPE
+import com.example.projectmaximummodule.data.network.retorfit.response.TestResponse.Companion.ANSWERS_SECOND_TYPE
 import com.example.projectmaximummodule.util.*
 import kotlinx.android.synthetic.main.holder_exercise_item.view.*
 
@@ -95,7 +97,7 @@ class HomeworkExerciseAdapter(
                     adapter.studentAnswers = test.educationTestAnswers.filter { it.isRightAnswer }
                         .map { educationTestAnswer ->
                             when (test.type) {
-                                "type1", "type2" -> educationTestAnswer.id.toString()
+                                ANSWERS_FIRST_TYPE, ANSWERS_SECOND_TYPE -> educationTestAnswer.id.toString()
                                 else -> educationTestAnswer.variants[0]
                             }
 
@@ -139,7 +141,7 @@ class HomeworkExerciseAdapter(
                     //otherwise -> send request
                     testChronometer.stop()
                     view.hideKeyboard()
-                    answerButton.isEnabled = false
+                    answerButton.toDisable()
                     onButtonsClickListener.onSolutionButtonClick(
                         ShowSolutionRequest(
                             lessonId,
@@ -154,7 +156,7 @@ class HomeworkExerciseAdapter(
 
             retryButton.toVisibleIf(isRetryButtonShouldShows)
             retryButton.setOnClickListener {
-                answerButton.isEnabled = true
+                answerButton.toEnable()
                 adapter.result = null
                 adapter.notifyItemRangeChanged(0, test.educationTestAnswers.size)
                 testChronometer.resetAndStart()

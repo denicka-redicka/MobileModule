@@ -16,7 +16,10 @@ class TopicAdapter (
     ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return TopicViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.holder_topic, parent, false))
+        return TopicViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.holder_topic, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -40,7 +43,8 @@ class TopicAdapter (
             videoCount.text = "${topic.statistics.video.all}"
             practiceCount.text = "${topic.statistics.practice.all}"
             practiceCount.setOnClickListener {
-                clickListener.onPracticeClicked(topic.id, parentId)
+                if (topic.statistics.practice.all > 0)
+                    clickListener.onPracticeClicked(topic.id, parentId)
             }
         }
     }
